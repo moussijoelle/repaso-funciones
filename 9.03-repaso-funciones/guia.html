@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Dividir texto</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #faf7f5;
+            --card: #ffffff;
+            --text: #2d2a28;
+            --muted: #6b6560;
+            --accent: #cb839a;
+            --border: #e8ddd8;
+            --code-bg: #f3eeea;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #cb839a, #b86d88);
+            color: #3d2030;
+            padding: 2rem 1.5rem;
+        }
+
+        header h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
+        header p { margin: 0; opacity: 0.9; }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #8b4a62;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-top: 1.5rem;
+        }
+
+        p, li { color: var(--text); }
+        .muted { color: var(--muted); font-size: 0.95rem; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: var(--code-bg); }
+
+        code, pre {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 0.88rem;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .line-table td:first-child {
+            width: 3rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .flow {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: Consolas, monospace;
+            font-size: 0.85rem;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        details {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            background: #fff;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::before {
+            content: "▸ ";
+            color: var(--accent);
+        }
+
+        details[open] summary::before { content: "▾ "; }
+
+        .answer {
+            padding: 0 1rem 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.app {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        ul.compact { padding-left: 1.25rem; }
+        ul.compact li { margin-bottom: 0.35rem; }
+
+        nav.toc a {
+            color: #8b4a62;
+            text-decoration: none;
+        }
+
+        nav.toc a:hover { text-decoration: underline; }
+        nav.toc li { margin-bottom: 0.35rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Guía del ejercicio — Dividir texto</h1>
+    <p>Repaso de funciones · Biblioteca vs aplicación · HTML y JavaScript explicados</p>
+</header>
+
+<main>
+
+    <section>
+        <h2>Índice</h2>
+        <nav class="toc">
+            <ul class="compact">
+                <li><a href="#enunciado">1. Enunciado y consigna</a></li>
+                <li><a href="#conceptos">2. Conceptos clave</a></li>
+                <li><a href="#estructura">3. Estructura biblioteca / aplicación</a></li>
+                <li><a href="#entradas-salidas">4. Entradas y salidas</a></li>
+                <li><a href="#html-linea">5. HTML línea por línea</a></li>
+                <li><a href="#js-linea">6. JavaScript línea por línea</a></li>
+                <li><a href="#biblioteca">7. Funciones de biblioteca y dónde usarlas</a></li>
+                <li><a href="#probar">8. Cómo probar que funciona</a></li>
+                <li><a href="#test">9. Test — 15 preguntas (respuestas ocultas)</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    <section id="enunciado">
+        <h2>1. Enunciado y consigna</h2>
+        <p><strong>Ejercicio:</strong> Programa una función que, dada una String, te devuelva un Array de textos separados por cierto carácter.</p>
+        <pre>miFuncion('hola que tal', ' ')
+// devuelve → ['hola', 'que', 'tal']</pre>
+
+        <h3>Qué pide el profe (obligatorio)</h3>
+        <ul class="compact">
+            <li>Crear <strong>tu propia función</strong> (no basta con usar <code>split</code> suelto sin declarar nada).</li>
+            <li>Dos entradas: el <strong>texto</strong> y el <strong>separador</strong>.</li>
+            <li>Una salida: un <strong>array</strong> de strings.</li>
+            <li>Que el ejemplo con espacio funcione exactamente como arriba.</li>
+        </ul>
+
+        <h3>Qué NO pide el enunciado</h3>
+        <ul class="compact">
+            <li>No exige HTML ni formulario.</li>
+            <li>No exige un input para el separador en la página.</li>
+            <li>El espacio <code>' '</code> del ejemplo es un <strong>valor de prueba</strong>, no significa que la función solo sirva con espacios.</li>
+        </ul>
+
+        <h3>Por qué no ves la coma ni el guion en el resultado</h3>
+        <p>El separador actúa como <strong>tijera</strong>: corta el texto pero <strong>no forma parte</strong> de los trozos del array. Si en pantalla ves comas entre palabras, vienen de <code>join(', ')</code> al mostrar el resultado, no del separador original.</p>
+        <div class="flow">Entrada:  'hola que tal'  +  ' '
+Corte:    hola | que | tal   (el espacio desaparece)
+Salida:   ['hola', 'que', 'tal']</div>
+    </section>
+
+    <section id="conceptos">
+        <h2>2. Conceptos clave</h2>
+        <table>
+            <tr><th>Término</th><th>Significado simple</th></tr>
+            <tr><td><strong>String</strong></td><td>Texto entre comillas, ej. <code>'hola que tal'</code></td></tr>
+            <tr><td><strong>Array</strong></td><td>Lista ordenada de valores, ej. <code>['hola', 'que', 'tal']</code></td></tr>
+            <tr><td><strong>Separador</strong></td><td>Carácter donde se corta el texto (espacio, coma, guion…)</td></tr>
+            <tr><td><strong>Función flecha</strong></td><td>Forma moderna de escribir funciones: <code>const nombre = (param) => { ... }</code></td></tr>
+            <tr><td><strong>return</strong></td><td>Devuelve el resultado de la función</td></tr>
+            <tr><td><strong>Función main</strong></td><td>Coordina la página: lee inputs, llama biblioteca, muestra resultado</td></tr>
+        </table>
+    </section>
+
+    <section id="estructura">
+        <h2>3. Estructura biblioteca / aplicación</h2>
+        <p>Separa siempre dos mundos:</p>
+        <table>
+            <tr><th>Parte</th><th>Archivo</th><th>Qué hace</th><th>¿Se reutiliza?</th></tr>
+            <tr>
+                <td><span class="badge">Biblioteca</span></td>
+                <td><code>funciones.js</code> o bloque en <code>app.js</code></td>
+                <td>Solo datos: parámetros → return</td>
+                <td>Sí, sin modificar</td>
+            </tr>
+            <tr>
+                <td><span class="badge app">Aplicación</span></td>
+                <td><code>app.js</code></td>
+                <td>DOM, validación, llamar biblioteca, mostrar</td>
+                <td>No, cambia en cada ejercicio</td>
+            </tr>
+            <tr>
+                <td><span class="badge app">Ejecución</span></td>
+                <td><code>app.js</code> (final)</td>
+                <td><code>addEventListener</code> conecta formulario con main</td>
+                <td>Evento y elemento cambian</td>
+            </tr>
+        </table>
+
+        <h3>Plantilla de <code>app.js</code></h3>
+        <pre>// IMPORTACIÓN DE MÓDULOS
+
+// DECLARACIÓN DE VARIABLES  → getElementById
+
+// DECLARACIÓN DE FUNCIONES  → biblioteca + funcionMain
+
+// EJECUCIÓN DE CÓDIGO       → addEventListener</pre>
+
+        <h3>Flujo cuando el usuario envía el formulario</h3>
+        <div class="flow">Usuario pulsa "Dividir"
+        ↓
+addEventListener('submit', funcionMain)
+        ↓
+funcionMain  ← MAIN (lee DOM, llama biblioteca, escribe resultado)
+        ↓
+dividirTexto(frase, ' ')  ← BIBLIOTECA
+        ↓
+['hola', 'que', 'tal']
+        ↓
+join → se muestra en #resultado</div>
+    </section>
+
+    <section id="entradas-salidas">
+        <h2>4. Entradas y salidas</h2>
+
+        <h3><code>dividirTexto</code> — biblioteca</h3>
+        <table>
+            <tr><th></th><th>Qué es</th><th>Ejemplo</th></tr>
+            <tr><td>Entrada 1</td><td><code>texto</code></td><td><code>'hola que tal'</code></td></tr>
+            <tr><td>Entrada 2</td><td><code>separador</code></td><td><code>' '</code></td></tr>
+            <tr><td>Salida</td><td>Array (return)</td><td><code>['hola', 'que', 'tal']</code></td></tr>
+        </table>
+
+        <h3><code>funcionMain</code> — aplicación</h3>
+        <table>
+            <tr><th></th><th>Qué es</th><th>Notas</th></tr>
+            <tr><td>Entrada</td><td><code>evento</code></td><td>Lo envía el navegador al hacer submit</td></tr>
+            <tr><td>Lee del HTML</td><td><code>inputTexto.value</code></td><td>La frase escrita por la usuaria</td></tr>
+            <tr><td>Separador en esta app</td><td><code>' '</code> fijo</td><td>Como el ejemplo del enunciado</td></tr>
+            <tr><td>Salida</td><td>Pantalla</td><td>No hay return; escribe en <code>#resultado</code></td></tr>
+        </table>
+    </section>
+
+    <section id="html-linea">
+        <h2>5. HTML línea por línea (<code>index.html</code>)</h2>
+        <p class="muted">Solo las líneas con contenido relevante para el ejercicio. Las clases CSS son diseño (DaisyUI/Tailwind).</p>
+        <table class="line-table">
+            <tr><th>Línea</th><th>Código</th><th>Explicación</th></tr>
+            <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Indica al navegador que es un documento HTML5.</td></tr>
+            <tr><td>2</td><td><code>&lt;html lang="es" ...&gt;</code></td><td>Raíz del documento. Idioma español. Tema visual DaisyUI.</td></tr>
+            <tr><td>3-15</td><td><code>&lt;head&gt;...</code></td><td>Metadatos: charset UTF-8, viewport móvil, título, hojas de estilo y fuentes. No afecta la lógica del ejercicio.</td></tr>
+            <tr><td>6</td><td><code>&lt;title&gt;dividir texto&lt;/title&gt;</code></td><td>Texto de la pestaña del navegador.</td></tr>
+            <tr><td>16</td><td><code>&lt;body&gt;</code></td><td>Contenedor visible de la página.</td></tr>
+            <tr><td>18-23</td><td><code>&lt;img&gt;</code></td><td>Imagen de fondo decorativa. No interviene en JavaScript.</td></tr>
+            <tr><td>25</td><td><code>&lt;main&gt;</code></td><td>Contenido principal de la página.</td></tr>
+            <tr><td>27-29</td><td><code>&lt;h1&gt;</code></td><td>Título visible: instrucciones para la usuaria.</td></tr>
+            <tr><td>31</td><td><code>&lt;section&gt;</code></td><td>Agrupa la zona del formulario.</td></tr>
+            <tr><td>33</td><td><code>&lt;div class="card"&gt;</code></td><td>Tarjeta visual que envuelve el formulario.</td></tr>
+            <tr><td>34</td><td><code>&lt;form id="formTexto"&gt;</code></td><td><strong>Importante:</strong> el JS usa este id para el listener. Al enviar dispara <code>funcionMain</code>.</td></tr>
+            <tr><td>36-49</td><td>Input <code>#texto</code></td><td>Campo donde la usuaria escribe la frase. <code>id="texto"</code> enlaza con <code>getElementById('texto')</code>. <code>required</code> obliga a rellenarlo.</td></tr>
+            <tr><td>37-38</td><td><code>&lt;label for="texto"&gt;</code></td><td>Etiqueta accesible vinculada al input. Al clicar el texto, el cursor va al input.</td></tr>
+            <tr><td>40-48</td><td><code>&lt;input id="texto"&gt;</code></td><td><code>type="text"</code> acepta cualquier texto. <code>placeholder</code> muestra ejemplo. <code>name="texto"</code> identifica el campo en el formulario.</td></tr>
+            <tr><td>51-56</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón que envía el formulario. <code>submit</code> activa el evento que escucha JavaScript.</td></tr>
+            <tr><td>58</td><td><code>&lt;div id="resultado"&gt;</code></td><td>Zona vacía donde JS escribirá el resultado con <code>textContent</code>.</td></tr>
+            <tr><td>66</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga el JavaScript al final del body para que el HTML exista antes de usar <code>getElementById</code>.</td></tr>
+            <tr><td>67-68</td><td>Cierre <code>body/html</code></td><td>Fin del documento.</td></tr>
+        </table>
+    </section>
+
+    <section id="js-linea">
+        <h2>6. JavaScript línea por línea (<code>js/app.js</code>)</h2>
+        <table class="line-table">
+            <tr><th>Línea</th><th>Código</th><th>Explicación</th></tr>
+            <tr><td>1-2</td><td>IMPORTACIÓN DE MÓDULOS</td><td>Sección reservada para <code>import</code>. Aquí todo está en un archivo, no hace falta import.</td></tr>
+            <tr><td>4</td><td>DECLARACIÓN DE VARIABLES</td><td>Comentario de sección según la guía del profe.</td></tr>
+            <tr><td>5</td><td><code>const formulario = ...('formTexto')</code></td><td>Guarda referencia al formulario HTML para el listener.</td></tr>
+            <tr><td>6</td><td><code>const inputTexto = ...('texto')</code></td><td>Referencia al input de la frase. Permite leer <code>.value</code>.</td></tr>
+            <tr><td>7</td><td><code>const zonaResultado = ...('resultado')</code></td><td>Referencia al div donde se mostrará el array como texto.</td></tr>
+            <tr><td>9</td><td>DECLARACIÓN DE FUNCIONES</td><td>Aquí van biblioteca y main.</td></tr>
+            <tr><td>11-14</td><td><code>dividirTexto</code></td><td><span class="badge">Biblioteca</span> Recibe texto y separador. Devuelve array con <code>split</code>. Sin DOM.</td></tr>
+            <tr><td>12</td><td><code>(texto, separador) =></code></td><td>Dos parámetros = dos entradas de la función.</td></tr>
+            <tr><td>13</td><td><code>return texto.split(separador)</code></td><td><code>split</code> corta el string y devuelve array. <code>return</code> entrega ese array al que llama.</td></tr>
+            <tr><td>16-25</td><td><code>funcionMain</code></td><td><span class="badge app">Main</span> Se ejecuta al enviar el formulario. Coordina lectura, biblioteca y pantalla.</td></tr>
+            <tr><td>18</td><td><code>evento.preventDefault()</code></td><td>Evita que la página se recargue al enviar el formulario.</td></tr>
+            <tr><td>20</td><td><code>const frase = inputTexto.value</code></td><td>Lee la frase que escribió la usuaria (entrada desde HTML/src HTML).</td></tr>
+            <tr><td>22</td><td><code>dividirTexto(frase, ' ')</code></td><td>Llama la biblioteca con frase + espacio fijo (como el enunciado).</td></tr>
+            <tr><td>24</td><td><code>partes.join(', ')</code></td><td>Convierte el array en texto legible para pantalla. Las comas son solo decoración visual.</td></tr>
+            <tr><td>24</td><td><code>zonaResultado.textContent = ...</code></td><td>Escribe el resultado en el div #resultado.</td></tr>
+            <tr><td>27-28</td><td>EJECUCIÓN + listener</td><td>Al evento <code>submit</code> del formulario, ejecuta <code>funcionMain</code>. Una sola línea de conexión.</td></tr>
+        </table>
+    </section>
+
+    <section id="biblioteca">
+        <h2>7. Funciones de biblioteca — explicación y dónde usarlas</h2>
+
+        <h3>¿Qué es una función de biblioteca?</h3>
+        <p>Una función <strong>tuya</strong> que:</p>
+        <ul class="compact">
+            <li>Hace <strong>una sola cosa</strong>: entradas → salida con <code>return</code>.</li>
+            <li><strong>No conoce el HTML</strong> (sin <code>getElementById</code>).</li>
+            <li>La puedes <strong>copiar a <code>funciones.js</code></strong> y reutilizar en otros ejercicios sin cambiar su código.</li>
+            <li>Puede usar funciones del lenguaje (<code>split</code>, <code>slice</code>…) <strong>dentro</strong>; lo importante es que tú declaras la función con nombre.</li>
+        </ul>
+
+        <h3>Tu función de biblioteca en este ejercicio</h3>
+        <pre>const dividirTexto = (texto, separador) => {
+    return texto.split(separador);
+};</pre>
+        <table>
+            <tr><th>Pregunta</th><th>Respuesta</th></tr>
+            <tr><td>¿Es biblioteca?</td><td><strong>Sí</strong></td></tr>
+            <tr><td>¿Se puede reutilizar sin modificar?</td><td><strong>Sí</strong></td></tr>
+            <tr><td>¿Qué NO es biblioteca?</td><td><code>funcionMain</code>, <code>addEventListener</code>, <code>getElementById</code></td></tr>
+        </table>
+
+        <h3>¿En qué tipo de página puedes usar <code>dividirTexto</code>?</h3>
+        <table>
+            <tr><th>Tipo de página / caso</th><th>Ejemplo de uso</th></tr>
+            <tr>
+                <td>Formulario de búsqueda por palabras</td>
+                <td>Dividir la búsqueda en términos: <code>dividirTexto(busqueda, ' ')</code></td>
+            </tr>
+            <tr>
+                <td>Lista de etiquetas (tags)</td>
+                <td>Usuario escribe "html,css,js" → <code>dividirTexto(etiquetas, ',')</code></td>
+            </tr>
+            <tr>
+                <td>Importar datos CSV simples</td>
+                <td>Una línea "Ana;25;Madrid" → <code>dividirTexto(linea, ';')</code></td>
+            </tr>
+            <tr>
+                <td>Rutas o slugs de URL</td>
+                <td>"blog/2024/articulo" → <code>dividirTexto(ruta, '/')</code></td>
+            </tr>
+            <tr>
+                <td>Separar nombre completo</td>
+                <td>"María García López" → <code>dividirTexto(nombre, ' ')</code></td>
+            </tr>
+            <tr>
+                <td>Procesar respuestas de un textarea</td>
+                <td>Varias líneas separadas por salto de línea → <code>dividirTexto(texto, '\n')</code></td>
+            </tr>
+            <tr>
+                <td>Calculadora o app de texto (como la tuya)</td>
+                <td>Frase del input → <code>dividirTexto(frase, ' ')</code> y mostrar palabras</td>
+            </tr>
+            <tr>
+                <td>Cualquier ejercicio del curso</td>
+                <td>Copias <code>funciones.js</code> entero; en el nuevo <code>app.js</code> solo cambias ids y cómo muestras el resultado</td></tr>
+        </table>
+
+        <p class="muted">La biblioteca no sabe si el dato viene de un input, de un archivo o de una API. Solo recibe strings y devuelve arrays. Por eso sirve en casi cualquier página que necesite trocear texto.</p>
+    </section>
+
+    <section id="probar">
+        <h2>8. Cómo probar que funciona</h2>
+        <ol>
+            <li>Abre <code>index.html</code> en el navegador.</li>
+            <li>Escribe <code>hola que tal</code> en el input.</li>
+            <li>Pulsa <strong>Dividir</strong>.</li>
+            <li>Debes ver: <code>hola, que, tal</code> en la zona de resultado.</li>
+            <li>Abre consola (F12) y escribe: <code>dividirTexto('hola que tal', ' ')</code> → debe devolver el array con tres elementos.</li>
+            <li>Si hay error en rojo, revisa que los <code>id</code> del HTML coincidan con <code>getElementById</code>.</li>
+        </ol>
+    </section>
+
+    <section id="test">
+        <h2>9. Test — 15 preguntas</h2>
+        <p class="muted">Haz el test sin abrir las respuestas. Clic en cada pregunta para ver la explicación detallada.</p>
+
+        <details>
+            <summary>1. ¿Qué devuelve <code>dividirTexto('hola que tal', ' ')</code>?</summary>
+            <div class="answer">
+                <p>Devuelve el array <code>['hola', 'que', 'tal']</code>.</p>
+                <p>La función recibe la frase completa como primer argumento y el espacio como segundo. Internamente <code>split(' ')</code> corta en cada espacio. Cada palabra pasa a ser un elemento del array. El separador (espacio) no aparece dentro de los elementos porque <code>split</code> lo usa solo para marcar los cortes.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. ¿Cuál es la función de biblioteca y cuál es el main?</summary>
+            <div class="answer">
+                <p><strong>Biblioteca:</strong> <code>dividirTexto</code> — solo transforma datos (texto + separador → array).</p>
+                <p><strong>Main:</strong> <code>funcionMain</code> — lee el formulario, llama a <code>dividirTexto</code> y escribe en <code>#resultado</code>.</p>
+                <p><code>addEventListener</code> no es ni biblioteca ni main; es la línea que conecta el submit del formulario con <code>funcionMain</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. ¿Por qué usamos <code>evento.preventDefault()</code>?</summary>
+            <div class="answer">
+                <p>Por defecto, al enviar un formulario el navegador <strong>recarga la página</strong> y pierdes el estado de JavaScript.</p>
+                <p><code>preventDefault()</code> cancela ese comportamiento por defecto. Así la página no se recarga, puedes leer los inputs, procesar con tu función y mostrar el resultado en el mismo sitio.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. ¿Por qué el separador no aparece en el array resultado?</summary>
+            <div class="answer">
+                <p>Porque <code>split</code> usa el separador como <strong>punto de corte</strong>, no como contenido a guardar.</p>
+                <p>Ejemplo: <code>'a,b,c'.split(',')</code> → <code>['a','b','c']</code>. Las comas desaparecen del resultado. Lo mismo con espacios o guiones. Es el comportamiento estándar del método y coincide con lo que pide el enunciado del ejercicio.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. ¿Qué hace <code>partes.join(', ')</code> y por qué no es lo mismo que <code>split</code>?</summary>
+            <div class="answer">
+                <p><code>join(', ')</code> hace lo contrario de <code>split</code> para mostrar: une los elementos del array en un <strong>único string</strong>, poniendo coma y espacio entre ellos.</p>
+                <p><code>['hola','que','tal'].join(', ')</code> → <code>'hola, que, tal'</code>.</p>
+                <p>Las comas que ves en pantalla las añade <code>join</code> solo para que sea legible. No son el separador original del ejercicio. <code>split</code> parte; <code>join</code> une.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. ¿Hace falta un input para el separador según el enunciado?</summary>
+            <div class="answer">
+                <p><strong>No.</strong> El enunciado solo pide programar la función con dos parámetros.</p>
+                <p>El ejemplo usa espacio: <code>miFuncion('hola que tal', ' ')</code>. En la web puedes pasar <code>' '</code> fijo en código dentro de <code>funcionMain</code>, como hace tu proyecto actual. Un input separador sería extra para que la usuaria elija otro carácter, pero no es obligatorio para cumplir el ejercicio.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. ¿Se puede reutilizar <code>dividirTexto</code> en otro ejercicio sin cambiarla?</summary>
+            <div class="answer">
+                <p><strong>Sí.</strong> Esa es la definición de función de biblioteca.</p>
+                <p>Copias la función (o el archivo <code>funciones.js</code>) al nuevo proyecto. En el nuevo <code>app.js</code> cambias los ids del HTML, cómo lees los datos y cómo muestras el resultado. El código de <code>dividirTexto</code> permanece idéntico; solo cambian los argumentos que le pasas al llamarla.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. ¿Por qué <code>getElementById</code> va en variables y no dentro de <code>dividirTexto</code>?</summary>
+            <div class="answer">
+                <p>Porque <code>getElementById</code> enlaza JavaScript con <strong>esta página concreta</strong> y sus ids.</p>
+                <p>Si metieras DOM dentro de <code>dividirTexto</code>, ya no sería reutilizable: en otro HTML los ids podrían ser distintos. La biblioteca debe recibir datos puros (strings) por parámetro, no buscarlos en la página.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. ¿Qué es <code>inputTexto.value</code>?</summary>
+            <div class="answer">
+                <p><code>inputTexto</code> es la referencia al elemento HTML con <code>id="texto"</code>.</p>
+                <p><code>.value</code> es la propiedad que contiene el texto que la usuaria escribió en ese momento. Es un string. Ese string es lo que pasas como primer argumento a <code>dividirTexto</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. ¿Qué devuelve <code>dividirTexto('hola', ' ')</code>?</summary>
+            <div class="answer">
+                <p>Devuelve <code>['hola']</code> — un array con un solo elemento.</p>
+                <p>No hay espacios en "hola", así que no hay cortes. <code>split</code> devuelve el texto entero como único trozo. Sigue siendo un array válido, solo que con longitud 1.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. ¿Cuál es la diferencia entre <code>split</code> y tu función <code>dividirTexto</code>?</summary>
+            <div class="answer">
+                <p><code>split</code> es un método del lenguaje JavaScript, integrado en los strings.</p>
+                <p><code>dividirTexto</code> es <strong>tu</strong> función: una capa con nombre claro que encapsula la lógica del ejercicio. Puedes añadir validaciones, cambiar la implementación más adelante o exportarla como biblioteca, y el resto del código sigue llamando <code>dividirTexto</code> igual.</p>
+                <p>El profe pide funciones tuyas genéricas y reutilizables, no solo usar métodos sueltos sin declarar nada.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>12. ¿Por qué el <code>&lt;script&gt;</code> está al final del <code>body</code>?</summary>
+            <div class="answer">
+                <p>Porque <code>getElementById</code> necesita que los elementos HTML ya existan en el DOM cuando se ejecuta el script.</p>
+                <p>Si cargaras <code>app.js</code> en el <code>&lt;head&gt;</code> sin defer, el formulario y los inputs aún no existirían y <code>getElementById</code> devolvería <code>null</code>, causando errores al usar el listener o leer <code>.value</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. ¿Qué hace exactamente <code>addEventListener('submit', funcionMain)</code>?</summary>
+            <div class="answer">
+                <p>Registra un escuchador en el formulario: cuando ocurre el evento <code>submit</code> (usuario pulsa Enter o el botón Dividir), el navegador ejecuta la función <code>funcionMain</code>.</p>
+                <p>No ejecuta <code>funcionMain</code> inmediatamente al cargar la página — solo cuando se envía el formulario. Por eso va en la sección EJECUCIÓN DE CÓDIGO y debe ser una línea que delega en main, no todo el código metido dentro del listener.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>14. ¿Qué entradas y salidas tiene <code>funcionMain</code>?</summary>
+            <div class="answer">
+                <p><strong>Entrada:</strong> el parámetro <code>evento</code> (objeto del evento submit).</p>
+                <p>También lee indirectamente la frase desde <code>inputTexto.value</code> — eso no es un parámetro de la función, sino lectura del DOM.</p>
+                <p><strong>Salida:</strong> no usa <code>return</code> con un valor útil. La "salida" es visual: modifica el DOM escribiendo en <code>zonaResultado.textContent</code>. Las funciones main suelen actuar sobre la página; las de biblioteca devuelven datos con <code>return</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>15. Si copias <code>dividirTexto</code> a una app de etiquetas con comas, ¿cómo la llamarías?</summary>
+            <div class="answer">
+                <p>Sin cambiar la función, llamarías por ejemplo:</p>
+                <pre>const etiquetas = dividirTexto('html,css,javascript', ',');</pre>
+                <p>Resultado: <code>['html', 'css', 'javascript']</code>.</p>
+                <p>En el main de esa app leerías un input de etiquetas, pasarías coma como segundo argumento, y mostrarías cada tag en la interfaz. La biblioteca sigue siendo la misma; solo cambian los datos de entrada y la presentación en pantalla.</p>
+            </div>
+        </details>
+    </section>
+
+</main>
+</body>
+</html>

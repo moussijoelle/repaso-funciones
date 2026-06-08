@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide — Palindrome</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <img
+        src="img/Afternoon.jpg"
+        alt=""
+        class="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover object-center"
+        aria-hidden="true"
+    />
+
+    <main class="relative mx-auto flex w-full max-w-3xl flex-grow flex-col gap-8 p-6 pt-12 md:pt-16">
+
+        <header class="rounded-2xl bg-base-100 px-8 py-6 text-center shadow-md">
+            <p class="mb-2 text-sm text-base-content/60">9.7 — Repaso funciones</p>
+            <h1 class="text-xl font-semibold text-base-content md:text-2xl">
+                Guide : l’exercice du palindrome
+            </h1>
+            <p class="mt-3 text-sm text-base-content/75">
+                Explication simple, comme en cours — sans jargon compliqué.
+            </p>
+        </header>
+
+        <article class="card border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-8 text-base leading-relaxed">
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">C’est quoi, un palindrome ?</h2>
+                    <p>
+                        Un <strong>palindrome</strong>, c’est un mot ou une phrase qui se lit
+                        <strong>pareil dans les deux sens</strong>.
+                    </p>
+                    <ul class="mt-4 list-inside list-disc space-y-2 pl-2">
+                        <li><strong>Devant → derrière</strong> : S-A-L-A-S → « Salas »</li>
+                        <li><strong>Derrière → devant</strong> : S-A-L-A-S → encore « Salas »</li>
+                    </ul>
+                    <p class="mt-4">
+                        Donc <strong>« Salas »</strong> est un palindrome. D’autres exemples :
+                        <em>kayak</em>, <em>radar</em>, <em>été</em> (en français, parfois on ignore les accents selon les règles du cours).
+                    </p>
+                    <p class="mt-4">
+                        Pour une <strong>phrase</strong>, on fait souvent comme si les espaces et la ponctuation
+                        n’existaient pas, et parfois on ignore majuscules et minuscules. Par exemple :
+                        <em>« Élu par cette crapule »</em> peut être considéré comme palindrome si on enlève
+                        espaces et accents selon les règles demandées par le professeur.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">En quoi consiste ton exercice ?</h2>
+                    <p>
+                        On te demande de créer une <strong>fonction</strong> — imagine une
+                        <strong>petite machine</strong> à laquelle tu donnes quelque chose et qui te répond
+                        <strong>oui</strong> ou <strong>non</strong>.
+                    </p>
+                    <ul class="mt-4 list-inside list-disc space-y-2 pl-2">
+                        <li>Tu lui donnes : une <strong>palabra</strong> (un mot) ou une <strong>frase</strong> (une phrase).</li>
+                        <li>Elle doit répondre :
+                            <ul class="mt-2 list-inside list-[circle] space-y-1 pl-4">
+                                <li><code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">true</code> (vrai) → c’est un palindrome ;</li>
+                                <li><code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">false</code> (faux) → ce n’en est pas un.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="alert alert-info mt-4 text-sm">
+                        <span>
+                            Exemple de l’énoncé :
+                            <code class="font-medium">mifuncion("Salas")</code>
+                            → <strong>true</strong>
+                        </span>
+                    </div>
+                    <p class="mt-4">
+                        En français simple : <em>« Écris un programme qui vérifie si le texte qu’on lui envoie
+                        se lit pareil à l’envers qu’à l’endroit. »</em>
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">L’idée derrière, sans coder (comme une recette)</h2>
+                    <ol class="list-inside list-decimal space-y-3 pl-2">
+                        <li>Tu reçois le texte (ex. <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">"Salas"</code>).</li>
+                        <li>Tu le <strong>prépares</strong> souvent : minuscules, sans espaces, sans accents — selon ce que ton prof demande.</li>
+                        <li>Tu le <strong>retournes</strong> (tu le lis à l’envers) : « Salas » → toujours « salas » si on normalise.</li>
+                        <li>Tu <strong>comparas</strong> : texte préparé = texte préparé à l’envers ?
+                            <ul class="mt-2 list-inside list-disc space-y-1 pl-4">
+                                <li>Oui → palindrome → <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">true</code></li>
+                                <li>Non → pas palindrome → <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">false</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p class="mt-4">
+                        C’est la même <strong>idée</strong> que le projet sur les <strong>nombres capicúa</strong>
+                        (121, 161…) : un nombre qui se lit pareil dans les deux sens. Ici, ce ne sont pas des
+                        chiffres, ce sont des <strong>lettres</strong>.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Différence utile à retenir</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Capicúa (<code>index.html</code>)</th>
+                                    <th>Palindrome (cet exercice)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-medium">On vérifie</td>
+                                    <td>Un <strong>nombre</strong> (161, 121…)</td>
+                                    <td>Un <strong>mot ou une phrase</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Exemple</td>
+                                    <td>121 → capicúa</td>
+                                    <td>« Salas » → palindrome</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Réponse du programme</td>
+                                    <td>vrai / faux</td>
+                                    <td><code>true</code> / <code>false</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Ce que ton prof veut vraiment voir</h2>
+                    <ul class="list-inside list-disc space-y-2 pl-2">
+                        <li>Que tu sais utiliser une <strong>fonction</strong> (bloc de code réutilisable avec un nom, ex. <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">esPalindromo</code> ou <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">mifuncion</code>).</li>
+                        <li>Que tu sais <strong>renvoyer</strong> un résultat booléen (<code>true</code> ou <code>false</code>).</li>
+                        <li>Que tu comprends la <strong>logique</strong> : comparer le texte avec sa version inversée (éventuellement après nettoyage).</li>
+                    </ul>
+                </section>
+
+                <section class="rounded-xl border border-base-300 bg-base-200/50 p-4 text-sm">
+                    <p class="font-medium text-base-content">À clarifier avec ton professeur</p>
+                    <p class="mt-2">
+                        Faut-il ignorer les espaces ? Les accents ? Les majuscules ?
+                        Avec ces règles précises, la fonction sera correcte à 100 %.
+                    </p>
+                </section>
+
+            </div>
+        </article>
+
+        <p class="text-center">
+            <a href="index.html" class="btn btn-sm border-[#cb839a] bg-[#cb839a] text-[#3d2030] hover:border-[#b86d88] hover:bg-[#b86d88]">
+                Volver a capicúa
+            </a>
+        </p>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Promedio (9.21)</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        .linea-codigo { font-family: ui-monospace, monospace; font-size: 0.8rem; }
+        details summary { cursor: pointer; list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary { color: #cb839a; }
+    </style>
+</head>
+<body class="relative flex min-h-screen flex-col pb-12 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <img src="img/multi.webp" alt="" class="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover object-center" aria-hidden="true" />
+
+    <main class="relative mx-auto w-full max-w-4xl flex-grow p-6 pt-12 md:pt-16">
+
+        <header class="mb-8 rounded-2xl bg-base-100 px-8 py-6 text-center shadow-md">
+            <h1 class="text-xl font-semibold text-base-content md:text-2xl">Guía del ejercicio — Promedio</h1>
+            <p class="mt-2 text-sm text-base-content/70">Repaso funciones (9.21) · Línea por línea + test de 15 preguntas</p>
+        </header>
+
+        <!-- RESUMEN -->
+        <article class="card mb-8 border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-4">
+                <h2 class="text-lg font-semibold">Resumen del ejercicio</h2>
+                <p>Programar <code>promedio(numeros)</code> que recibe un arreglo por <strong>parámetro</strong> y <strong>devuelve</strong> (<code>return</code>) la media.</p>
+                <p class="font-mono text-sm rounded-xl bg-base-200 p-3">promedio([9,8,7,6,5,4,3,2,1,0]) → 4.5</p>
+                <p><strong>Flujo:</strong> <code>funcionMain</code> lee y valida → llama a las funciones de biblioteca → guarda el <code>return</code> en <code>resultado</code> → muestra en pantalla. Solo <code>funcionMain</code> toca el DOM.</p>
+            </div>
+        </article>
+
+        <!-- HTML -->
+        <article class="card mb-8 border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-4">
+                <h2 class="text-lg font-semibold text-[#cb839a]">index.html — línea por línea</h2>
+                <p class="text-sm text-base-content/70">Cada fila explica una línea de tu archivo actual (68 líneas).</p>
+
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra table-sm w-full text-sm">
+                        <thead><tr><th class="w-12">Lín.</th><th>Código (resumen)</th><th>Qué hace</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Indica al navegador que el documento es HTML5.</td></tr>
+                            <tr><td>2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code></td><td>Raíz de la página: idioma español y tema DaisyUI «autumn».</td></tr>
+                            <tr><td>3</td><td><code>&lt;head&gt;</code></td><td>Abre la cabecera (metadatos, título, estilos; no se ve en el cuerpo).</td></tr>
+                            <tr><td>4</td><td><code>charset UTF-8</code></td><td>Permite tildes y caracteres especiales.</td></tr>
+                            <tr><td>5</td><td><code>viewport</code></td><td>Hace la página adaptable a móvil y tablet.</td></tr>
+                            <tr><td>6</td><td><code>&lt;title&gt;</code></td><td>Título de la pestaña del navegador: «Promedio de números».</td></tr>
+                            <tr><td>8-10</td><td>Enlaces DaisyUI + Tailwind</td><td>Carga estilos del framework para botones, card, inputs, etc.</td></tr>
+                            <tr><td>12-14</td><td>Google Fonts</td><td>Carga la fuente «Inclusive Sans» para todo el texto.</td></tr>
+                            <tr><td>15</td><td><code>&lt;/head&gt;</code></td><td>Cierra la cabecera.</td></tr>
+                            <tr><td>16</td><td><code>&lt;body class="..."&gt;</code></td><td>Cuerpo visible: columna flex, fuente, color de texto suave.</td></tr>
+                            <tr><td>18-23</td><td><code>&lt;img src="img/multi.webp"&gt;</code></td><td>Imagen de fondo fija detrás del contenido (<code>-z-10</code>, no recibe clics).</td></tr>
+                            <tr><td>25</td><td><code>&lt;main&gt;</code></td><td>Contenedor principal centrado con padding superior.</td></tr>
+                            <tr><td>27-29</td><td><code>&lt;h1&gt;</code></td><td>Título grande que explica la tarea al usuario.</td></tr>
+                            <tr><td>31</td><td><code>&lt;section&gt;</code></td><td>Zona que centra el formulario en pantalla.</td></tr>
+                            <tr><td>33</td><td><code>div.card</code></td><td>Caja blanca con borde y sombra (estilo tarjeta DaisyUI).</td></tr>
+                            <tr><td>34</td><td><code>id="formPromedio"</code></td><td>Formulario que JavaScript enlaza con <code>getElementById</code>.</td></tr>
+                            <tr><td>36</td><td><code>div.form-control</code></td><td>Agrupa label + input con espaciado correcto.</td></tr>
+                            <tr><td>37</td><td><code>for="numeros"</code></td><td>Al pulsar el label, el foco va al input con <code>id="numeros"</code>.</td></tr>
+                            <tr><td>40-48</td><td><code>&lt;input id="numeros"&gt;</code></td><td>Campo de texto donde el usuario escribe <code>9,8,7,...</code> (sin corchetes en pantalla).</td></tr>
+                            <tr><td>41</td><td><code>type="text"</code></td><td>Entrada de texto, no numérica estricta (acepta comas y espacios).</td></tr>
+                            <tr><td>44</td><td><code>required</code></td><td>El navegador no envía el form vacío sin escribir algo.</td></tr>
+                            <tr><td>45</td><td><code>autocomplete="off"</code></td><td>Evita sugerencias viejas del navegador al practicar.</td></tr>
+                            <tr><td>46</td><td><code>placeholder</code></td><td>Ejemplo gris cuando el campo está vacío (sin <code>[]</code> porque es texto, no código).</td></tr>
+                            <tr><td>51-56</td><td><code>type="submit"</code></td><td>Botón que dispara el evento <code>submit</code> del formulario.</td></tr>
+                            <tr><td>58</td><td><code>id="resultado"</code></td><td>Div vacío donde <code>funcionMain</code> escribirá «Promedio: 4.5».</td></tr>
+                            <tr><td>59</td><td><code>&lt;/form&gt;</code></td><td>Cierra el formulario.</td></tr>
+                            <tr><td>64</td><td><code>&lt;/main&gt;</code></td><td>Cierra el contenido principal.</td></tr>
+                            <tr><td>66</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga tu JavaScript al final para que el HTML ya exista en el DOM.</td></tr>
+                            <tr><td>67-68</td><td><code>&lt;/body&gt; &lt;/html&gt;</code></td><td>Cierra cuerpo y documento.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+
+        <!-- JS -->
+        <article class="card mb-8 border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-4">
+                <h2 class="text-lg font-semibold text-[#cb839a]">js/app.js — línea por línea</h2>
+                <p class="text-sm text-base-content/70">Orden del archivo: variables → funciones → ejecución.</p>
+
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra table-sm w-full text-sm">
+                        <thead><tr><th class="w-12">Lín.</th><th>Código (resumen)</th><th>Qué hace</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>Comentario bloque</td><td>Marca la sección <strong>DECLARACIÓN DE VARIABLES</strong>.</td></tr>
+                            <tr><td>3</td><td><code>formPromedio = getElementById(...)</code></td><td>Guarda referencia al formulario HTML (enlace DOM).</td></tr>
+                            <tr><td>4</td><td><code>inputNumeros = getElementById("numeros")</code></td><td>Referencia al input donde está el texto del usuario.</td></tr>
+                            <tr><td>5</td><td><code>divResultado = getElementById("resultado")</code></td><td>Referencia al div donde se mostrará el promedio.</td></tr>
+                            <tr><td>8</td><td>Comentario bloque</td><td>Marca <strong>DECLARACIÓN DE FUNCIONES</strong> (biblioteca + main).</td></tr>
+                            <tr><td>10</td><td><code>textoAListaNumeros = (texto) =&gt;</code></td><td>Función flecha de biblioteca: no toca el DOM.</td></tr>
+                            <tr><td>11</td><td><code>texto.split(",")</code></td><td>Parte el string en trozos por cada coma.</td></tr>
+                            <tr><td>12</td><td><code>const numeros = []</code></td><td>Crea el arreglo vacío que llenaremos.</td></tr>
+                            <tr><td>13-17</td><td><code>for ... trim ... push</code></td><td>Recorre trozos, quita espacios, convierte a número y los mete en el array.</td></tr>
+                            <tr><td>19</td><td><code>return numeros</code></td><td>Devuelve el arreglo listo para pasarlo a <code>promedio</code>.</td></tr>
+                            <tr><td>22</td><td><code>esListaValida = (numeros) =&gt;</code></td><td>Biblioteca: comprueba si la lista sirve para calcular.</td></tr>
+                            <tr><td>23</td><td><code>length === 0</code></td><td>Rechaza lista vacía (evitar dividir entre 0).</td></tr>
+                            <tr><td>24-26</td><td><code>Number.isNaN</code></td><td>Rechaza si algún valor no es número (ej. texto raro).</td></tr>
+                            <tr><td>27</td><td><code>return true</code></td><td>Si todo está bien, devuelve verdadero.</td></tr>
+                            <tr><td>30</td><td><code>promedio = (numeros) =&gt;</code></td><td><strong>Función del ejercicio:</strong> recibe el arreglo por parámetro.</td></tr>
+                            <tr><td>31</td><td><code>let suma = 0</code></td><td>Acumulador para ir sumando.</td></tr>
+                            <tr><td>32-34</td><td><code>for ... suma += numero</code></td><td>Suma todos los elementos del arreglo.</td></tr>
+                            <tr><td>35</td><td><code>return suma / numeros.length</code></td><td><strong>Devolver</strong> = <code>return</code> del promedio (ej. 4.5).</td></tr>
+                            <tr><td>38</td><td><code>funcionMain = (event) =&gt;</code></td><td><strong>Función principal:</strong> única que lee el DOM y muestra resultado.</td></tr>
+                            <tr><td>39</td><td><code>event.preventDefault()</code></td><td>Evita que la página se recargue al enviar el form.</td></tr>
+                            <tr><td>41</td><td><code>inputNumeros.value</code></td><td>Paso 1: lee lo que escribió el usuario (string).</td></tr>
+                            <tr><td>42</td><td><code>textoAListaNumeros(texto)</code></td><td>Convierte texto → arreglo <code>[9,8,...]</code>.</td></tr>
+                            <tr><td>44-47</td><td><code>if (!esListaValida)</code></td><td>Paso 2: valida; si falla, mensaje en pantalla y <code>return</code>.</td></tr>
+                            <tr><td>49</td><td><code>const resultado = promedio(lista)</code></td><td>Paso 3: pasa parámetro y guarda lo que devuelve <code>return</code>.</td></tr>
+                            <tr><td>50</td><td><code>divResultado.textContent = ...</code></td><td>Paso 4: muestra el valor de <code>resultado</code> en el HTML.</td></tr>
+                            <tr><td>54</td><td>Comentario bloque</td><td>Marca <strong>EJECUCIÓN DE CÓDIGO</strong>.</td></tr>
+                            <tr><td>56</td><td><code>addEventListener("submit", funcionMain)</code></td><td>Al enviar el form, ejecuta la función principal.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="rounded-xl border border-[#cb839a]/30 bg-[#cb839a]/10 p-4 text-sm">
+                    <p><strong>Por qué el ejemplo del input no lleva corchetes:</strong> en código escribes <code>[9,8,7]</code>; en el formulario escribes texto <code>9,8,7</code> y <code>textoAListaNumeros</code> construye el arreglo por ti.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- TEST 15 PREGUNTAS -->
+        <article class="card border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-4">
+                <h2 class="text-lg font-semibold text-[#cb839a]">Test — 15 preguntas</h2>
+                <p class="text-sm text-base-content/70">Responde mentalmente o por escrito. Haz clic en «Ver respuesta» solo cuando quieras comprobar.</p>
+
+                <div class="flex flex-col gap-3">
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">1. ¿Qué debe devolver <code>promedio([9,8,7,6,5,4,3,2,1,0])</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Debe devolver <strong>4.5</strong>. La suma es 45 y hay 10 números: 45 ÷ 10 = 4.5. En tu código eso ocurre con <code>return suma / numeros.length</code> dentro de la función <code>promedio</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">2. ¿Qué significa «devolver» en el enunciado?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Significa usar la palabra clave <code>return</code> en JavaScript. La función calcula un valor y se lo entrega a quien la llamó; no es solo «mostrar en pantalla». Mostrar lo hace <code>funcionMain</code> después de recibir ese valor en una variable.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">3. ¿Qué recibe <code>promedio</code> por parámetro?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Recibe un <strong>arreglo de números</strong> (<code>number[]</code>), por ejemplo <code>[9,8,7,6,5,4,3,2,1,0]</code>. El nombre del parámetro en tu código es <code>numeros</code>. Ese arreglo lo prepara <code>textoAListaNumeros</code> a partir del texto del input.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">4. ¿Cuál es la función principal y qué evento la activa?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">La función principal es <code>funcionMain</code>. Se ejecuta cuando el usuario envía el formulario, gracias a <code>formPromedio.addEventListener("submit", funcionMain)</code>. El evento es <code>submit</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">5. ¿Qué función puede tocar el DOM y cuáles no?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Solo <code>funcionMain</code> toca el DOM: lee <code>inputNumeros.value</code> y escribe en <code>divResultado.textContent</code>. Las funciones de biblioteca (<code>textoAListaNumeros</code>, <code>esListaValida</code>, <code>promedio</code>) solo reciben datos y devuelven datos con <code>return</code>, sin <code>document</code> ni <code>getElementById</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">6. ¿Para qué sirve <code>getElementById("numeros")</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Busca en el HTML el elemento con <code>id="numeros"</code> (tu input) y guarda una referencia en la constante <code>inputNumeros</code>. Así JavaScript puede leer lo que escribe el usuario sin repetir la búsqueda cada vez.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">7. ¿Qué hace <code>event.preventDefault()</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Cancela el comportamiento por defecto del envío del formulario. Sin eso, el navegador recargaría la página y perderías el resultado. Es imprescindible en formularios manejados con JavaScript.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">8. ¿Qué hace <code>texto.split(",")</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Divide un string en un arreglo de strings usando la coma como separador. Por ejemplo <code>"9,8,7"</code> pasa a <code>["9","8","7"]</code>. Después cada trozo se convierte a número con <code>Number()</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">9. ¿Por qué usamos <code>trim()</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Porque el usuario puede escribir espacios: <code>"9, 8, 7"</code>. <code>trim()</code> quita espacios al inicio y al final de cada trozo para que <code>Number(" 8 ")</code> sea 8 y no falle la conversión.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">10. ¿Qué guarda la variable <code>resultado</code> en <code>funcionMain</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Guarda el número que devuelve <code>promedio(lista)</code> gracias al <code>return</code>. Es el paso «main recibe el resultado en una variable» del enunciado. Luego ese valor se muestra en <code>divResultado</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">11. ¿Por qué existe <code>esListaValida</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Para comprobar antes de llamar a <code>promedio</code> que hay al menos un número y que ninguno es <code>NaN</code>. Si la lista está vacía, <code>numeros.length</code> sería 0 y la división daría error (<code>Infinity</code> o <code>NaN</code>).</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">12. ¿Por qué el <code>&lt;script&gt;</code> está al final del <code>body</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Porque <code>getElementById</code> necesita que el HTML ya exista. Si el script estuviera en el <code>head</code> sin esperar, <code>formPromedio</code> podría ser <code>null</code> y el programa fallaría.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">13. ¿Cuál es la diferencia entre el placeholder y <code>promedio([9,8,...])</code>?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">El placeholder es texto para humanos en el input (<code>9,8,7,...</code>). La llamada <code>promedio([9,8,...])</code> es sintaxis JavaScript con corchetes de arreglo. Tu página convierte el texto en arreglo con <code>textoAListaNumeros</code> y luego llama <code>promedio(lista)</code>.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">14. ¿Qué son las funciones flecha y por qué las usas?</summary>
+                        <p class="mt-3 text-sm leading-relaxed">Son funciones escritas como <code>const nombre = (param) =&gt; { ... }</code>. Las usas para tener una biblioteca uniforme, reutilizable y con una sola tarea cada una, como pide tu curso.</p>
+                    </details>
+
+                    <details class="rounded-lg border border-base-300 bg-base-200/50 px-4 py-3">
+                        <summary class="font-medium">15. Ordena los pasos de <code>funcionMain</code> cuando todo va bien.</summary>
+                        <ol class="mt-3 list-inside list-decimal space-y-1 text-sm leading-relaxed">
+                            <li><code>preventDefault</code> — no recargar.</li>
+                            <li>Leer <code>inputNumeros.value</code>.</li>
+                            <li>Convertir texto a lista con <code>textoAListaNumeros</code>.</li>
+                            <li>Validar con <code>esListaValida</code>.</li>
+                            <li>Llamar <code>promedio(lista)</code> y guardar en <code>resultado</code>.</li>
+                            <li>Mostrar <code>resultado</code> en <code>divResultado</code>.</li>
+                        </ol>
+                    </details>
+
+                </div>
+            </div>
+        </article>
+
+        <p class="mt-8 flex flex-wrap justify-center gap-4 text-center text-sm">
+            <a href="index.html" class="link link-hover text-[#cb839a]">← Ir a la práctica (index.html)</a>
+        </p>
+
+    </main>
+
+</body>
+</html>

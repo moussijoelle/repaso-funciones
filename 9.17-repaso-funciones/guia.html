@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explication — Min et Max dans un tableau</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("img/rayas.webp");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <main class="relative mx-auto w-full max-w-3xl flex-grow p-6 pt-12 md:pt-16">
+
+        <article class="card border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-8 text-base leading-relaxed">
+
+                <header class="text-center">
+                    <h1 class="text-2xl font-semibold text-base-content md:text-3xl">
+                        Explication de l'exercice
+                    </h1>
+                    <p class="mt-2 text-sm text-base-content/60">
+                        Trouver le plus grand et le plus petit nombre d'un tableau
+                    </p>
+                </header>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">De quoi parle cet exercice ?</h2>
+                    <p>
+                        Imagine que tu as une <strong>liste de nombres</strong>, comme une liste de courses, mais avec des chiffres :
+                    </p>
+                    <p class="my-3 rounded-lg bg-base-200 px-4 py-3 text-center font-mono text-lg">
+                        1, 4, 5, 99, -60
+                    </p>
+                    <p>
+                        En programmation, on appelle ça un <strong>tableau</strong> (en anglais : <em>array</em>).
+                        C'est juste une boîte qui contient plusieurs valeurs, dans un ordre précis.
+                    </p>
+                    <p class="mt-3">
+                        L'exercice te demande de créer une <strong>fonction</strong>.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">C'est quoi, une fonction ?</h2>
+                    <p>
+                        Une fonction, c'est comme une <strong>petite machine</strong> ou une <strong>recette</strong> :
+                    </p>
+                    <ol class="mt-3 list-decimal space-y-2 pl-6">
+                        <li>Tu lui donnes quelque chose en entrée (ici : une liste de nombres)</li>
+                        <li>Elle fait un travail</li>
+                        <li>Elle te rend un résultat</li>
+                    </ol>
+                    <p class="mt-4">
+                        Dans ton exemple, la fonction s'appelle <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">miFuncion</code>.
+                    </p>
+                    <ul class="mt-3 space-y-2">
+                        <li>Tu lui donnes : <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">[1, 4, 5, 99, -60]</code></li>
+                        <li>Elle doit te rendre : <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">[99, -60]</code></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Quel est le travail exact ?</h2>
+                    <p>Parmi tous les nombres de la liste, tu dois trouver :</p>
+                    <ul class="mt-3 list-disc space-y-2 pl-6">
+                        <li><strong>Le plus grand</strong> → ici, c'est <strong>99</strong></li>
+                        <li><strong>Le plus petit</strong> → ici, c'est <strong>-60</strong> (les nombres négatifs existent aussi, et -60 est plus petit que 1)</li>
+                    </ul>
+                    <p class="mt-3">
+                        Et tu dois renvoyer <strong>les deux</strong>, dans un nouveau tableau : d'abord le max, puis le min.
+                    </p>
+                    <p class="my-3 rounded-lg bg-base-200 px-4 py-3 text-center font-mono text-lg">
+                        [99, -60]
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Exemple concret (sans ordinateur)</h2>
+                    <p>Si je te dis : « Regarde ces notes : 12, 18, 7, 20, 5 »</p>
+                    <p class="mt-3">Tu ferais naturellement :</p>
+                    <ul class="mt-2 list-disc space-y-1 pl-6">
+                        <li>La meilleure note → <strong>20</strong></li>
+                        <li>La moins bonne → <strong>5</strong></li>
+                    </ul>
+                    <p class="mt-3">
+                        Résultat : <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">[20, 5]</code>
+                    </p>
+                    <p class="mt-3">
+                        C'est <strong>exactement</strong> la même idée. L'ordinateur ne « voit » pas les nombres comme toi ;
+                        il faut lui dire comment les comparer un par un.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Pourquoi c'est un bon exercice ?</h2>
+                    <p>Parce qu'il te fait réviser plusieurs choses en même temps :</p>
+                    <ol class="mt-3 list-decimal space-y-2 pl-6">
+                        <li><strong>Les tableaux</strong> — travailler avec une liste de valeurs</li>
+                        <li><strong>Les fonctions</strong> — recevoir des données et renvoyer un résultat</li>
+                        <li><strong>La comparaison</strong> — décider quel nombre est plus grand ou plus petit qu'un autre</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Comment y penser, étape par étape ?</h2>
+                    <p>Comme si tu parcourais la liste à la main :</p>
+                    <ol class="mt-3 list-decimal space-y-2 pl-6">
+                        <li>Tu prends le <strong>premier nombre</strong> et tu te dis : « Pour l'instant, c'est mon plus grand ET mon plus petit. »</li>
+                        <li>Tu regardes le <strong>deuxième</strong> : est-il plus grand ? plus petit ? Tu mets à jour si besoin.</li>
+                        <li>Tu fais pareil pour <strong>chaque nombre</strong> suivant.</li>
+                        <li>À la fin, tu renvoies <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">[plusGrand, plusPetit]</code>.</li>
+                    </ol>
+
+                    <p class="mt-6 mb-3 font-medium">Avec <code class="rounded bg-base-200 px-2 py-0.5 font-mono text-sm">[1, 4, 5, 99, -60]</code> :</p>
+
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>Étape</th>
+                                    <th>Nombre</th>
+                                    <th>Plus grand (pour l'instant)</th>
+                                    <th>Plus petit (pour l'instant)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Début</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>4</td>
+                                    <td>4</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>99</td>
+                                    <td><strong>99</strong></td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>-60</td>
+                                    <td>99</td>
+                                    <td><strong>-60</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="mt-4 text-center font-medium">
+                        Résultat final : <code class="rounded bg-base-200 px-2 py-0.5 font-mono">[99, -60]</code> ✓
+                    </p>
+                </section>
+
+                <section class="rounded-xl bg-green-50 p-6 dark:bg-green-950/30">
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">En résumé</h2>
+                    <blockquote class="border-l-4 border-green-600 pl-4 italic text-base-content/80">
+                        « Écris une fonction qui reçoit une liste de nombres et renvoie une nouvelle liste
+                        avec le plus grand en premier et le plus petit en second. »
+                    </blockquote>
+                    <p class="mt-4">
+                        C'est un exercice de <strong>logique</strong> et de <strong>parcours de liste</strong>,
+                        pas de maths compliquées.
+                    </p>
+                </section>
+
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

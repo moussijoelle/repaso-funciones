@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía: funciones independientes + escuchadores</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.5; }
+    main { max-width: 920px; margin: 0 auto; padding: 28px 18px 48px; }
+    h1 { font-size: 1.6rem; margin: 0 0 14px; }
+    h2 { font-size: 1.2rem; margin: 26px 0 10px; }
+    p { margin: 10px 0; }
+    ul { margin: 10px 0 10px 18px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+    pre { padding: 12px 14px; border-radius: 10px; overflow: auto; border: 1px solid rgba(127,127,127,.35); }
+    .muted { opacity: 0.85; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(127,127,127,.35); font-size: 0.85rem; }
+    code.func { color: #7c3aed; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Guía del ejercicio: validar formulario y contar caracteres</h1>
+    <p class="muted">
+      Objetivo: que tus ejercicios siempre sigan el mismo patrón y puedas reutilizar tus funciones en una biblioteca.
+    </p>
+
+    <h2>1) Regla de oro (la idea de la profe)</h2>
+    <ul>
+      <li><strong>Biblioteca (funciones puras / independientes)</strong>: no usan <code>document</code>, no leen inputs, no escriben en HTML. Solo reciben valores y devuelven resultados con <code>return</code>.</li>
+      <li><strong>Main/handler (DOM)</strong>: es lo único que toca el HTML. Lee el formulario, llama a funciones de la biblioteca y pinta el resultado.</li>
+      <li><strong>Un solo <code>return</code></strong>: en cada función, crea un objeto <code>respuesta</code>, modifícalo en el <code>if</code> y devuélvelo al final. Evita varios <code>return</code> dentro de la misma función.</li>
+      <li><strong>Comentarios a la derecha</strong>: en cada línea de código, un comentario corto al final explicando qué hace esa línea.</li>
+    </ul>
+
+    <h2>¿Qué es exactamente una función independiente (o “de biblioteca”)?</h2>
+    <p>
+      Una <strong>función independiente</strong> es una función que puedes reutilizar en cualquier ejercicio porque:
+    </p>
+    <ul>
+      <li><strong>Recibe los datos por parámetros</strong> (no los busca en la página).</li>
+      <li><strong>Devuelve un resultado</strong> con <code>return</code> (no escribe en el HTML).</li>
+      <li><strong>No depende del DOM</strong>: no usa <code>document</code>, <code>getElementById</code>, <code>querySelector</code>, <code>addEventListener</code>, <code>innerHTML</code>, etc.</li>
+      <li><strong>Hace una sola cosa</strong> (ej: validar, normalizar, contar, calcular).</li>
+    </ul>
+    <p><strong>Ejemplos</strong> (funciones flecha independientes):</p>
+    <pre><code>const normalizarTexto = (valor) =&gt; String(valor ?? "").trim();
+
+const contarCaracteres = (texto) =&gt; normalizarTexto(texto).length;
+
+const validarTextoObligatorio = (texto) =&gt; {
+  const limpio = normalizarTexto(texto);
+  const respuesta = { ok: true, mensaje: "" };
+
+  if (limpio.length === 0) {
+    respuesta.ok = false;
+    respuesta.mensaje = "Escribe un texto.";
+  }
+  return respuesta;
+};</code></pre>
+    <p class="muted">
+      <strong>Mal (varios return):</strong> <code>if (...) return { ok: false, ... }; return { ok: true, ... };</code><br />
+      <strong>Bien (un solo return):</strong> creas <code>respuesta</code>, la cambias en el <code>if</code> y al final <code>return respuesta;</code>.
+    </p>
+    <p><strong>No es biblioteca</strong> (esto depende de la página):</p>
+    <pre><code>const input = document.getElementById("texto");
+input.addEventListener("input", () =&gt; {
+  // ...
+});</code></pre>
+    <p class="muted">
+      Frase para clase: “Separé la lógica en funciones independientes que reciben datos y devuelven resultados; y dejé en el handler la parte de leer el formulario y mostrar el resultado.”
+    </p>
+
+    <h2>2) Mapa mental (siempre el mismo)</h2>
+    <ul>
+      <li><strong>Entrada</strong>: leer <code>value</code> desde el formulario.</li>
+      <li><strong>Normalizar</strong>: convertir al tipo correcto y limpiar (por ejemplo <code>trim()</code>).</li>
+      <li><strong>Validar</strong>: devolver un objeto como <code>{ ok, mensaje }</code>.</li>
+      <li><strong>Calcular</strong>: devolver el resultado (número, string, boolean...).</li>
+      <li><strong>Salida</strong>: escribir en <code>#resultado</code>.</li>
+    </ul>
+
+    <h2>3) Estructura recomendada de archivos</h2>
+    <pre><code>tu-ejercicio/
+  index.html
+  js/
+    lib.js   (funciones independientes)
+    app.js   (escuchadores + main)
+</code></pre>
+    <p class="muted">En esta carpeta todavía no existe <code>js/</code>; la puedes crear cuando empieces a aplicar el patrón.</p>
+
+    <h2>4) Plantilla de HTML (formulario + resultado)</h2>
+    <pre><code>&lt;form id="form"&gt;
+  &lt;label for="entrada"&gt;Escribe algo&lt;/label&gt;
+  &lt;input id="entrada" name="entrada" type="text" required /&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+  &lt;div id="resultado"&gt;&lt;/div&gt;
+&lt;/form&gt;
+
+&lt;script src="js/app.js"&gt;&lt;/script&gt;
+</code></pre>
+
+    <h2>5) Plantilla de <code>js/lib.js</code> (funciones flecha independientes)</h2>
+    <p class="muted">
+      Estas funciones son ejemplos “base”. Puedes ampliarlas según el ejercicio (primo, factorial, contar vocales, etc.).
+    </p>
+    <pre><code>// Normaliza texto: convierte a string y recorta espacios
+export const normalizarTexto = (valor) =&gt; String(valor ?? "").trim();
+
+export const contarCaracteres = (texto) =&gt; normalizarTexto(texto).length;
+
+export const parsearEntero = (valor) =&gt; Number.parseInt(String(valor), 10);
+
+export const esNumeroValido = (numero) =&gt; Number.isFinite(numero);
+
+export const validarRango = (numero, min, max) =&gt; {
+  if (!Number.isFinite(numero)) return { ok: false, mensaje: "No es un número válido." };
+  if (numero &lt; min) return { ok: false, mensaje: `Debe ser ≥ ${min}.` };
+  if (numero &gt; max) return { ok: false, mensaje: `Debe ser ≤ ${max}.` };
+  return { ok: true, mensaje: "" };
+};
+</code></pre>
+
+    <h2>6) Plantilla de <code>js/app.js</code> (escuchador + “main”)</h2>
+    <pre><code>import { normalizarTexto, contarCaracteres } from "./lib.js";
+
+const form = document.querySelector("#form");
+const entrada = document.querySelector("#entrada");
+const resultado = document.querySelector("#resultado");
+
+form.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+
+  const texto = normalizarTexto(entrada.value);
+
+  if (texto.length === 0) {
+    resultado.textContent = "Escribe un texto.";
+    return;
+  }
+
+  const cantidad = contarCaracteres(texto);
+  resultado.textContent = `Caracteres: ${cantidad}`;
+});
+</code></pre>
+    <p class="muted">
+      Nota: si usas <code>import</code> en <code>app.js</code>, el script en HTML debe ser <code>&lt;script type="module" src="js/app.js"&gt;&lt;/script&gt;</code>.
+    </p>
+
+    <h2>7) Checklist (antes de entregar)</h2>
+    <ul>
+      <li><strong>¿Tus funciones de biblioteca tienen <code>return</code> y no tocan el DOM?</strong></li>
+      <li><strong>¿Cada función tiene un solo <code>return</code> al final?</strong></li>
+      <li><strong>¿Cada línea tiene un comentario corto a la derecha?</strong></li>
+      <li><strong>¿Solo el handler usa <code>document.querySelector</code> y actualiza el HTML?</strong></li>
+      <li><strong>¿Hay validación JS aparte del <code>required</code> del HTML?</strong></li>
+      <li><strong>¿Todo está con funciones flecha <code>() =&gt; {}</code>?</strong></li>
+    </ul>
+
+    <h2>8) Este ejercicio (resumen para explicar en clase)</h2>
+    <ul>
+      <li><strong>Qué pide</strong>: validar la entrada de un formulario y contar caracteres de una cadena (ej: <code>"Hola mundo"</code> → 10).</li>
+      <li><strong>Qué hace tu programa</strong>: el usuario escribe una frase, envía el formulario, el JS valida y muestra “Caracteres: X”.</li>
+      <li><strong>Cómo lo organizaste</strong>: funciones independientes (lógica) + una función principal con DOM (conecta el formulario con la lógica).</li>
+    </ul>
+    <p class="muted">
+      Cómo decirlo rápido: “Tengo funciones independientes para normalizar/validar/contar y una función principal que escucha el formulario y pinta el resultado.”
+    </p>
+
+    <h2>9) Explicación línea por línea: tu <code>index.html</code> (lo importante)</h2>
+    <p class="muted">Aquí explico solo las partes que importan para el ejercicio.</p>
+    <ul>
+      <li><strong><code>&lt;form id="formtexto"&gt;</code></strong>: identifica el formulario; el JS lo usa para escuchar el <code>submit</code>.</li>
+      <li><strong><code>&lt;label for="texto"&gt;</code></strong>: el <code>for</code> apunta al input con <code>id="texto"</code>.</li>
+      <li><strong><code>&lt;input id="texto" ... required&gt;</code></strong>: donde el usuario escribe la frase; <code>required</code> añade validación HTML básica.</li>
+      <li><strong><code>&lt;button type="submit"&gt;</code></strong>: al pulsar, dispara el evento <code>submit</code> del formulario.</li>
+      <li><strong><code>&lt;div id="resultado"&gt;</code></strong>: zona donde el JS escribe el mensaje final.</li>
+      <li><strong><code>&lt;script src="js/app.js"&gt;</code></strong>: carga tu JavaScript al final para que el HTML ya exista cuando el JS se ejecute.</li>
+    </ul>
+
+    <h2>10) Explicación línea por línea: tu <code>js/app.js</code></h2>
+    <p class="muted">
+      Tu archivo tiene dos partes: <strong>lógica independiente</strong> (reutilizable) y <strong>DOM</strong> (conecta con la página).
+    </p>
+
+    <h3>10.1) Variables DOM (conectar JS con HTML)</h3>
+    <ul>
+      <li><strong><code>document.getElementById("formtexto")</code></strong>: busca el formulario por su <code>id</code>. Comentario a la derecha: <code>// Formulario</code></li>
+      <li><strong><code>document.getElementById("texto")</code></strong>: busca el input donde escribe el usuario. Comentario: <code>// Campo de texto</code></li>
+      <li><strong><code>document.getElementById("resultado")</code></strong>: busca el div donde mostrarás el resultado. Comentario: <code>// Zona del resultado</code></li>
+    </ul>
+
+    <h3>10.2) Funciones independientes (biblioteca dentro de <code>app.js</code>)</h3>
+    <ul>
+      <li><strong><code>normalizarTexto(valor)</code></strong>: convierte a texto y hace <code>trim()</code> (sirve para que “solo espacios” cuente como vacío).</li>
+      <li><strong><code>validarTextoObligatorio(texto)</code></strong>: crea <code>respuesta</code>, la modifica si el texto está vacío y devuelve <code>{ ok, mensaje }</code> con un solo <code>return</code>.</li>
+      <li><strong><code>contarCaracteres(texto)</code></strong>: devuelve un número con <code>length</code> del texto normalizado.</li>
+      <li><strong><code>procesarTexto(texto)</code></strong>: coordina la lógica con el mismo patrón de <code>respuesta</code> y un solo <code>return</code>.</li>
+    </ul>
+
+    <h3>10.3) Comentarios a la derecha (estilo del curso)</h3>
+    <p class="muted">Cada línea ejecutable lleva un comentario corto al final, separado por dos espacios:</p>
+    <pre><code>const limpio = normalizarTexto(texto);  // Texto preparado
+const respuesta = { ok: true, mensaje: "" };  // Respuesta inicial
+
+if (limpio.length === 0) {  // Texto vacío
+  respuesta.ok = false;  // Hay error
+  respuesta.mensaje = "Escribe un texto.";  // Aviso al usuario
+}
+return respuesta;  // Resultado validación</code></pre>
+
+    <h3>10.3) Función principal (DOM) + escuchador</h3>
+    <ul>
+      <li><strong><code>vincularFormulario(...)</code></strong>: es tu función principal del programa porque deja el formulario “activo”.</li>
+      <li><strong><code>form.addEventListener("submit", ...)</code></strong>: el escuchador. Se ejecuta cuando el usuario envía el formulario.</li>
+      <li><strong><code>event.preventDefault()</code></strong>: evita que la página se recargue al enviar.</li>
+      <li><strong><code>output.textContent = ...</code></strong>: escribe el mensaje en el HTML.</li>
+    </ul>
+
+    <h2>11) Mini‑biblioteca: categorías de funciones independientes</h2>
+    <ul>
+      <li><strong>Normalización</strong>: limpian/transforman entrada (ej: <code>normalizarTexto</code>, <code>parsearEntero</code>).</li>
+      <li><strong>Validación</strong>: comprueban reglas y devuelven <code>{ ok, mensaje }</code> (ej: <code>validarTextoObligatorio</code>, <code>validarRango</code>).</li>
+      <li><strong>Cálculo</strong>: devuelven resultados (ej: <code>contarCaracteres</code>, primo/factorial/suma).</li>
+      <li><strong>Orquestación (lógica)</strong>: combinan varias funciones puras (ej: <code>procesarTexto</code>).</li>
+    </ul>
+    <p class="muted">
+      Regla práctica: si una función <strong>toca</strong> <code>document</code>, eventos o <code>textContent</code>, ya no es biblioteca: es DOM/UI.
+    </p>
+
+    <h2>11.1) Funciones completas (listas para copiar y reutilizar)</h2>
+    <p class="muted">
+      Estas son las funciones completas (sin <code>import</code>/<code>export</code>) para reutilizarlas en otros ejercicios.
+      Puedes copiarlas tal cual a tu <code>app.js</code> o a un futuro <code>lib.js</code>.
+    </p>
+
+    <h2>Funciones de biblioteca (independientes)</h2>
+    <p class="muted">
+      Aquí tienes cada función <strong>con su código completo</strong> y <strong>su explicación</strong> justo debajo, para copiar/pegar sin buscar.
+    </p>
+
+    <h3><code class="func">normalizarTexto(valor)</code></h3>
+    <pre><code>const normalizarTexto = (valor) =&gt; String(valor ?? "").trim();</code></pre>
+    <p class="muted">
+      Convierte cualquier valor a texto y recorta espacios con <code>trim()</code>.
+      Útil antes de validar o calcular: evita errores con <code>null</code>/<code>undefined</code> y hace que “solo espacios” se considere vacío.
+      Devuelve <strong>string</strong>.
+    </p>
+
+    <h3><code class="func">validarTextoObligatorio(texto)</code></h3>
+    <pre><code>const validarTextoObligatorio = (texto) =&gt; {  // Valida texto obligatorio
+  const limpio = normalizarTexto(texto);  // Texto preparado
+  const respuesta = { ok: true, mensaje: "" };  // Respuesta inicial
+
+  if (limpio.length === 0) {  // Texto vacío
+    respuesta.ok = false;  // Hay error
+    respuesta.mensaje = "Escribe un texto.";  // Aviso al usuario
+  }
+  return respuesta;  // Resultado validación
+};</code></pre>
+    <p class="muted">
+      Comprueba si el texto es obligatorio (no vacío, ni solo espacios).
+      Usa un solo <code>return</code> al final con el objeto <code>respuesta</code>.
+    </p>
+
+    <h3><code class="func">contarCaracteres(texto)</code></h3>
+    <pre><code>const contarCaracteres = (texto) =&gt; normalizarTexto(texto).length;</code></pre>
+    <p class="muted">
+      Cuenta caracteres del texto normalizado usando <code>.length</code>. Devuelve <strong>number</strong>.
+      Ejemplo: <code>"Hola mundo"</code> → 10.
+    </p>
+
+    <h3><code class="func">procesarTexto(texto)</code></h3>
+    <pre><code>const procesarTexto = (texto) =&gt; {  // Lógica del ejercicio
+  const validacion = validarTextoObligatorio(texto);  // Comprueba el texto
+  const respuesta = { ok: true, mensaje: "" };  // Respuesta inicial
+
+  if (!validacion.ok) {  // Validación fallida
+    respuesta.ok = false;  // Hay error
+    respuesta.mensaje = validacion.mensaje;  // Mensaje de error
+  } else {  // Texto correcto
+    respuesta.mensaje = `Caracteres: ${contarCaracteres(texto)}`;  // Muestra el total
+  }
+  return respuesta;  // Mensaje final
+};</code></pre>
+    <p class="muted">
+      Junta la lógica del ejercicio: valida, calcula el conteo y devuelve el mensaje final con un solo <code>return</code>.
+    </p>
+
+    <h2>Función principal (DOM/UI)</h2>
+    <h3><code class="func">vincularFormulario({ form, input, output, procesar })</code></h3>
+    <pre><code>const vincularFormulario = ({ form, input, output, procesar }) =&gt; {  // Enlaza DOM y lógica
+  form.addEventListener("submit", (event) =&gt; {  // Escucha el submit
+    event.preventDefault();  // Evita recarga
+    output.textContent = procesar(input.value).mensaje;  // Pinta resultado
+  });
+};</code></pre>
+    <p class="muted">
+      Conecta el formulario con la lógica: escucha el <code>submit</code>, evita recargar la página y escribe el resultado en <code>output</code>.
+      No es biblioteca porque depende del DOM (eventos + <code>textContent</code>).
+    </p>
+
+    <h3>11.1.3) Ejemplo de uso (conectar HTML con la lógica)</h3>
+    <pre><code>const formtexto = document.getElementById("formtexto");  // Formulario
+const inputTexto = document.getElementById("texto");  // Campo de texto
+const resultado = document.getElementById("resultado");  // Zona del resultado
+
+vincularFormulario({  // Inicia el programa
+  form: formtexto,  // Formulario
+  input: inputTexto,  // Input
+  output: resultado,  // Salida
+  procesar: procesarTexto,  // Función lógica
+});</code></pre>
+
+    <h2>12) Test (15 preguntas) — respuestas ocultas</h2>
+    <p class="muted">Úsalo para estudiar: intenta responder sin abrir la solución.</p>
+
+    <details>
+      <summary><strong>1)</strong> ¿Qué significa “validar datos de entrada” en este ejercicio?</summary>
+      <p>Comprobar que el texto que llega desde el formulario cumple reglas (por ejemplo, que no esté vacío ni sean solo espacios) antes de contar caracteres y mostrar el resultado.</p>
+    </details>
+    <details>
+      <summary><strong>2)</strong> ¿Por qué usamos <code>trim()</code> al normalizar el texto?</summary>
+      <p>Para eliminar espacios al principio y al final. Así, si el usuario escribe solo espacios, el texto se convierte en <code>""</code> y se detecta como “vacío”.</p>
+    </details>
+    <details>
+      <summary><strong>3)</strong> ¿Qué devuelve una validación “buena práctica”?</summary>
+      <p>Un objeto como <code>{ ok: boolean, mensaje: string }</code>, para separar el “resultado” del “mensaje” y poder reutilizar la validación en otros ejercicios.</p>
+    </details>
+    <details>
+      <summary><strong>4)</strong> ¿Qué significa que una función sea independiente?</summary>
+      <p>Que recibe datos por parámetros, devuelve un resultado con <code>return</code> y no depende del DOM (no usa <code>document</code>, ni eventos, ni escribe en HTML).</p>
+    </details>
+    <details>
+      <summary><strong>5)</strong> ¿Qué pasa si el <code>id</code> del HTML no coincide con <code>getElementById</code>?</summary>
+      <p><code>getElementById</code> devuelve <code>null</code>. Después, al usar ese valor (por ejemplo <code>null.addEventListener</code>) saldrá un error.</p>
+    </details>
+    <details>
+      <summary><strong>6)</strong> ¿Por qué usamos un escuchador <code>submit</code>?</summary>
+      <p>Porque queremos ejecutar el programa cuando el usuario envía el formulario (al pulsar el botón). El escuchador es la forma estándar de reaccionar a esa acción.</p>
+    </details>
+    <details>
+      <summary><strong>7)</strong> ¿Para qué sirve <code>event.preventDefault()</code>?</summary>
+      <p>Para evitar que el formulario recargue la página al enviar. Así el resultado se muestra en la misma página sin “reset”.</p>
+    </details>
+    <details>
+      <summary><strong>8)</strong> ¿Qué hace <code>contarCaracteres("Hola mundo")</code> y por qué da 10?</summary>
+      <p>Devuelve 10 porque cuenta 4 letras (“Hola”), 1 espacio y 5 letras (“mundo”). Total: 4 + 1 + 5 = 10.</p>
+    </details>
+    <details>
+      <summary><strong>9)</strong> ¿Cuál es la función principal de tu programa (la que activa el formulario)?</summary>
+      <p><code>vincularFormulario</code>, porque es la que registra el escuchador del formulario y conecta la UI con la lógica.</p>
+    </details>
+    <details>
+      <summary><strong>10)</strong> ¿Cuál es la ventaja de tener <code>procesarTexto</code>?</summary>
+      <p>Centraliza la lógica: valida y prepara el mensaje final. El DOM solo llama a esa función y muestra el resultado, con menos riesgo de duplicar lógica.</p>
+    </details>
+    <details>
+      <summary><strong>11)</strong> ¿Qué parte de tu código “no puede” ser biblioteca?</summary>
+      <p>La parte que usa eventos y modifica el HTML (DOM): <code>addEventListener</code>, <code>textContent</code>, y la búsqueda de elementos con <code>document</code>.</p>
+    </details>
+    <details>
+      <summary><strong>12)</strong> ¿Qué diferencia hay entre <code>input.value</code> y el texto normalizado?</summary>
+      <p><code>input.value</code> es lo que escribió el usuario tal cual; el normalizado es la versión convertida a string y limpiada (por ejemplo sin espacios al inicio/final).</p>
+    </details>
+    <details>
+      <summary><strong>13)</strong> ¿Cuándo usarías un escuchador <code>input</code> en vez de <code>submit</code>?</summary>
+      <p>Cuando quieres actualizar el resultado “mientras escribe” sin pulsar botón. En ese caso escuchas el evento <code>input</code> del campo.</p>
+    </details>
+    <details>
+      <summary><strong>14)</strong> ¿Cómo comprobarías rápido si el formulario se está encontrando bien?</summary>
+      <p>Con <code>console.log(formtexto)</code>. Si imprime el elemento <code>&lt;form ...&gt;</code>, está bien. Si imprime <code>null</code>, el <code>id</code> no coincide.</p>
+    </details>
+    <details>
+      <summary><strong>15)</strong> Si quisieras reutilizar tu DOM “en otro ejercicio”, ¿qué harías?</summary>
+      <p>Harías una función como <code>vincularFormulario</code> que recibe <code>{ form, input, output, procesar }</code>. Así cambias el HTML y la lógica sin reescribir el “pegamento”.</p>
+    </details>
+    <details>
+      <summary><strong>16)</strong> ¿Por qué usar un solo <code>return</code> con <code>respuesta</code>?</summary>
+      <p>Porque es la forma que pide la profe: creas el objeto al inicio, lo modificas en el <code>if</code> y lo devuelves al final. Así la función tiene una sola salida y el código es más claro.</p>
+    </details>
+    <details>
+      <summary><strong>17)</strong> ¿Cómo van los comentarios en tu <code>app.js</code>?</summary>
+      <p>A la derecha de cada línea, separados por dos espacios. Deben ser cortos y explicar qué hace esa línea concreta (entrada DOM, validación, resultado, etc.).</p>
+    </details>
+  </main>
+</body>
+</html>

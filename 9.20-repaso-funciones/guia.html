@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Quitar duplicados (9.20)</title>
+    <style>
+        :root {
+            --fondo: #f4f6f9;
+            --texto: #1a1a2e;
+            --accent: #009698;
+            --carte: #fff;
+            --bord: #dee2e6;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--texto);
+            background: var(--fondo);
+            margin: 0;
+            padding: 1.5rem 1rem 3rem;
+        }
+        main { max-width: 820px; margin: 0 auto; }
+        h1 {
+            color: var(--accent);
+            font-size: 1.6rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: .4rem;
+        }
+        h2 {
+            font-size: 1.15rem;
+            margin-top: 2rem;
+            color: #333;
+        }
+        h3 { font-size: 1rem; margin-top: 1.25rem; }
+        section {
+            background: var(--carte);
+            padding: 1.25rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        }
+        code, pre {
+            font-family: Consolas, monospace;
+            background: #eef1f8;
+            border-radius: 4px;
+        }
+        code { padding: .1em .35em; font-size: .9em; }
+        pre {
+            padding: .75rem 1rem;
+            overflow-x: auto;
+            border: 1px solid var(--bord);
+            font-size: .85rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .88rem;
+            margin: .75rem 0;
+        }
+        th, td {
+            border: 1px solid var(--bord);
+            padding: .45rem .6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background: #eef1f8; }
+        .linea { font-weight: 600; color: var(--accent); white-space: nowrap; }
+        .resumen {
+            background: #e8f8f8;
+            border-left: 4px solid var(--accent);
+            padding: .85rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        details {
+            border: 1px solid var(--bord);
+            border-radius: 8px;
+            margin: .6rem 0;
+            background: #fafbfc;
+        }
+        summary {
+            cursor: pointer;
+            padding: .75rem 1rem;
+            font-weight: 600;
+            list-style: none;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::before { content: "▶ "; font-size: .75em; color: var(--accent); }
+        details[open] summary::before { content: "▼ "; }
+        .respuesta {
+            padding: 0 1rem 1rem;
+            border-top: 1px dashed var(--bord);
+            font-size: .95rem;
+        }
+        nav a { color: var(--accent); }
+        ul { padding-left: 1.2rem; }
+        ol { padding-left: 1.2rem; }
+        li { margin: .25rem 0; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Guía del ejercicio 9.20 — Quitar duplicados</h1>
+        <p><a href="index.html">← Volver a la página del ejercicio</a></p>
+
+        <!-- ========== PARTE 1: QUÉ ES EL EJERCICIO ========== -->
+        <section id="ejercicio">
+            <h2>1. En qué consiste el ejercicio</h2>
+            <p>Debes programar una función que reciba un <strong>arreglo (array)</strong> y devuelva otro arreglo <strong>sin duplicados</strong>, manteniendo el <strong>orden</strong> y solo la <strong>primera aparición</strong> de cada valor.</p>
+            <pre>miFuncion(["x", 10, "x", 2, "10", 10, true, true])
+// → ["x", 10, 2, "10", true]</pre>
+
+            <h3>Palabras clave</h3>
+            <table>
+                <tr><th>Término</th><th>Significado simple</th></tr>
+                <tr><td>Función</td><td>Recibe datos por parámetro y devuelve un resultado con <code>return</code>.</td></tr>
+                <tr><td>Arreglo / array</td><td>Lista ordenada de valores: <code>[a, b, c]</code>.</td></tr>
+                <tr><td>Duplicado</td><td>El mismo valor repetido más adelante en la lista.</td></tr>
+                <tr><td>Devolver</td><td>En código significa <code>return</code>, no “mostrar en pantalla”.</td></tr>
+            </table>
+
+            <h3>Trampa importante: tipos distintos</h3>
+            <p>En JavaScript, <code>10</code> (número) y <code>"10"</code> (texto) <strong>no son iguales</strong>. Por eso ambos se quedan en el resultado. La comparación usa <code>===</code> (igualdad estricta).</p>
+
+            <h3>Lógica de la página (main + biblioteca)</h3>
+            <ol>
+                <li><strong>funcionPrincipal</strong> (única que toca el DOM): lee el input, valida, llama a las funciones puras y muestra el mensaje.</li>
+                <li><strong>miFuncion</strong> y el resto: una tarea cada una; entran y salen por parámetro y <code>return</code>.</li>
+                <li>Orden del archivo JS: variables → funciones → <code>addEventListener</code>.</li>
+            </ol>
+
+            <div class="resumen">
+                <strong>Flujo:</strong> Usuario envía el formulario → principal lee texto → <code>entradaValida</code> → <code>textoAValor</code> → <code>miFuncion</code> → <code>mensajeResultado</code> → se escribe en <code>#resultado</code>.
+            </div>
+
+            <h3>Resumen en francés (idea del ejercicio)</h3>
+            <p>Tu dois écrire une fonction qui nettoie une liste : la première fois qu’un élément apparaît, on le garde ; s’il revient après, on l’ignore. L’ordre ne change pas.</p>
+        </section>
+
+        <!-- ========== PARTE 2: CAMBIOS HTML ========== -->
+        <section id="cambios-html">
+            <h2>2. Qué cambiamos en el HTML (respecto al ejercicio del email)</h2>
+            <table>
+                <tr><th>Elemento</th><th>Antes</th><th>Ahora</th></tr>
+                <tr><td><code>&lt;title&gt;</code></td><td>validar email</td><td>Quitar duplicados</td></tr>
+                <tr><td><code>&lt;h1&gt;</code></td><td>Texto del email</td><td>Instrucción + ejemplo JSON</td></tr>
+                <tr><td><code>id</code> del form</td><td>formTexto</td><td>formArray</td></tr>
+                <tr><td><code>id</code> del input</td><td>texto</td><td>arrayTexto</td></tr>
+                <tr><td>Botón</td><td>Validar</td><td>Quitar duplicados</td></tr>
+                <tr><td><code>#resultado</code></td><td>igual</td><td>zona donde la principal escribe el mensaje</td></tr>
+            </table>
+        </section>
+
+        <!-- ========== PARTE 3: HTML LÍNEA A LÍNEA ========== -->
+        <section id="html-lineas">
+            <h2>3. Explicación línea a línea — index.html</h2>
+            <table>
+                <tr><th>Línea</th><th>Qué hace</th></tr>
+                <tr><td class="linea">1</td><td><code>&lt;!DOCTYPE html&gt;</code> — Indica al navegador que es HTML5.</td></tr>
+                <tr><td class="linea">2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code> — Raíz del documento; idioma español; tema DaisyUI “autumn”.</td></tr>
+                <tr><td class="linea">3–6</td><td><code>&lt;head&gt;</code> — Metadatos: charset UTF-8, viewport responsive, título de la pestaña.</td></tr>
+                <tr><td class="linea">6</td><td><code>&lt;title&gt;Quitar duplicados&lt;/title&gt;</code> — Texto de la pestaña del navegador.</td></tr>
+                <tr><td class="linea">8–10</td><td>Enlaces a DaisyUI y Tailwind por CDN — estilos visuales sin archivo CSS propio grande.</td></tr>
+                <tr><td class="linea">12–14</td><td>Google Fonts — carga la fuente Inclusive Sans.</td></tr>
+                <tr><td class="linea">16–24</td><td><code>&lt;style&gt;</code> — Fondo de página con imagen <code>img/ciel.webp</code> a pantalla completa.</td></tr>
+                <tr><td class="linea">25</td><td>Cierra <code>head</code>; empieza el cuerpo visible.</td></tr>
+                <tr><td class="linea">26</td><td><code>&lt;body class="..."&gt;</code> — Clases Tailwind/DaisyUI: layout flex, altura mínima, fuente, color de texto.</td></tr>
+                <tr><td class="linea">28</td><td><code>&lt;main&gt;</code> — Contenido principal centrado con padding.</td></tr>
+                <tr><td class="linea">30–33</td><td><code>&lt;h1&gt;</code> — Instrucciones para la usuaria y ejemplo del array en JSON.</td></tr>
+                <tr><td class="linea">35</td><td><code>&lt;section&gt;</code> — Agrupa el bloque del formulario y lo centra.</td></tr>
+                <tr><td class="linea">37</td><td><code>div.card</code> — Tarjeta visual (borde, sombra, fondo).</td></tr>
+                <tr><td class="linea">38</td><td><code>&lt;form id="formArray"&gt;</code> — Formulario; el <code>id</code> lo usa JS con <code>getElementById("formArray")</code>.</td></tr>
+                <tr><td class="linea">40–53</td><td>Bloque del input: <code>label for="arrayTexto"</code> enlaza etiqueta e input; <code>id="arrayTexto"</code> es el enlace con JS; <code>required</code> obliga a escribir algo; <code>placeholder</code> muestra ejemplo.</td></tr>
+                <tr><td class="linea">44–52</td><td><code>&lt;input type="text" id="arrayTexto" name="arrayTexto"&gt;</code> — Campo donde se pega el JSON del array.</td></tr>
+                <tr><td class="linea">55–60</td><td><code>&lt;button type="submit"&gt;</code> — Al pulsar, dispara el evento <code>submit</code> del form (no recarga si JS hace <code>preventDefault</code>).</td></tr>
+                <tr><td class="linea">62</td><td><code>&lt;div id="resultado"&gt;</code> — Contenedor vacío; la función principal escribe aquí con <code>textContent</code>.</td></tr>
+                <tr><td class="linea">63–66</td><td>Cierre de form, card y section.</td></tr>
+                <tr><td class="linea">68</td><td>Cierre de <code>main</code>.</td></tr>
+                <tr><td class="linea">70</td><td><code>&lt;script src="js/app.js"&gt;&lt;/script&gt;</code> — Carga tu JavaScript al final para que el HTML ya exista en el DOM.</td></tr>
+                <tr><td class="linea">71–72</td><td>Cierre de <code>body</code> y <code>html</code>.</td></tr>
+            </table>
+        </section>
+
+        <!-- ========== PARTE 4: JS ESTRUCTURA ========== -->
+        <section id="js-estructura">
+            <h2>4. Estructura del app.js</h2>
+            <pre>DECLARACIÓN DE VARIABLES     → formulario, inputArray, zonaResultado
+DECLARACIÓN DE FUNCIONES       → biblioteca + funcionPrincipal
+EJECUCIÓN DE CÓDIGO            → addEventListener("submit", funcionPrincipal)</pre>
+            <p><strong>Función principal:</strong> <code>funcionPrincipal</code> — la única que usa <code>.value</code>, <code>.textContent</code> y el evento.</p>
+            <table>
+                <tr><th>Función</th><th>Entrada</th><th>Salida</th><th>Tarea</th></tr>
+                <tr><td>textoAValor</td><td>string</td><td>any</td><td>JSON.parse del texto</td></tr>
+                <tr><td>esArray</td><td>any</td><td>boolean</td><td>¿Es array?</td></tr>
+                <tr><td>entradaValida</td><td>string</td><td>boolean</td><td>Valida JSON + que sea array</td></tr>
+                <tr><td>yaEstaEnLista</td><td>elemento + array</td><td>boolean</td><td>includes con ===</td></tr>
+                <tr><td>miFuncion</td><td>array</td><td>array</td><td>Quita duplicados (ejercicio)</td></tr>
+                <tr><td>arrayATexto</td><td>array</td><td>string</td><td>JSON.stringify para pantalla</td></tr>
+                <tr><td>mensajeResultado</td><td>boolean + array</td><td>string</td><td>Mensaje OK o error</td></tr>
+                <tr><td>funcionPrincipal</td><td>event</td><td>—</td><td>Orquesta y muestra en DOM</td></tr>
+            </table>
+        </section>
+
+        <!-- ========== PARTE 5: JS LÍNEA A LÍNEA ========== -->
+        <section id="js-lineas">
+            <h2>5. Explicación línea a línea — app.js</h2>
+            <table>
+                <tr><th>Línea</th><th>Qué hace</th></tr>
+                <tr><td class="linea">1</td><td>Comentario de sección: bloque de variables DOM.</td></tr>
+                <tr><td class="linea">3</td><td><code>formulario</code> — referencia al <code>&lt;form id="formArray"&gt;</code>.</td></tr>
+                <tr><td class="linea">4</td><td><code>inputArray</code> — referencia al input donde se escribe el JSON.</td></tr>
+                <tr><td class="linea">5</td><td><code>zonaResultado</code> — referencia al <code>div#resultado</code> para mostrar el mensaje.</td></tr>
+                <tr><td class="linea">8</td><td>Comentario: bloque de funciones (biblioteca + principal).</td></tr>
+                <tr><td class="linea">10–12</td><td><code>textoAValor</code> — recibe string; hace <code>trim</code> y <code>JSON.parse</code>; devuelve el valor (array, número, etc.).</td></tr>
+                <tr><td class="linea">14–16</td><td><code>esArray</code> — usa <code>Array.isArray</code>; devuelve true solo si es un arreglo real.</td></tr>
+                <tr><td class="linea">18–27</td><td><code>entradaValida</code> — un solo <code>return</code> al final; try convierte texto; si falla o no es array, <code>valido</code> queda false.</td></tr>
+                <tr><td class="linea">29–31</td><td><code>yaEstaEnLista</code> — comprueba si el elemento ya está en la lista resultado (comparación estricta).</td></tr>
+                <tr><td class="linea">33–41</td><td><code>miFuncion</code> — recorre el array; si el elemento no está en <code>sinDuplicados</code>, lo añade con <code>push</code>; devuelve el nuevo array.</td></tr>
+                <tr><td class="linea">43–45</td><td><code>arrayATexto</code> — convierte array a string legible para la pantalla.</td></tr>
+                <tr><td class="linea">47–51</td><td><code>mensajeResultado</code> — si es válido muestra el array en texto; si no, mensaje de error.</td></tr>
+                <tr><td class="linea">53</td><td>Comentario: la principal es la única que toca el DOM.</td></tr>
+                <tr><td class="linea">55–64</td><td><code>funcionPrincipal</code> — <code>preventDefault</code>; lee input; valida; llama <code>miFuncion</code>; guarda resultado en variables; escribe en <code>zonaResultado</code>.</td></tr>
+                <tr><td class="linea">56</td><td>Evita que el navegador recargue la página al enviar el form.</td></tr>
+                <tr><td class="linea">58</td><td>Lee el texto que escribió la usuaria (<code>.value</code>).</td></tr>
+                <tr><td class="linea">59</td><td>Guarda en variable si la entrada es válida.</td></tr>
+                <tr><td class="linea">60</td><td>Si es válido, parsea a array; si no, array vacío (no se usa para calcular).</td></tr>
+                <tr><td class="linea">61</td><td>Si es válido, llama <code>miFuncion</code> y guarda el array sin duplicados en <code>resultado</code>.</td></tr>
+                <tr><td class="linea">62</td><td>Prepara el string final con <code>mensajeResultado</code>.</td></tr>
+                <tr><td class="linea">63</td><td>Única línea que modifica el HTML visible: <code>textContent</code>.</td></tr>
+                <tr><td class="linea">67–69</td><td>Ejecución: al hacer submit del formulario, se ejecuta <code>funcionPrincipal</code>.</td></tr>
+            </table>
+        </section>
+
+        <!-- ========== PARTE 6: 15 PREGUNTAS ========== -->
+        <section id="test">
+            <h2>6. Test — 15 preguntas (pulsa para ver la respuesta)</h2>
+            <p>Las respuestas están ocultas en <code>&lt;details&gt;</code>. Intenta responder antes de abrirlas.</p>
+
+            <details>
+                <summary>1. ¿Qué debe devolver miFuncion con ["a", "a", "b"]?</summary>
+                <div class="respuesta">
+                    <p>Debe devolver <code>["a", "b"]</code>. Solo se conserva la primera <code>"a"</code>; la segunda se ignora porque ya estaba en el resultado. El orden se mantiene: primero <code>"a"</code>, luego <code>"b"</code>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>2. ¿Por qué 10 y "10" pueden coexistir en el resultado?</summary>
+                <div class="respuesta">
+                    <p>Porque son tipos distintos: <code>10</code> es número y <code>"10"</code> es string. JavaScript los compara con <code>===</code>, que exige mismo valor y mismo tipo. No se consideran duplicados.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>3. ¿Qué significa “devolver” en el enunciado del ejercicio?</summary>
+                <div class="respuesta">
+                    <p>Significa usar <code>return</code> dentro de la función para entregar el resultado a quien la llamó. No significa mostrar en pantalla; mostrar es tarea de <code>funcionPrincipal</code> con el DOM.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>4. ¿Qué función es la única que puede tocar el DOM en este proyecto?</summary>
+                <div class="respuesta">
+                    <p><code>funcionPrincipal</code>. Es la que lee <code>inputArray.value</code> y escribe en <code>zonaResultado.textContent</code>. El resto solo trabaja con parámetros y <code>return</code>, por eso pueden guardarse en tu biblioteca de funciones.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>5. ¿Para qué sirve evento.preventDefault() en funcionPrincipal?</summary>
+                <div class="respuesta">
+                    <p>Cancela el comportamiento por defecto del formulario al enviar (recargar la página). Así la página se queda igual y solo actualizas el div de resultado con JavaScript.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>6. ¿Qué hace JSON.parse en textoAValor?</summary>
+                <div class="respuesta">
+                    <p>Convierte un string con formato JSON (por ejemplo <code>'["x", 10, true]'</code>) en un valor de JavaScript real: aquí, un array con string, número y boolean. Si el texto no es JSON válido, lanza error y <code>entradaValida</code> lo captura.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>7. ¿Por qué entradaValida usa try y catch?</summary>
+                <div class="respuesta">
+                    <p>Porque <code>JSON.parse</code> falla si la usuaria escribe mal las comillas, olvida corchetes o pone texto suelto. El <code>catch</code> evita que el programa se rompa: en ese caso <code>valido</code> queda <code>false</code> y se muestra el mensaje de error.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>8. ¿Qué comprueba la función esArray?</summary>
+                <div class="respuesta">
+                    <p>Comprueba que el valor parseado sea un arreglo con <code>Array.isArray(valor)</code>. Así rechazas entradas como <code>42</code> o <code>"hola"</code> aunque sean JSON válido, porque el ejercicio pide un array.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>9. ¿Cómo sabe miFuncion si un elemento ya apareció antes?</summary>
+                <div class="respuesta">
+                    <p>Usa <code>yaEstaEnLista</code>, que llama a <code>lista.includes(elemento)</code>. Recorre el array original y solo hace <code>push</code> cuando <code>includes</code> devuelve false, es decir, es la primera vez que ve ese valor (con igualdad estricta).</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>10. ¿Por qué los id del HTML deben coincidir con getElementById?</summary>
+                <div class="respuesta">
+                    <p><code>getElementById("formArray")</code> busca en el documento un elemento cuyo atributo <code>id</code> sea exactamente ese texto. Si el HTML dice <code>id="formTexto"</code> y el JS busca <code>formArray</code>, obtienes <code>null</code> y el programa falla al hacer <code>addEventListener</code>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>11. ¿Qué evento escucha addEventListener y cuándo se dispara?</summary>
+                <div class="respuesta">
+                    <p>Escucha <code>"submit"</code> en el formulario. Se dispara cuando la usuaria pulsa el botón de enviar o pulsa Enter en un campo del form. Entonces se ejecuta <code>funcionPrincipal</code>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>12. ¿Cuál es la diferencia entre textContent e innerHTML para el resultado?</summary>
+                <div class="respuesta">
+                    <p><code>textContent</code> trata todo como texto plano; no interpreta etiquetas HTML. Es más seguro para mostrar el array o un mensaje de error. <code>innerHTML</code> interpretaría tags y podría ser un riesgo si algún día mostraras texto no confiable.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>13. Si el usuario escribe [1, 2, 2, 3], ¿qué guarda la variable resultado en funcionPrincipal?</summary>
+                <div class="respuesta">
+                    <p>Guarda <code>[1, 2, 3]</code>. <code>miFuncion</code> devuelve ese array; la principal no lo muestra crudo: pasa por <code>mensajeResultado</code> y <code>arrayATexto</code>, que lo convierten a string con <code>JSON.stringify</code> para el div.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>14. ¿Por qué todas las funciones de biblioteca son flecha (=>)?</summary>
+                <div class="respuesta">
+                    <p>Es la convención de tu curso y tu biblioteca: funciones constantes reutilizables, sintaxis corta y clara. Siguen siendo funciones normales con parámetros y <code>return</code>; solo cambia la forma de escribirlas respecto a <code>function nombre() {}</code>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>15. Ordena estos pasos de la funcionPrincipal: mostrar, validar, leer input, llamar miFuncion.</summary>
+                <div class="respuesta">
+                    <p>Orden correcto: (1) leer input con <code>inputArray.value</code>, (2) validar con <code>entradaValida</code>, (3) si es válido parsear y llamar <code>miFuncion(valores)</code> guardando el return en <code>resultado</code>, (4) preparar mensaje con <code>mensajeResultado</code>, (5) mostrar con <code>zonaResultado.textContent = mensaje</code>. La validación va antes de confiar en el parseo para el cálculo.</p>
+                </div>
+            </details>
+        </section>
+
+        <p style="margin-top:2rem;font-size:.9rem;color:#666;">Guía generada para el ejercicio 9.20 — Repaso funciones.</p>
+    </main>
+</body>
+</html>

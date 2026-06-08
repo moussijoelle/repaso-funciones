@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide — Compter voyelles et consonnes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <img
+            src="img/Terminal.jpg"
+            alt=""
+            class="h-full w-full object-cover object-center"
+        />
+        <div class="absolute inset-0 bg-base-100/50"></div>
+    </div>
+
+    <main class="relative mx-auto w-full max-w-3xl flex-grow p-6 pt-12 md:pt-16">
+
+        <header class="mb-8 rounded-2xl bg-base-100 px-8 py-6 text-center shadow-md">
+            <h1 class="text-xl font-semibold text-base-content md:text-2xl">
+                Guide de l'exercice
+            </h1>
+            <p class="mt-2 text-sm text-base-content/70 md:text-base">
+                Compter les voyelles et les consonnes dans une chaîne de texte
+            </p>
+        </header>
+
+        <article class="prose prose-sm max-w-none rounded-2xl border border-base-300 bg-base-100 p-8 shadow-lg md:prose-base">
+
+            <p class="lead text-base-content/80">
+                Bonjour ! Cette page explique l'exercice comme en cours, sans jargon compliqué.
+            </p>
+
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-base-content">De quoi parle l'exercice ?</h2>
+                <p>
+                    On te demande de créer une <strong>petite machine automatique</strong>
+                    (en programmation, on l'appelle une <strong>fonction</strong>).
+                    Tu lui donnes une <strong>phrase</strong> — par exemple
+                    <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">« Hola Mundo »</code> —
+                    et elle te répond combien il y a de <strong>voyelles</strong> et de
+                    <strong>consonnes</strong> dans cette phrase.
+                </p>
+                <p class="mt-3 rounded-lg bg-base-200/80 px-4 py-3 text-center font-medium text-base-content">
+                    Exemple attendu : <code>miFuncion("Hola Mundo")</code> →
+                    <span class="text-primary">Vocales: 4, Consonantes: 5</span>
+                </p>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-base-content">Les mots importants (version simple)</h2>
+
+                <dl class="mt-4 space-y-4">
+                    <div>
+                        <dt class="font-semibold text-base-content">Une chaîne de texte</dt>
+                        <dd class="mt-1 text-base-content/75">
+                            C'est juste une suite de lettres (et parfois d'espaces).
+                            Exemple : <code>"Hola Mundo"</code> — les guillemets montrent que
+                            c'est du texte pour l'ordinateur.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-base-content">Une fonction</dt>
+                        <dd class="mt-1 text-base-content/75">
+                            C'est comme une recette avec un nom. Tu lui donnes un ingrédient
+                            (ici : la phrase), elle fait le travail et te donne un résultat.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-base-content">Voyelles</dt>
+                        <dd class="mt-1 text-base-content/75">
+                            En espagnol (comme dans l'exemple), ce sont en général :
+                            <strong>a, e, i, o, u</strong> (majuscules ou minuscules :
+                            <strong>A, E, I, O, U</strong>).
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-base-content">Consonnes</dt>
+                        <dd class="mt-1 text-base-content/75">
+                            Toutes les <strong>lettres</strong> qui ne sont <strong>pas</strong>
+                            des voyelles : <strong>H, l, M, n, d</strong>, etc.
+                        </dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold text-base-content">Espaces</dt>
+                        <dd class="mt-1 text-base-content/75">
+                            Dans <code>"Hola Mundo"</code>, l'espace entre
+                            <em>Hola</em> et <em>Mundo</em> n'est ni une voyelle ni une consonne —
+                            on ne le compte généralement pas.
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-base-content">L'exemple qu'on te donne</h2>
+                <p>Phrase : <strong>« Hola Mundo »</strong></p>
+
+                <div class="mt-4 overflow-x-auto">
+                    <table class="table table-zebra table-sm w-full">
+                        <thead>
+                            <tr>
+                                <th>Lettre</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>H</td><td>consonne</td></tr>
+                            <tr><td>o</td><td>voyelle</td></tr>
+                            <tr><td>l</td><td>consonne</td></tr>
+                            <tr><td>a</td><td>voyelle</td></tr>
+                            <tr><td class="text-base-content/50">(espace)</td><td class="text-base-content/50">on ignore</td></tr>
+                            <tr><td>M</td><td>consonne</td></tr>
+                            <tr><td>u</td><td>voyelle</td></tr>
+                            <tr><td>n</td><td>consonne</td></tr>
+                            <tr><td>d</td><td>consonne</td></tr>
+                            <tr><td>o</td><td>voyelle</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ul class="mt-4 list-disc space-y-1 pl-6">
+                    <li><strong>Voyelles</strong> : o, a, u, o → <strong>4</strong></li>
+                    <li><strong>Consonnes</strong> : H, l, M, n, d → <strong>5</strong></li>
+                </ul>
+
+                <p class="mt-4">
+                    Donc ta fonction doit afficher (ou renvoyer) quelque chose comme :
+                    <strong>Vocales: 4, Consonantes: 5</strong>
+                </p>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-base-content">Ce que tu dois faire, concrètement</h2>
+                <ol class="mt-4 list-decimal space-y-2 pl-6">
+                    <li><strong>Recevoir</strong> la phrase (par exemple <code>"Hola Mundo"</code>).</li>
+                    <li><strong>Parcourir</strong> chaque caractère un par un (comme lire la phrase lettre par lettre).</li>
+                    <li>
+                        Pour chaque caractère :
+                        <ul class="mt-2 list-disc space-y-1 pl-6">
+                            <li>si c'est une <strong>lettre</strong> et une <strong>voyelle</strong> → +1 aux voyelles ;</li>
+                            <li>si c'est une <strong>lettre</strong> et une <strong>consonne</strong> → +1 aux consonnes ;</li>
+                            <li>si ce n'est <strong>pas</strong> une lettre (espace, chiffre, signe…) → souvent on <strong>ne compte pas</strong>.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Montrer</strong> le résultat final : combien de voyelles et combien de consonnes.</li>
+                </ol>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-lg font-semibold text-base-content">Pourquoi c'est un bon exercice ?</h2>
+                <p>Tu t'entraînes à :</p>
+                <ul class="mt-3 list-disc space-y-1 pl-6">
+                    <li>utiliser une <strong>fonction</strong> avec un <strong>paramètre</strong> (la phrase) ;</li>
+                    <li>faire une <strong>boucle</strong> (répéter une action pour chaque lettre) ;</li>
+                    <li>faire des <strong>conditions</strong> (« si c'est une voyelle… sinon si c'est une consonne… ») ;</li>
+                    <li>travailler avec du <strong>texte</strong> en programmation.</li>
+                </ul>
+            </section>
+
+            <section class="mt-8 rounded-xl border border-secondary/30 bg-secondary/5 p-6">
+                <h2 class="text-lg font-semibold text-base-content">Qu'est-ce qu'importer un module ?</h2>
+                <p class="mt-2 text-base-content/80">
+                    Imagine que ton programme est un <strong>grand cahier</strong> divisé en
+                    <strong>petits carnets</strong> :
+                </p>
+                <ul class="mt-3 list-disc space-y-2 pl-6 text-base-content/80">
+                    <li>Un carnet contient les fonctions pour compter les voyelles.</li>
+                    <li>Un autre contient des fonctions pour une autre page.</li>
+                    <li>
+                        Le fichier principal ne copie pas tout : il dit seulement
+                        « <em>apporte-moi ça du carnet 2</em> ».
+                    </li>
+                </ul>
+                <p class="mt-4 text-base-content/80">
+                    C'est <strong>importer un module</strong> : utiliser du code qui est dans
+                    <strong>un autre fichier</strong>, sans tout coller au même endroit.
+                </p>
+                <p class="mt-4 text-sm text-base-content/70">
+                    Dans ton exercice actuel, tu as un seul fichier <code>app.js</code> relié au HTML —
+                    tu n'as <strong>pas besoin</strong> d'importer de module. Le bloc
+                    « importation de modules » reste vide, et c'est normal.
+                </p>
+            </section>
+
+            <section class="mt-8 rounded-xl border border-accent/30 bg-accent/5 p-6">
+                <h2 class="text-lg font-semibold text-base-content">Ta bibliothèque de fonctions</h2>
+                <p class="mt-2 text-base-content/80">
+                    Voici l'organisation que tu vises — et c'est la bonne :
+                </p>
+                <ul class="mt-4 space-y-2 font-mono text-sm text-base-content/90">
+                    <li><strong>esVocal</strong> → dit seulement si une lettre est une voyelle</li>
+                    <li><strong>esLetra</strong> → dit seulement si c'est une lettre</li>
+                    <li><strong>contarVocales</strong> → compte les voyelles dans un texte</li>
+                    <li><strong>contarConsonantes</strong> → compte les consonnes dans un texte</li>
+                    <li><strong>formatearResultado</strong> → fabrique le message « Vocales: X, Consonantes: Y »</li>
+                    <li class="list-none pt-2 font-sans text-base"><strong>funcionMain</strong> → seule à lire l'input et écrire dans <code>#resultado</code></li>
+                </ul>
+                <p class="mt-4 text-base-content/80">
+                    C'est une <strong>bibliothèque</strong> : des fonctions <strong>indépendantes</strong>
+                    (elles ne touchent pas au DOM ; elles reçoivent des données et renvoient quelque chose).
+                </p>
+                <p class="mt-3 text-base-content/80">
+                    <strong>funcionMain</strong> est le <strong>directeur</strong> : il appelle la bibliothèque
+                    et fait le lien entre le HTML et la logique.
+                </p>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Comment savoir si une fonction est « de bibliothèque » ?</h3>
+                <p class="mt-2 text-base-content/80">Pose-toi ces questions :</p>
+                <ol class="mt-3 list-decimal space-y-2 pl-6 text-base-content/80">
+                    <li>A-t-elle une <strong>entrée</strong> claire ? (texte, lettre, nombres…)</li>
+                    <li>A-t-elle une <strong>sortie</strong> claire ? (<code>return</code> avec un nombre, un booléen ou une chaîne)</li>
+                    <li>N'utilise-t-elle <strong>pas</strong> <code>document</code>, <code>getElementById</code>, ni <code>innerHTML</code> ?</li>
+                </ol>
+                <ul class="mt-4 list-disc space-y-1 pl-6 text-base-content/80">
+                    <li>Si les trois réponses sont <strong>oui</strong> → fonction de bibliothèque.</li>
+                    <li>Si elle touche le DOM → seulement <strong>funcionMain</strong> (ou très peu de fonctions « de page »).</li>
+                </ul>
+            </section>
+
+            <section class="mt-8 rounded-xl border border-info/30 bg-info/5 p-6">
+                <h2 class="text-lg font-semibold text-base-content">Cómo decidir qué funciones necesitas (método)</h2>
+
+                <h3 class="mt-4 text-base font-semibold text-base-content">Resumen del flujo</h3>
+                <div class="mt-3 rounded-lg bg-base-200/70 px-4 py-3 font-mono text-sm text-base-content/90">
+                    Usuario → submit → funcionMain<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lee inputTexto.value<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contarVocales / contarConsonantes<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;formatearResultado<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br />
+                    &nbsp;&nbsp;zonaResultado.textContent = mensaje
+                </div>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Método humano para descubrir las funciones</h3>
+                <ol class="mt-3 list-decimal space-y-2 pl-6 text-base-content/80">
+                    <li>
+                        Escribe el flujo en pasos (<strong>entrada → proceso → salida</strong>).
+                        <div class="mt-2 text-sm text-base-content/70">
+                            Entrada: texto del input (<code>cadena</code>). Proceso: contar vocales y consonantes. Salida: mostrar <code>Vocales: X, Consonantes: Y</code>.
+                        </div>
+                    </li>
+                    <li>
+                        Cada bloque que sea <strong>una tarea sola</strong> suele ser una función.
+                        <div class="mt-2 text-sm text-base-content/70">
+                            Ejemplos: “decidir si una letra es vocal”, “contar vocales”, “construir el texto final”, “leer input y escribir en pantalla”.
+                        </div>
+                    </li>
+                    <li>
+                        Si hay condiciones repetidas, sepáralas.
+                        <div class="mt-2 text-sm text-base-content/70">
+                            En este ejercicio se repiten: “¿es letra?” y “¿es vocal?” → salen <code>esLetra</code> y <code>esVocal</code>.
+                        </div>
+                    </li>
+                    <li>
+                        Separa <strong>lógica</strong> de <strong>DOM</strong>.
+                        <div class="mt-2 text-sm text-base-content/70">
+                            Biblioteca (sin DOM): contar/formatear. Una sola función toca la página: <code>funcionMain</code>.
+                        </div>
+                    </li>
+                    <li>
+                        Truco práctico: empieza con todo en <code>funcionMain</code> y luego extrae funciones pequeñas.
+                        <div class="mt-2 text-sm text-base-content/70">
+                            Cada vez que una parte se repite o crece, la sacas a una función con entrada y salida claras.
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Aplicado a este ejercicio</h3>
+                <ul class="mt-3 list-disc space-y-1 pl-6 text-base-content/80">
+                    <li><code>esVocal(letra)</code>: regla clara “vocal sí/no”.</li>
+                    <li><code>esLetra(caracter)</code>: para no contar espacios/símbolos.</li>
+                    <li><code>contarVocales(cadena)</code>: objetivo único: contar vocales.</li>
+                    <li><code>contarConsonantes(cadena)</code>: objetivo único: contar consonantes.</li>
+                    <li><code>formatearResultado(vocales, consonantes)</code>: construir el texto final.</li>
+                    <li><code>funcionMain(event)</code>: leer el input y escribir en <code>#resultado</code>.</li>
+                </ul>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Entonces… ¿una función es una tarea?</h3>
+                <p class="mt-2 text-base-content/80">
+                    Sí: una función suele ser una <strong>tarea</strong> con <strong>entrada</strong>, <strong>proceso</strong> y <strong>salida</strong>.
+                    La buena tarea es la que está bien definida y no intenta hacer muchas cosas a la vez.
+                </p>
+            </section>
+
+            <section class="mt-8 rounded-xl border border-success/30 bg-success/5 p-6">
+                <h2 class="text-lg font-semibold text-base-content">Explication “comme une prof” (autre façon)</h2>
+
+                <h3 class="mt-4 text-base font-semibold text-base-content">L'idée principale</h3>
+                <p class="mt-2 text-base-content/80">
+                    Une fonction, c'est comme un <strong>mini-exercice</strong> à l'intérieur de l'exercice :
+                    une petite chose claire que tu peux répéter et réutiliser.
+                </p>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Comparaison 1 : la cuisine</h3>
+                <p class="mt-2 text-base-content/80">
+                    Imagine que tu cuisines « pâtes avec sauce ».
+                </p>
+                <ul class="mt-3 list-disc space-y-1 pl-6 text-base-content/80">
+                    <li>Le plat complet = ton programme / ta page.</li>
+                    <li>Une fonction = une étape de la recette.</li>
+                </ul>
+                <p class="mt-3 text-base-content/80">
+                    Exemples :
+                </p>
+                <ul class="mt-3 list-disc space-y-1 pl-6 text-base-content/80">
+                    <li><code>esVocal(letra)</code> = « est-ce une voyelle ? » → répond <strong>oui/non</strong>.</li>
+                    <li><code>contarVocales(texto)</code> = « combien de voyelles ? » → répond un <strong>nombre</strong>.</li>
+                    <li><code>formatearResultado(...)</code> = « présenter le résultat » → répond un <strong>texte</strong>.</li>
+                    <li><code>funcionMain()</code> = « la personne qui cuisine » : elle lit l'input et écrit sur la page.</li>
+                </ul>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Comparaison 2 : une petite usine</h3>
+                <p class="mt-2 text-base-content/80">
+                    Pense à une usine :
+                    <strong>entrée</strong> (ce que tu donnes) → <strong>machine</strong> (la fonction) → <strong>sortie</strong> (ce qu'elle renvoie).
+                </p>
+                <p class="mt-3 text-base-content/80">
+                    Exemple : entrée <code>\"Hola Mundo\"</code> → machine <code>contarVocales</code> → sortie <code>4</code>.
+                </p>
+
+                <h3 class="mt-6 text-base font-semibold text-base-content">Règle d'or (bibliothèque vs page)</h3>
+                <p class="mt-2 text-base-content/80">
+                    Si une fonction n'a pas besoin de <code>document</code> / <code>getElementById</code> et fonctionne sans HTML,
+                    alors c'est une fonction de <strong>bibliothèque</strong>.
+                    Si elle lit/écrit sur la page, c'est plutôt la <strong>fonction principale</strong> (<code>funcionMain</code>).
+                </p>
+            </section>
+
+            <section class="mt-8 rounded-xl border border-primary/30 bg-primary/5 p-6">
+                <h2 class="text-lg font-semibold text-base-content">Une image mentale</h2>
+                <p class="mt-2 text-base-content/80">
+                    Imagine que tu lis la phrase à voix haute, lettre par lettre, avec deux boîtes
+                    devant toi : une pour les voyelles, une pour les consonnes. À chaque lettre,
+                    tu mets un caillou dans la bonne boîte. À la fin, tu comptes les cailloux
+                    dans chaque boîte.
+                </p>
+            </section>
+
+        </article>
+
+        <p class="mt-6 text-center text-sm text-base-content/60">
+            <a href="index.html" class="link link-primary">← Retour à l'exercice</a>
+        </p>
+
+    </main>
+
+</body>
+</html>

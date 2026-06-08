@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de temperatura</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p,
+        h1,
+        h2,
+        h3 {
+          @apply mb-2 leading-relaxed text-stone-700;
+        }
+        h1,
+        h2,
+        h3 {
+          @apply mt-2 font-bold text-amber-900/90;
+        }
+        input,
+        select {
+          @apply rounded-sm border-1 border-slate-300 text-slate-800 font-mono;
+        }
+        input,
+        select,
+        label {
+          @apply inline-block max-sm:block max-sm:w-full sm:flex-1 sm:pl-4;
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-b from-yellow-500 to-green-500 px-3 py-3 sm:px-4 sm:py-4">
+    <main
+      class="min-h-[calc(100dvh-1.5rem)] w-full min-w-0 max-w-2xl mx-auto flex flex-col justify-start items-center px-3 pt-6 pb-6 overflow-x-hidden
+      sm:px-6 sm:pt-10 md:px-8 sm:min-h-screen bg-white rounded-lg"
+    >
+      <h1
+        class="max-w-prose w-full text-balance rounded-lg bg-blue-600 px-4 py-3 text-center text-xl font-bold text-white sm:text-2xl md:text-3xl"
+      >
+        🌡️ <strong class="font-bold text-yellow-300">Celsius</strong> y <strong class="font-bold text-yellow-300">Fahrenheit</strong>
+      </h1>
+
+      <p class="mt-8 max-w-prose text-center text-2xl text-yellow-700">
+        Escribe una temperatura, elige la unidad y pulsa <strong>Convertir</strong>.
+      </p>
+
+      <p class="mt-10 w-full max-w-md rounded-lg bg-blue-600 px-3 py-3 text-white sm:mt-12 sm:px-4">
+        <span class="flex flex-wrap items-center gap-2">
+          <label class="font-medium text-white shrink-0" for="temperatura">Temperatura:</label>
+          <input
+            class="max-w-[8rem] rounded-md border-2 border-white bg-white text-blue-900 outline-none focus:ring-2 focus:ring-yellow-300 placeholder:text-blue-300"
+            type="number"
+            id="temperatura"
+            name="temperatura"
+            step="any"
+            placeholder="ej. 0"
+          />
+        </span>
+
+        <span class="mt-3 flex flex-wrap items-center gap-2 sm:mt-4">
+          <label class="font-medium text-white shrink-0" for="unidad">Unidad:</label>
+          <select
+            class="rounded-md border-2 border-white bg-white text-blue-900"
+            id="unidad"
+            name="unidad"
+          >
+            <option value="C">ej. °C</option>
+            <option value="F">ej. °F</option>
+          </select>
+        </span>
+      </p>
+
+      <button
+        id="btnConvertir"
+        type="button"
+        class="mt-4 min-h-[44px] min-w-[8rem] touch-manipulation rounded-lg border-0 bg-blue-600 px-4 py-2 text-base font-semibold text-white hover:bg-blue-700"
+      >
+        Convertir
+      </button>
+
+      <p
+        id="mensaje"
+        class="mt-4 min-h-[1.5rem] w-full max-w-lg px-2 text-center text-base font-medium text-blue-700 sm:text-lg"
+        aria-live="polite"
+      ></p>
+
+      <div class="mt-auto flex w-full justify-center pt-8">
+        <img
+          src="img/tiempo.gif"
+          alt="Ilustración de temperatura"
+          class="h-auto w-full max-w-sm rounded-lg sm:max-w-md md:max-w-lg"
+          loading="lazy"
+        />
+      </div>
+    </main>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

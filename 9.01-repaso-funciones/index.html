@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="coffee">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contar caracteres de una cadena de texto</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <img
+        src="img/bg.svg"
+        alt=" background image"
+        class="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover object-top"
+        aria-hidden="true"
+    />
+
+    <main class="relative flex flex-grow flex-col items-center p-6 pt-12 md:pt-16">
+
+        <h1 class="mb-10 w-full max-w-6xl rounded-2xl bg-base-100 px-8 py-4 text-center text-sm font-medium text-base-content/75 shadow-md sm:text-base md:mb-12 md:text-lg">
+            Programa una función que cuente el número de caracteres de una cadena de texto
+        </h1>
+
+        <section class="flex w-full flex-grow items-center justify-center">
+
+            <div class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-lg">
+                <form id="formtexto" class="card-body gap-6">
+
+                    <div class="form-control">
+                        <label class="mb-2 block text-sm font-medium text-base-content/75" for="texto">
+                            Introduce una frase
+                        </label>
+                        <input
+                            type="text"
+                            id="texto"
+                            name="texto"
+                            required
+                            placeholder="Ej: Hola Mundo"
+                            class="input input-bordered input-primary w-full bg-base-200 text-center text-3xl font-semibold"
+                        />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        contar
+                    </button>
+
+                    <div id="resultado" class="flex min-h-[100px] items-center justify-center"></div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
+

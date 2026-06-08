@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide — Valider un nom</title>
+    <style>
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            line-height: 1.6;
+            max-width: 42rem;
+            margin: 2rem auto;
+            padding: 0 1.25rem;
+            color: #2d2d2d;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.15rem; margin-top: 1.75rem; color: #4a3040; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid #ddd; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background: #f5eef1; }
+        code { background: #f4f4f4; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre { background: #f4f4f4; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+        hr { border: none; border-top: 1px solid #e0d0d8; margin: 1.5rem 0; }
+        .resumen { background: #faf6f8; padding: 1rem; border-left: 4px solid #cb839a; margin-top: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <h1>L'exercice, expliqué simplement (en français)</h1>
+
+    <p>Bonjour ! Imagine que l'ordinateur ne sait pas lire comme toi : il ne « comprend » pas un prénom ou un nom de famille. Il voit seulement une <strong>chaîne de caractères</strong> — des lettres, des espaces, des chiffres, etc.</p>
+
+    <p>Ton exercice te demande de créer une <strong>petite règle automatique</strong> (une <strong>fonction</strong>) qui répond à une seule question :</p>
+
+    <blockquote>
+        <em>« Est-ce que ce texte ressemble à un nom de personne acceptable ? »</em>
+    </blockquote>
+
+    <hr>
+
+    <h2>C'est quoi une « fonction » ?</h2>
+
+    <p>Pense à une <strong>machine à café</strong> :</p>
+    <ol>
+        <li>Tu lui donnes quelque chose (<strong>entrée</strong>) : par exemple le texte <code>"Anita de la Rosa D'Onoffrio "</code>.</li>
+        <li>La machine fait un travail précis (<strong>traitement</strong>) : elle vérifie caractère par caractère.</li>
+        <li>Elle te rend une réponse (<strong>sortie</strong>) : <strong>vrai</strong> ou <strong>faux</strong> (en programmation : <code>true</code> / <code>false</code>).</li>
+    </ol>
+
+    <p>En JavaScript, ça ressemblerait à l'idée :</p>
+
+    <pre><code>miFuncion("Anita de la Rosa D'Onoffrio ")  // → true (si tout est valide)
+miFuncion("Ana123")                        // → false (il y a des chiffres)</code></pre>
+
+    <p>Tu ne « montres » pas le résultat à l'écran dans l'exercice de base : la fonction <strong>retourne</strong> juste vrai ou faux. C'est le cœur du travail.</p>
+
+    <hr>
+
+    <h2>Qu'est-ce qu'un nom « valide » ici ?</h2>
+
+    <p>L'énoncé dit : <strong>seulement des lettres et des apostrophes</strong> (<code>'</code>).</p>
+
+    <ul>
+        <li><strong>Lettres</strong> : <code>A</code>, <code>n</code>, <code>í</code>, <code>é</code>, etc. (souvent aussi les lettres accentuées des noms espagnols ou français).</li>
+        <li><strong>Apostrophe</strong> : le petit signe dans des noms comme <strong>D'Onoffrio</strong> ou <strong>O'Brien</strong>.</li>
+    </ul>
+
+    <p><strong>Ce qui ne devrait pas être accepté</strong> (en principe) :</p>
+    <ul>
+        <li>des <strong>chiffres</strong> : <code>Ana3</code></li>
+        <li>des <strong>symboles</strong> : <code>@</code>, <code>#</code>, <code>-</code> (sauf si ton professeur les autorise explicitement)</li>
+        <li>parfois la <strong>ponctuation</strong> : <code>.</code>, <code>,</code>, <code>!</code></li>
+    </ul>
+
+    <hr>
+
+    <h2>Le piège de l'exemple (important)</h2>
+
+    <p>Ton exemple :</p>
+    <p><code>"Anita de la Rosa D'Onoffrio "</code></p>
+
+    <p>contient des <strong>espaces</strong> entre les mots et un <strong>espace à la fin</strong>.</p>
+
+    <p>Or l'énoncé dit « seulement lettres et apostrophes ». Donc soit :</p>
+    <ol>
+        <li>ton professeur accepte aussi les <strong>espaces</strong> entre les mots (très courant pour les noms complets),</li>
+        <li>soit il faut <strong>ignorer les espaces au début et à la fin</strong> (trim) et peut‑être autoriser les espaces entre les mots.</li>
+    </ol>
+
+    <p><strong>À clarifier avec ton professeur</strong> : les espaces sont-ils autorisés ? Sans ça, l'exemple <code>"Anita de la Rosa..."</code> ne pourrait pas renvoyer <code>true</code> avec la règle stricte « lettres + apostrophes uniquement ».</p>
+
+    <hr>
+
+    <h2>Comment la machine « vérifie » (sans code compliqué)</h2>
+
+    <p>Imagine que tu lis le texte <strong>lettre par lettre</strong>, comme un professeur qui corrige une copie :</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Caractère</th>
+                <th>Verdict</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>A</code>, <code>n</code>, <code>í</code></td><td>OK</td></tr>
+            <tr><td><code>'</code> dans D'Onoffrio</td><td>OK</td></tr>
+            <tr><td>espace (si autorisé)</td><td>OK</td></tr>
+            <tr><td><code>5</code></td><td><strong>Pas OK</strong> → tout le nom est invalide</td></tr>
+            <tr><td><code>@</code></td><td><strong>Pas OK</strong></td></tr>
+        </tbody>
+    </table>
+
+    <p>Si <strong>tous</strong> les caractères passent la règle → la fonction renvoie <strong>vrai</strong>.<br>
+    Dès qu'<strong>un seul</strong> caractère est interdit → <strong>faux</strong>.</p>
+
+    <hr>
+
+    <h2>Pourquoi on fait cet exercice ?</h2>
+
+    <p>Ce n'est pas seulement pour les noms. Tu t'entraînes à :</p>
+    <ol>
+        <li><strong>Découper un problème</strong> : « qu'est-ce qui est autorisé ? »</li>
+        <li><strong>Parcourir du texte</strong> caractère par caractère (ou utiliser une expression régulière plus tard).</li>
+        <li><strong>Retourner un booléen</strong> : oui/non, valide/invalide.</li>
+        <li><strong>Tester des cas</strong> : nom simple, nom avec apostrophe, nom avec chiffre, chaîne vide, etc.</li>
+    </ol>
+
+    <p>C'est la base de beaucoup de formulaires sur le web (inscription, réservation, etc.).</p>
+
+    <hr>
+
+    <h2>Les 3 éléments du DOM utilisés par JavaScript (<code>getElementById</code>)</h2>
+
+    <p>Dans <code>index.html</code>, seuls ces trois éléments ont un <code>id</code> et sont reliés au JS dans la section <strong>DECLARACIÓN DE VARIABLES</strong> de <code>app.js</code> :</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th><code>id</code> dans le HTML</th>
+                <th>Balise</th>
+                <th>Variable dans <code>app.js</code></th>
+                <th>À quoi ça sert</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>formTexto</code></td>
+                <td><code>&lt;form&gt;</code></td>
+                <td><code>formulario</code></td>
+                <td>Écouter l'envoi du formulaire (<code>submit</code>)</td>
+            </tr>
+            <tr>
+                <td><code>texto</code></td>
+                <td><code>&lt;input type="text"&gt;</code></td>
+                <td><code>inputNombre</code></td>
+                <td>Lire le nom saisi par l'utilisatrice</td>
+            </tr>
+            <tr>
+                <td><code>resultado</code></td>
+                <td><code>&lt;div&gt;</code></td>
+                <td><code>zonaResultado</code></td>
+                <td>Afficher «&nbsp;verdadero&nbsp;» ou «&nbsp;falso&nbsp;»</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>À retenir :</strong> seule la <strong>fonction principale</strong> (<code>funcionPrincipal</code>) modifie le DOM (lit <code>inputNombre</code>, écrit dans <code>zonaResultado</code>). Le bouton <em>Validar</em> n'a pas besoin de <code>id</code> : il déclenche le <code>submit</code> du <code>formulario</code>.</p>
+
+    <hr>
+
+    <h2>Colores del botón Validar (códigos hex y clases)</h2>
+
+    <p>Son los <strong>códigos de color</strong> que usa el botón. Cada uno pinta una parte distinta.</p>
+
+    <h3>Colores con <code>#</code> (hex) — botón azul (actual)</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Cómo se ve (aprox.)</th>
+                <th>Dónde se usa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>#7ec8e8</code></td>
+                <td>Azul claro, tipo cielo</td>
+                <td>Fondo y borde del botón <em>Validar</em></td>
+            </tr>
+            <tr>
+                <td><code>#5eb8e0</code></td>
+                <td>Azul un poco más intenso</td>
+                <td>Mismo botón cuando pasas el ratón (<strong>hover</strong>)</td>
+            </tr>
+            <tr>
+                <td><code>#a8d8f0</code></td>
+                <td>Azul aún más claro, casi pastel</td>
+                <td>Alternativa si quieres el botón más suave</td>
+            </tr>
+            <tr>
+                <td><code>#0a2a4a</code></td>
+                <td>Azul muy oscuro, casi marino</td>
+                <td>Color del texto «Validar» (para que se lea bien)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Colores anteriores (rosas)</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Cómo se ve</th>
+                <th>Dónde estaban</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>#cb839a</code></td>
+                <td>Rosa / malva</td>
+                <td>Fondo del botón antiguo</td>
+            </tr>
+            <tr>
+                <td><code>#b86d88</code></td>
+                <td>Rosa más oscuro</td>
+                <td>Hover del botón antiguo</td>
+            </tr>
+            <tr>
+                <td><code>#3d2030</code></td>
+                <td>Marrón oscuro / burdeos</td>
+                <td>Texto del botón antiguo</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>En la clase del botón, qué significa cada palabra</h3>
+
+    <pre><code>border-[#7ec8e8]   → color del borde
+bg-[#7ec8e8]       → color de fondo (background)
+text-[#0a2a4a]     → color del texto
+hover:border-...   → borde al pasar el ratón
+hover:bg-...       → fondo al pasar el ratón
+hover:text-...     → texto al pasar el ratón</code></pre>
+
+    <p><code>[#7ec8e8]</code> es la forma en <strong>Tailwind</strong> de decir: «usa este color exacto».</p>
+
+    <h3>Colores Tailwind (nombres, sin <code>#</code>)</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Clase</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>sky-300</code></td><td>Azul cielo claro (fondo)</td></tr>
+            <tr><td><code>sky-400</code></td><td>Azul cielo un poco más fuerte (hover)</td></tr>
+            <tr><td><code>sky-950</code></td><td>Azul casi negro (texto)</td></tr>
+            <tr><td><code>border-</code></td><td>Borde</td></tr>
+            <tr><td><code>bg-</code></td><td>Fondo</td></tr>
+            <tr><td><code>text-</code></td><td>Texto</td></tr>
+        </tbody>
+    </table>
+
+    <p><code>sky</code> = familia de azules «cielo», parecida al fondo <code>noche.webp</code>.</p>
+
+    <div class="resumen">
+        <p><strong>Resumen :</strong> no son nombres raros de programa: son <em>pinturas</em> — un azul claro para el botón, un azul un poco más oscuro al hover, y un azul oscuro para las letras, para que se vean bien sobre el claro (como el tono del fondo <code>noche.webp</code>). Si quieres un solo azul para todo el botón, se puede simplificar; ahora hay varios tonos para que se note al pasar el ratón.</p>
+    </div>
+
+    <hr>
+
+    <div class="resumen">
+        <h2>Résumé en une phrase</h2>
+        <p>Tu dois écrire une <strong>fonction juge</strong> : elle reçoit un texte, vérifie que chaque caractère respecte les règles du nom (lettres, apostrophes, et probablement les espaces selon ton cours), et répond <code>true</code> si tout va bien, <code>false</code> sinon.</p>
+    </div>
+
+</body>
+</html>

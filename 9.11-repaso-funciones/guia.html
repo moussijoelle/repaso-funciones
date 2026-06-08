@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — Conversion binaire ↔ décimal</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-soft: #1f3a5f;
+      --border: #30363d;
+      --ok: #3fb950;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 2rem;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    ul, ol {
+      margin: 0 0 1rem;
+      padding-left: 1.35rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    code {
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.9em;
+      background: var(--surface);
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--ok);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background: var(--surface);
+    }
+
+    .box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .box strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .summary {
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    .examples {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0.75rem 0 0;
+    }
+
+    .examples div {
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg);
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>De quoi parle l’exercice ?</h1>
+    <p class="subtitle">Repaso funciones — Conversion binaire ↔ décimal</p>
+
+    <p>
+      Tu dois écrire une <strong>fonction</strong> (un petit « outil » réutilisable dans ton programme)
+      qui change la façon d’écrire un nombre.
+    </p>
+
+    <ul>
+      <li>
+        Les humains comptent surtout en <strong>base 10</strong> (décimal) :
+        0, 1, 2, …, 9, puis 10, 11, etc.
+      </li>
+      <li>
+        Les ordinateurs travaillent souvent en <strong>base 2</strong> (binaire) :
+        seulement <strong>0</strong> et <strong>1</strong>.
+      </li>
+    </ul>
+
+    <h2>Ce que demande l’exercice</h2>
+
+    <h3 style="font-size: 1rem; margin: 1.25rem 0 0.5rem;">1. Binaire → décimal</h3>
+    <p>
+      Exemple : <code>miFuncion(100, 2)</code> — le <code>100</code> est lu en binaire,
+      et la fonction doit renvoyer <strong>4</strong> en décimal.
+    </p>
+
+    <h3 style="font-size: 1rem; margin: 1.25rem 0 0.5rem;">2. Décimal → binaire (vice versa)</h3>
+    <p>
+      Si tu donnes <strong>4</strong> en base 10, la fonction doit pouvoir renvoyer
+      quelque chose comme <code>100</code> en base 2
+      (nombre ou texte <code>"100"</code>, selon les consignes du prof).
+    </p>
+
+    <h2>Pourquoi 100 en binaire = 4 en décimal ?</h2>
+    <p>
+      En binaire, chaque chiffre a une « valeur » selon sa position (de droite à gauche) :
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Chiffre dans 100</th>
+          <th>Valeur (puissances de 2)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1er chiffre à droite</td>
+          <td>0</td>
+          <td>2⁰ = 1</td>
+        </tr>
+        <tr>
+          <td>2e</td>
+          <td>0</td>
+          <td>2¹ = 2</td>
+        </tr>
+        <tr>
+          <td>3e (à gauche)</td>
+          <td>1</td>
+          <td>2² = 4</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Pour <code>100</code> (binaire) :</p>
+    <ul>
+      <li>le <strong>1</strong> le plus à gauche → 1 × 4 = <strong>4</strong></li>
+      <li>les <strong>0</strong> → 0 × 2 et 0 × 1 = <strong>0</strong></li>
+    </ul>
+    <p><strong>Total :</strong> 4 + 0 + 0 = <strong>4</strong> en décimal.</p>
+    <p>
+      C’est comme dire : « ce nombre, écrit avec des 0 et des 1,
+      vaut combien si on le lit comme un nombre normal ? »
+    </p>
+
+    <h2>À quoi sert le 2 dans miFuncion(100, 2) ?</h2>
+    <p>
+      Le <code>2</code> indique : <em>« le nombre que je t’envoie est en base 2 (binaire) »</em>.
+    </p>
+
+    <div class="box">
+      <strong>Exemples courants</strong>
+      <div class="examples">
+        <div>miFuncion(100, 2) → « 100 est en binaire » → résultat <strong>4</strong></div>
+        <div>miFuncion(4, 10) → « 4 est en décimal » → résultat <strong>100</strong> ou <strong>"100"</strong></div>
+      </div>
+    </div>
+
+    <p>
+      Le deuxième paramètre dit donc <strong>dans quelle base tu donnes le nombre</strong>
+      (ou vers quelle base tu veux aller — selon les consignes exactes du prof).
+    </p>
+
+    <h2>Qu’est-ce qu’une « fonction », en mots simples ?</h2>
+    <p>Une fonction, c’est une <strong>boîte</strong> :</p>
+    <ol>
+      <li>tu lui <strong>donnes</strong> des infos (les <strong>paramètres</strong> : le nombre + la base),</li>
+      <li>elle <strong>fait le calcul</strong>,</li>
+      <li>elle te <strong>rend le résultat</strong> (<code>return</code>).</li>
+    </ol>
+    <p>
+      Comme une calculatrice personnalisée : tu appelles <code>miFuncion(...)</code>,
+      elle te répond sans refaire le calcul à la main à chaque fois.
+    </p>
+
+    <h2>Ce que tu dois apprendre / montrer</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Idée</th>
+          <th>En simple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bases numériques</td>
+          <td>Même quantité, écriture différente (2 chiffres vs 10 chiffres)</td>
+        </tr>
+        <tr>
+          <td>Conversion</td>
+          <td>Traduire d’une écriture à l’autre</td>
+        </tr>
+        <tr>
+          <td>Fonction</td>
+          <td>Code réutilisable avec entrée → sortie</td>
+        </tr>
+        <tr>
+          <td>Paramètres</td>
+          <td>Le nombre + la base (ou le sens de conversion)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Petit piège à clarifier avec ton prof</h2>
+    <ul>
+      <li>
+        Est-ce que <code>100</code> en binaire doit être passé comme nombre <code>100</code>
+        ou comme texte <code>"100"</code> ?
+        En JavaScript, <code>100</code> tout seul, c’est déjà « cent » en décimal.
+        Souvent on utilise <code>"100"</code> (chaîne de caractères) pour le binaire.
+      </li>
+      <li>
+        Pour le retour en binaire : nombre <code>100</code> ou texte <code>"100"</code> ?
+        Demande-lui si ce n’est pas écrit sur l’énoncé.
+      </li>
+    </ul>
+
+    <div class="summary">
+      <p><strong>En résumé</strong></p>
+      <p>
+        Tu construis un <strong>traducteur</strong> entre le langage des ordinateurs (0 et 1)
+        et le langage habituel (0 à 9), <strong>dans les deux sens</strong>.
+      </p>
+    </div>
+
+    <footer>
+      Guide pour l’exercice 9.11 — Repaso funciones.
+      Ouvre <a href="index.html">index.html</a> pour le code de la fonction.
+    </footer>
+  </main>
+</body>
+</html>

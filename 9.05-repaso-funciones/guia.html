@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía — Invertir palabras (9.5)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap"
+    rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inclusive Sans", system-ui, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #f1f5f9;
+    }
+    main {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    header.guia-header {
+      background: #fff;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+    }
+    h1 { font-size: 1.5rem; margin: 0 0 0.5rem; color: #0f172a; }
+    .subtitle { color: #64748b; margin: 0 0 1rem; font-size: 0.95rem; }
+    nav.guia-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; }
+    nav.guia-nav a {
+      padding: 0.25rem 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      color: #334155;
+      text-decoration: none;
+      background: #f8fafc;
+    }
+    nav.guia-nav a:hover { background: #e2e8f0; }
+    nav.guia-nav a.primary { background: #368570; color: #fff; border-color: #368570; }
+    article.section {
+      background: #fff;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.06);
+    }
+    h2 { font-size: 1.2rem; margin: 0 0 0.75rem; color: #334155; }
+    h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; color: #475569; }
+    p { margin: 0 0 0.75rem; }
+    ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    code {
+      font-size: 0.88em;
+      background: #f1f5f9;
+      padding: 0.1em 0.35em;
+      border-radius: 0.25rem;
+    }
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
+    th, td { border: 1px solid #e2e8f0; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-weight: 600; }
+    .line-table .head {
+      display: grid;
+      grid-template-columns: 3rem 1fr 1.4fr;
+      gap: 0.5rem;
+      font-weight: 600;
+      background: #e2e8f0;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem 0.5rem 0 0;
+      font-size: 0.85rem;
+    }
+    .line-table .row {
+      display: grid;
+      grid-template-columns: 3rem 1fr 1.4fr;
+      gap: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.82rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .line-table .row:nth-child(even) { background: #f8fafc; }
+    .line-table .row code { font-size: 0.78rem; word-break: break-word; }
+    .caja-verde {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1rem 0;
+    }
+    .caja-azul {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1rem 0;
+    }
+    .caja-naranja {
+      background: #fff7ed;
+      border-left: 4px solid #f97316;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1rem 0;
+    }
+    .biblio-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .biblio-card h4 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+    details {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.65rem;
+      background: #fafafa;
+    }
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+    }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary .chevron { transform: rotate(90deg); }
+    .chevron { display: inline-block; transition: transform 0.15s; margin-right: 0.35rem; }
+    details .respuesta {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .divider { height: 1px; background: #e2e8f0; margin: 1.5rem 0; }
+    .ejemplo { text-align: center; font-size: 1.1rem; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem; }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header class="guia-header">
+      <h1>Guía del ejercicio 9.5 — Invertir palabras</h1>
+      <p class="subtitle">
+        <a href="index.html">Abrir la aplicación</a>
+        · Enunciado: <code>miFuncion("Hola Mundo")</code> → <code>"odnuM aloH"</code>
+      </p>
+      <nav class="guia-nav">
+        <a href="#enunciado">Enunciado</a>
+        <a href="#pizarra">Pizarra del profe</a>
+        <a href="#independientes">¿Independientes?</a>
+        <a href="#estructura">Estructura JS</a>
+        <a href="#html">HTML línea a línea</a>
+        <a href="#js">JS línea a línea</a>
+        <a href="#biblioteca">Biblioteca reutilizable</a>
+        <a href="#test" class="primary">Test (15 preguntas)</a>
+      </nav>
+    </header>
+
+    <article class="section" id="enunciado">
+      <h2>Enunciado del ejercicio</h2>
+      <p>Programa una función que <strong>invierta las palabras</strong> de una cadena de texto.</p>
+      <p class="ejemplo"><code>miFuncion("Hola Mundo")</code> → <code>"odnuM aloH"</code></p>
+      <h3>Qué ocurre (dos pasos)</h3>
+      <ol>
+        <li><strong>Cada palabra</strong> se lee al revés letra por letra: Hola → aloH, Mundo → odnuM.</li>
+        <li><strong>El orden de las palabras</strong> se invierte: primero va la que era la última.</li>
+      </ol>
+      <pre>"Hola Mundo"
+  → separar     [ Hola ] [ Mundo ]
+  → invertir    [ aloH ] [ odnuM ]
+  → orden       [ odnuM ] [ aloH ]
+  → unir        "odnuM aloH"</pre>
+    </article>
+
+    <article class="section" id="pizarra">
+      <h2>La pizarra del profe (dos mundos)</h2>
+      <div class="caja-azul">
+        <p><strong>Izquierda — Biblioteca</strong> (como <code>cuentaCaracteres</code> o <code>miFuncion</code>):</p>
+        <ul>
+          <li>Solo <strong>entradas</strong> (parámetros) y <strong>salida</strong> con <code>return</code>.</li>
+          <li>Sin <code>document</code>, sin <code>getElementById</code>.</li>
+          <li><strong>Copiar y pegar</strong> en otro ejercicio sin cambiar el código.</li>
+        </ul>
+        <p><strong>Derecha — Función main + formulario</strong>:</p>
+        <ul>
+          <li>Lee el input</li>
+          <li>Validación JS</li>
+          <li>Llama a la función pertinente</li>
+          <li>Recibe la respuesta</li>
+          <li>Escribe en HTML</li>
+        </ul>
+        <p>El <code>addEventListener</code> solo dispara el main cuando el usuario hace clic.</p>
+      </div>
+    </article>
+
+    <article class="section" id="independientes">
+      <h2>¿Todas las funciones son independientes 100 %?</h2>
+      <p><strong>No.</strong> Y es normal. Lo que pide el curso es separar bien las capas.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Función</th>
+            <th>¿Independiente 100 %?</th>
+            <th>¿Copiar sin cambiar dentro?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>invertirPalabra</code></td>
+            <td>Sí</td>
+            <td>Sí — solo string → string</td>
+          </tr>
+          <tr>
+            <td><code>miFuncion</code></td>
+            <td>Sí</td>
+            <td>Sí — prueba: <code>miFuncion("Hola Mundo")</code></td>
+          </tr>
+          <tr>
+            <td><code>leerTexto</code></td>
+            <td>No (usa DOM)</td>
+            <td>Sí el código; en otra página pasas otro <code>input</code></td>
+          </tr>
+          <tr>
+            <td><code>mostrarTexto</code></td>
+            <td>No (usa DOM)</td>
+            <td>Sí el código; pasas otro elemento</td>
+          </tr>
+          <tr>
+            <td><code>funcionMain</code></td>
+            <td>No</td>
+            <td>Plantilla: en otro ejercicio cambias <code>miFuncion</code> por otra biblioteca</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="caja-naranja">
+        <p><strong>Frase para clase:</strong> La lógica del ejercicio (<code>miFuncion</code>) es independiente. La web siempre necesita código que lea inputs y escriba en pantalla; eso no puede ser 100 % puro sin HTML.</p>
+      </div>
+    </article>
+
+    <article class="section" id="estructura">
+      <h2>Estructura de <code>app.js</code> (siempre igual)</h2>
+      <ol>
+        <li><strong>Declaración de variables</strong> — <code>getElementById</code> (enlaces con el HTML).</li>
+        <li><strong>Declaración de funciones</strong> — biblioteca + ayudantes + <code>funcionMain</code>.</li>
+        <li><strong>Ejecución de código</strong> — <code>addEventListener</code>.</li>
+      </ol>
+      <pre>Usuario → clic → funcionMain
+  → leerTexto
+  → validación (vacío)
+  → miFuncion
+  → mostrarTexto → pantalla</pre>
+      <div class="caja-verde">
+        <strong>Un solo archivo</strong>
+        <p style="margin:0.5rem 0 0">Todo puede ir en <code>app.js</code>. El bloque biblioteca va arriba; lo copias a otro ejercicio sin modificarlo.</p>
+      </div>
+    </article>
+
+    <article class="section" id="html">
+      <h2>HTML — línea a línea (<code>index.html</code>)</h2>
+      <p style="font-size:0.9rem;color:#64748b">Cada fila: número · código · explicación.</p>
+      <div class="line-table">
+        <div class="head"><span>Línea</span><span>Código</span><span>Explicación</span></div>
+        <div class="row"><span>1</span><code>&lt;!DOCTYPE html&gt;</code><span>Documento HTML5.</span></div>
+        <div class="row"><span>2</span><code>&lt;html lang="es"&gt;</code><span>Raíz; idioma español para lectores de pantalla.</span></div>
+        <div class="row"><span>4</span><code>&lt;head&gt;</code><span>Cabecera: metadatos y recursos (no visible).</span></div>
+        <div class="row"><span>5</span><code>charset UTF-8</code><span>Tildes y ñ correctas.</span></div>
+        <div class="row"><span>6</span><code>viewport</code><span>Responsive en móvil.</span></div>
+        <div class="row"><span>7</span><code>&lt;title&gt;</code><span>Título de la pestaña: «Invertir palabras».</span></div>
+        <div class="row"><span>8</span><code>comentario link fuentes</code><span>Explica por qué las fuentes van en HTML (CDN rápido).</span></div>
+        <div class="row"><span>10-13</span><code>preconnect + Google Fonts</code><span>Carga la fuente Inclusive Sans.</span></div>
+        <div class="row"><span>15-16</span><code>script Tailwind browser</code><span>Utilidades CSS del proyecto (clases en el body).</span></div>
+        <div class="row"><span>18-31</span><code>&lt;style type="text/tailwindcss"&gt;</code><span><code>@theme</code>: fuente sans y color brand naranja; estilos de h1-h3.</span></div>
+        <div class="row"><span>35</span><code>&lt;body class="..."&gt;</code><span>Cuerpo visible; sin margen, fuente sans, antialiasing.</span></div>
+        <div class="row"><span>37-39</span><code>&lt;main class="container..."&gt;</code><span>Contenedor centrado, gradiente verde-azul, borde, altura mínima pantalla.</span></div>
+        <div class="row"><span>41-45</span><code>&lt;header&gt; &lt;h1&gt;</code><span>Título grande blanco «Invertir palabras».</span></div>
+        <div class="row"><span>47-49</span><code>&lt;section&gt;</code><span>Tarjeta blanca con el formulario (max-width, padding).</span></div>
+        <div class="row"><span>50</span><code>&lt;div class="flex flex-col gap-4"&gt;</code><span>Apila label, input, botón y resultado con espacio.</span></div>
+        <div class="row"><span>51-53</span><code>&lt;label for="frase"&gt;</code><span>Texto «Escribe una frase»; <code>for</code> enlaza con <code>id="frase"</code>.</span></div>
+        <div class="row"><span>54-59</span><code>input type="text" id="frase"</code><span>Campo donde el usuario escribe; placeholder de ejemplo; clases Tailwind.</span></div>
+        <div class="row"><span>60-66</span><code>button id="btnCalcular"</code><span>Botón «Invertir»; <code>type="button"</code> evita enviar formulario; JS escucha el clic.</span></div>
+        <div class="row"><span>67</span><code>&lt;p id="resultado"&gt;</code><span>Zona vacía donde JS escribe el resultado (texto verde esmeralda).</span></div>
+        <div class="row"><span>74</span><code>&lt;script src="js/app.js"&gt;</code><span>Carga JS al final: el DOM ya existe cuando se ejecuta <code>getElementById</code>.</span></div>
+        <div class="row"><span>76-77</span><code>&lt;/body&gt; &lt;/html&gt;</code><span>Cierre del documento.</span></div>
+      </div>
+    </article>
+
+    <article class="section" id="js">
+      <h2>JavaScript — línea a línea (<code>js/app.js</code>)</h2>
+      <div class="line-table">
+        <div class="head"><span>Línea</span><span>Código</span><span>Explicación</span></div>
+        <div class="row"><span>1-2</span><code>// DECLARACIÓN DE VARIABLES</code><span>Bloque según guía del curso; comentario: no son funciones independientes.</span></div>
+        <div class="row"><span>3</span><code>inputFrase = getElementById("frase")</code><span>Enlace HTML ↔ JS por el id del input.</span></div>
+        <div class="row"><span>4</span><code>btnInvertir = ...("btnCalcular")</code><span>Referencia al botón Invertir (mismo id que en HTML).</span></div>
+        <div class="row"><span>5</span><code>parrafoResultado = ...("resultado")</code><span>Referencia al párrafo donde se muestra la salida.</span></div>
+        <div class="row"><span>7</span><code>// DECLARACIÓN DE FUNCIONES</code><span>Aquí va biblioteca + app.</span></div>
+        <div class="row"><span>9-10</span><code>// BIBLIOTECA independientes</code><span>Prueba del profe sin document: solo strings.</span></div>
+        <div class="row"><span>12-14</span><code>invertirPalabra</code><span>Entrada: string palabra. Salida: string con letras al revés (<code>split reverse join</code>).</span></div>
+        <div class="row"><span>16-20</span><code>miFuncion</code><span><code>trim</code> + <code>split(" ")</code> + <code>map(invertirPalabra)</code> + <code>reverse</code> del array + <code>join(" ")</code>.</span></div>
+        <div class="row"><span>22-23</span><code>// AYUDANTES</code><span>Reutilizables; usan DOM pero no getElementById dentro.</span></div>
+        <div class="row"><span>25-27</span><code>leerTexto</code><span>Entrada: elemento input. Salida: string (<code>value.trim()</code>).</span></div>
+        <div class="row"><span>29-31</span><code>mostrarTexto</code><span>Entrada: elemento + texto. Salida: ninguna; escribe con <code>textContent</code>.</span></div>
+        <div class="row"><span>33-34</span><code>// MAIN pizarra</code><span>No 100 % independiente; llama a miFuncion del ejercicio.</span></div>
+        <div class="row"><span>36-46</span><code>funcionMain</code><span>1.Lee 2.Valida vacío 3.miFuncion 4.mostrarTexto. Recibe input y párrafo por parámetro.</span></div>
+        <div class="row"><span>48-49</span><code>// EJECUCIÓN</code><span>Solo el listener; sin lógica larga dentro.</span></div>
+        <div class="row"><span>51-53</span><code>addEventListener("click")</code><span>Al clic llama <code>funcionMain(inputFrase, parrafoResultado)</code>.</span></div>
+      </div>
+      <h3>Funciones del lenguaje (no personalizadas) usadas</h3>
+      <p><code>split</code>, <code>reverse</code>, <code>join</code>, <code>map</code>, <code>trim</code> — ya vienen en JavaScript; tú no las inventas, solo las usas dentro de tu biblioteca.</p>
+    </article>
+
+    <article class="section" id="biblioteca">
+      <h2>Funciones biblioteca — reutilizar y en qué ejercicios</h2>
+      <p><strong>Biblioteca</strong> = entrada clara, <code>return</code> salida, sin buscar elementos del HTML dentro.</p>
+
+      <div class="biblio-card">
+        <h4><code>invertirPalabra(palabra)</code></h4>
+        <p><strong>Entrada:</strong> un string (una palabra). <strong>Salida:</strong> string con letras invertidas.</p>
+        <p><strong>Reutilizar en:</strong> palíndromos, invertir un solo token, ejercicios de cadenas letra a letra, validar si una palabra se lee igual al revés.</p>
+      </div>
+
+      <div class="biblio-card">
+        <h4><code>miFuncion(cadena)</code></h4>
+        <p><strong>Entrada:</strong> frase completa con espacios. <strong>Salida:</strong> frase con cada palabra invertida y orden de palabras invertido.</p>
+        <p><strong>Reutilizar en:</strong> solo este enunciado (9.5). En consola: <code>miFuncion("Hola Mundo")</code> sin abrir la web.</p>
+        <p><strong>Páginas web:</strong> cualquier app donde el usuario escriba una frase y quieras mostrar la versión «espejo por palabras» (juegos de texto, retos, demostraciones en clase).</p>
+      </div>
+
+      <div class="biblio-card">
+        <h4><code>leerTexto(input)</code> — ayudante (no biblioteca pura)</h4>
+        <p><strong>Copiar igual</strong> en: formularios de nombre, buscador, comentarios, cualquier <code>&lt;input type="text"&gt;</code> o <code>textarea</code> (con pequeño ajuste si es textarea: <code>value</code> igual).</p>
+      </div>
+
+      <div class="biblio-card">
+        <h4><code>mostrarTexto(elemento, texto)</code> — ayudante</h4>
+        <p><strong>Copiar igual</strong> en: calculadoras, contadores de caracteres, resultados de exámenes, mensajes de error, preview de texto.</p>
+      </div>
+
+      <div class="biblio-card">
+        <h4><code>funcionMain</code> — plantilla del profe</h4>
+        <p><strong>No copies ciegamente:</strong> en otro ejercicio sustituyes <code>miFuncion</code> por <code>cuentaCaracteres</code>, repetir texto, etc. La estructura Lee → valida → llama → escribe se repite.</p>
+      </div>
+
+      <h3>Ejemplos de otros ejercicios del curso</h3>
+      <table>
+        <thead>
+          <tr><th>Ejercicio</th><th>Función biblioteca</th><th>¿Usas leerTexto / mostrarTexto?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Contar caracteres</td><td><code>cuentaCaracteres(cadena)</code></td><td>Sí, mismo patrón</td></tr>
+          <tr><td>Repetir texto X veces</td><td><code>miFuncion(texto, veces)</code></td><td>Sí + <code>leerNumero</code></td></tr>
+          <tr><td>Dividir por separador</td><td><code>dividirTexto(texto, sep)</code></td><td>Sí</td></tr>
+          <tr><td>Invertir palabras (9.5)</td><td><code>miFuncion(cadena)</code></td><td>Sí</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="section" id="test">
+      <h2>Test — 15 preguntas</h2>
+      <p style="font-size:0.9rem;color:#64748b">Haz clic en cada pregunta para ver la respuesta. Intenta responder antes de abrir.</p>
+
+      <details>
+        <summary><span class="chevron">▶</span> 1. ¿Qué debe devolver <code>miFuncion("Hola Mundo")</code>?</summary>
+        <div class="respuesta">
+          Debe devolver exactamente el string <code>"odnuM aloH"</code> (con un espacio entre las dos palabras invertidas).
+          Cada palabra tiene las letras al revés y el orden de las palabras también se invierte.
+          No debe haber espacios extra al principio ni al final si la entrada se pasa ya recortada con <code>trim</code> en el main.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 2. ¿Qué hace <code>invertirPalabra("Mundo")</code>?</summary>
+        <div class="respuesta">
+          Devuelve <code>"odnuM"</code>. Usa <code>split("")</code> para convertir el string en array de letras,
+          <code>reverse()</code> para invertir ese array y <code>join("")</code> para volver a unirlas en un string.
+          Es la pieza pequeña que <code>miFuncion</code> aplica a cada palabra con <code>map</code>.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 3. ¿Por qué después de <code>map</code> se hace <code>.reverse()</code> en el array de palabras?</summary>
+        <div class="respuesta">
+          Porque el enunciado pide invertir <strong>cada palabra</strong> y además cambiar el <strong>orden de las palabras</strong>.
+          Primero obtienes [aloH, odnuM] y con <code>reverse()</code> pasas a [odnuM, aloH].
+          Sin ese segundo reverse solo tendrías "aloH odnuM".
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 4. ¿Qué función es independiente al 100 % según el profe?</summary>
+        <div class="respuesta">
+          <code>invertirPalabra</code> y <code>miFuncion</code>: solo reciben strings, devuelven string con <code>return</code>,
+          no usan <code>document</code> ni <code>getElementById</code>.
+          Puedes probarlas en la consola del navegador sin tener HTML.
+          <code>funcionMain</code> no es independiente porque coordina la página.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 5. ¿Por qué <code>getElementById</code> solo está en las variables y no dentro de <code>miFuncion</code>?</summary>
+        <div class="respuesta">
+          Para que <code>miFuncion</code> sea biblioteca reutilizable: en otro ejercicio los id del HTML cambian (frase, texto, nombre…)
+          pero la lógica de invertir palabras sigue igual.
+          Si buscaras <code>id="frase"</code> dentro de <code>miFuncion</code>, tendrías que modificar la función en cada proyecto.
+          Los enlaces con el HTML son responsabilidad de la capa app (variables + main).
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 6. ¿Cuál es la entrada y la salida de <code>leerTexto</code>?</summary>
+        <div class="respuesta">
+          <strong>Entrada:</strong> un elemento DOM de tipo input (referencia guardada en una variable).
+          <strong>Salida:</strong> string con lo que escribió el usuario, sin espacios al inicio ni al final (<code>trim</code>).
+          No usa return para mostrar en pantalla; devuelve datos para que otra función los use.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 7. ¿Por qué <code>mostrarTexto</code> no tiene <code>return</code> útil?</summary>
+        <div class="respuesta">
+          Porque su efecto es <strong>visual</strong>: escribe en el HTML con <code>elemento.textContent = texto</code>.
+          La "salida" la ve el usuario en pantalla, no otro cálculo en JavaScript.
+          En la guía del curso eso se describe como «salida: ninguna» (efecto secundario en el DOM).
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 8. ¿Qué hace <code>funcionMain</code> paso a paso (pizarra)?</summary>
+        <div class="respuesta">
+          1. <strong>Lee</strong> con <code>leerTexto(input)</code>.<br>
+          2. <strong>Validación JS:</strong> si el texto está vacío, muestra "Escribe una frase" y termina con <code>return</code>.<br>
+          3. <strong>Llama</strong> a la función pertinente: <code>miFuncion(texto)</code>.<br>
+          4. <strong>Recibe</strong> el string resultado.<br>
+          5. <strong>Escribe en HTML</strong> con <code>mostrarTexto(elementoResultado, resultado)</code>.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 9. ¿Qué evento escuchamos y en qué elemento?</summary>
+        <div class="respuesta">
+          Evento: <code>"click"</code> (clic del ratón o equivalente en táctil).
+          Elemento: <code>btnInvertir</code> (botón con <code>id="btnCalcular"</code> en el HTML).
+          El callback es una función flecha que llama <code>funcionMain(inputFrase, parrafoResultado)</code>.
+          No usamos <code>submit</code> porque no hay formulario; el botón es <code>type="button"</code>.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 10. ¿Por qué el <code>&lt;script&gt;</code> está al final del <code>body</code>?</summary>
+        <div class="respuesta">
+          Porque al ejecutarse <code>getElementById("frase")</code> los elementos deben existir ya en el DOM.
+          Si el script estuviera en el <code>head</code> sin esperar, <code>inputFrase</code> podría ser <code>null</code> y el botón no funcionaría.
+          Al final del body, input, botón y párrafo resultado ya están creados.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 11. ¿Qué relación hay entre <code>for="frase"</code> en el label y <code>id="frase"</code> en el input?</summary>
+        <div class="respuesta">
+          Deben coincidir para accesibilidad: al hacer clic en «Escribe una frase» el foco va al input correcto.
+          En JavaScript usas el mismo identificador con <code>getElementById("frase")</code>.
+          Es el mismo id para HTML semántico y para enlazar con JS.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 12. Nombra las tres partes del archivo <code>app.js</code> según la guía del curso.</summary>
+        <div class="respuesta">
+          <strong>1. Declaración de variables</strong> — enlaces con getElementById.<br>
+          <strong>2. Declaración de funciones</strong> — biblioteca + ayudantes + funcionMain.<br>
+          <strong>3. Ejecución de código</strong> — addEventListener que dispara el main.
+          Ese orden separa «página» de «lógica reutilizable».
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 13. ¿Se pueden reutilizar TODAS las funciones sin cambiar nada?</summary>
+        <div class="respuesta">
+          <strong>No.</strong> Solo la biblioteca (<code>miFuncion</code>, <code>invertirPalabra</code>) se copia sin modificar el interior.
+          <code>leerTexto</code> y <code>mostrarTexto</code> se copian igual pero las llamas con otros elementos en otra página.
+          <code>funcionMain</code> en otro ejercicio suele cambiar la función que llamas (por ejemplo cuentaCaracteres en vez de miFuncion).
+          Eso es diseño correcto, no un error.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 14. ¿Qué pasa si el usuario pulsa Invertir con el input vacío?</summary>
+        <div class="respuesta">
+          <code>leerTexto</code> devuelve <code>""</code> después del trim.
+          La condición <code>texto === ""</code> es verdadera.
+          Se ejecuta <code>mostrarTexto(elementoResultado, "Escribe una frase")</code> y <code>return</code> evita llamar a <code>miFuncion</code>.
+          Es validación en la capa app, no en la biblioteca.
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="chevron">▶</span> 15. ¿Por qué usamos <code>textContent</code> y no <code>innerHTML</code> en <code>mostrarTexto</code>?</summary>
+        <div class="respuesta">
+          <code>textContent</code> trata todo como texto plano: si el usuario escribiera caracteres raros o etiquetas, no se interpretan como HTML.
+          <code>innerHTML</code> podría ejecutar o renderizar código HTML y es menos seguro para datos del usuario.
+          Para mostrar el resultado de invertir palabras, textContent es la opción adecuada.
+        </div>
+      </details>
+    </article>
+
+    <p style="text-align:center;font-size:0.85rem;color:#94a3b8">
+      <a href="index.html">Volver a la aplicación</a>
+    </p>
+  </main>
+</body>
+
+</html>

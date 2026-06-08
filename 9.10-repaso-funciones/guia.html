@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía — Conversión de temperatura y lógica del ejercicio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        body {
+          @apply text-stone-800 leading-relaxed;
+        }
+        h1 {
+          @apply text-2xl font-bold text-amber-900;
+        }
+        h2 {
+          @apply text-xl font-bold text-blue-900 mt-8 mb-3;
+        }
+        h3 {
+          @apply text-lg font-semibold text-stone-700 mt-4 mb-2;
+        }
+        p {
+          @apply mb-3;
+        }
+        ul,
+        ol {
+          @apply ml-6 mb-4 list-disc;
+        }
+        li {
+          @apply mb-1;
+        }
+        table {
+          @apply w-full border-collapse mb-4 text-sm;
+        }
+        th,
+        td {
+          @apply border border-stone-300 px-3 py-2 text-left;
+        }
+        th {
+          @apply bg-stone-100 font-semibold;
+        }
+        code {
+          @apply rounded bg-stone-100 px-1.5 py-0.5 font-mono text-blue-800 text-sm;
+        }
+        pre {
+          @apply rounded-lg bg-stone-900 text-stone-100 p-4 mb-4 overflow-x-auto text-sm;
+        }
+        .note {
+          @apply rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 mb-4;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-b from-sky-100 to-stone-200 min-h-screen px-4 py-8">
+    <article class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg px-6 py-8 sm:px-10">
+      <header class="border-b border-stone-200 pb-6 mb-6">
+        <h1>Guía: conversión Celsius ↔ Fahrenheit</h1>
+        <p class="text-stone-600 mb-0">
+          Repaso de funciones — misma lógica que el diagrama del formulario (lee, valida, llama, muestra).
+        </p>
+      </header>
+
+      <section>
+        <h2>1. En qué consiste el ejercicio</h2>
+        <p>
+          Debes crear una <strong>función</strong> (una pequeña «máquina» o receta en código) que
+          <strong>cambie una temperatura de una unidad a otra</strong>:
+        </p>
+        <ul>
+          <li>de <strong>Celsius</strong> (°C) a <strong>Fahrenheit</strong> (°F), o</li>
+          <li>de <strong>Fahrenheit</strong> a <strong>Celsius</strong>.</li>
+        </ul>
+        <p>Ejemplo del enunciado:</p>
+        <pre>miFuncion(0, "C")  →  32°F</pre>
+        <p>
+          Significa: «Tengo <strong>0 grados Celsius</strong>; conviértelos a Fahrenheit». El resultado debe ser
+          <strong>32</strong>, porque en esa escala el agua congela a 32 °F (no a 0).
+        </p>
+
+        <h3>¿Qué es una función?</h3>
+        <ol>
+          <li>Le das <strong>datos de entrada</strong> (parámetros).</li>
+          <li>Ella hace un <strong>cálculo</strong>.</li>
+          <li>Te devuelve un <strong>resultado</strong> con <code>return</code>.</li>
+        </ol>
+        <p>En este ejercicio sueles necesitar <strong>dos parámetros</strong>:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Para qué sirve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Un <strong>número</strong></td>
+              <td>La temperatura (por ejemplo <code>0</code>, <code>100</code>, <code>-5</code>)</td>
+            </tr>
+            <tr>
+              <td>Una <strong>letra</strong> (<code>"C"</code> o <code>"F"</code>)</td>
+              <td>Indica desde qué unidad partes (y hacia cuál conviertes, según el enunciado del profe)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note mb-0">
+          <strong>En una frase:</strong> escribe una función que reciba una temperatura y su unidad de partida, aplique la
+          fórmula correcta y devuelva el valor en la otra unidad (a veces también con el símbolo, por ejemplo
+          <code>32°F</code>).
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Fórmulas de conversión</h2>
+        <h3>Celsius → Fahrenheit</h3>
+        <p><strong>°F = °C × (9/5) + 32</strong></p>
+        <p>Ejemplo: 0 × 9/5 + 32 = <strong>32</strong></p>
+
+        <h3>Fahrenheit → Celsius</h3>
+        <p><strong>°C = (°F − 32) × (5/9)</strong></p>
+        <p>Ejemplo: (32 − 32) × 5/9 = <strong>0</strong></p>
+
+        <p>La función debe:</p>
+        <ol>
+          <li>Mirar si el segundo parámetro es <code>"C"</code> o <code>"F"</code>.</li>
+          <li>Aplicar la fórmula que corresponda.</li>
+          <li>Devolver el resultado con <code>return</code>.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>3. ¿Qué es Fahrenheit?</h2>
+        <p>
+          <strong>Fahrenheit</strong> (°F) es otra forma de <strong>medir la temperatura</strong>, como Celsius (°C), pero con
+          <strong>otra escala</strong>: los números no coinciden con los de Celsius.
+        </p>
+        <p>Se debe al físico <strong>Daniel Gabriel Fahrenheit</strong>. Se usa sobre todo en <strong>Estados Unidos</strong>; en España y en la mayor parte del mundo se usa más <strong>Celsius</strong>.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Hecho</th>
+              <th>Celsius (°C)</th>
+              <th>Fahrenheit (°F)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>El agua se congela</td>
+              <td>0 °C</td>
+              <td>32 °F</td>
+            </tr>
+            <tr>
+              <td>El agua hierve</td>
+              <td>100 °C</td>
+              <td>212 °F</td>
+            </tr>
+            <tr>
+              <td>Temperatura corporal (aprox.)</td>
+              <td>37 °C</td>
+              <td>~98,6 °F</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mb-0">
+          Misma sensación de frío o calor, <strong>otros números</strong> en el termómetro. Por eso 0 °C = 32 °F es un buen
+          test para comprobar que tu función funciona.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Misma lógica que el diagrama de clase (otro ejercicio, mismo esquema)</h2>
+        <p>
+          En la pizarra el ejemplo era <strong>contar caracteres</strong> (<code>cuentaCaracteres</code>). En este ejercicio la
+          función concreta es <strong>convertir temperatura</strong>, pero el <strong>flujo</strong> es el mismo:
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>En el diagrama</th>
+              <th>En conversión de temperatura</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Formulario</strong></td>
+              <td>El usuario escribe la temperatura y la unidad (<code>C</code> o <code>F</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>La «oreja»</strong> (event listener)</td>
+              <td>Al pulsar un botón (o al cambiar un valor), se ejecuta el código</td>
+            </tr>
+            <tr>
+              <td><strong>Función main</strong></td>
+              <td>Orquesta todo: lee, valida, llama, muestra</td>
+            </tr>
+            <tr>
+              <td><code>cuentaCaracteres(cadena)</code></td>
+              <td><code>miFuncion(valor, unidad)</code> o similar</td>
+            </tr>
+            <tr>
+              <td><code>return</code></td>
+              <td>Devuelve el número convertido (o texto como <code>32°F</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Pasos de la función main</h3>
+        <ol>
+          <li><strong>Lee</strong> — obtiene el valor del input y la unidad.</li>
+          <li><strong>Validación JS</strong> — ¿es un número? ¿la unidad es <code>"C"</code> o <code>"F"</code>? Si no, mensaje de error.</li>
+          <li><strong>Llama a las funciones pertinentes</strong> — por ejemplo <code>miFuncion(0, "C")</code>.</li>
+          <li><strong>Recibe la respuesta</strong> — lo que devuelve el <code>return</code>.</li>
+          <li><strong>Escribe en HTML</strong> — muestra el resultado en la página.</li>
+        </ol>
+
+        <h3>Patrón a memorizar</h3>
+        <pre>Usuario → formulario → main (lee, valida, llama, muestra) → función pequeña (calcula y return)</pre>
+
+        <h3>Ejemplo mental con temperatura</h3>
+        <ol>
+          <li>La usuaria escribe <code>0</code> y <code>C</code>.</li>
+          <li>La main lee y valida.</li>
+          <li>La main llama <code>miFuncion(0, "C")</code>.</li>
+          <li>Esa función calcula y hace <code>return</code> → <code>32</code> o <code>"32°F"</code>.</li>
+          <li>La main escribe el resultado en el HTML.</li>
+        </ol>
+        <p class="mb-0">
+          La función <strong>main</strong> casi siempre se parece de un ejercicio a otro; lo que cambia es la función pequeña
+          (contar caracteres vs. convertir grados).
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Qué aprendes con este ejercicio</h2>
+        <ul>
+          <li><strong>Parámetros</strong> — pasar datos a una función.</li>
+          <li><strong>Condiciones</strong> — si es Celsius, una fórmula; si es Fahrenheit, la otra.</li>
+          <li><strong>Cálculos</strong> con números.</li>
+          <li><strong>return</strong> — devolver un valor a quien llamó a la función.</li>
+          <li><strong>Integración en la web</strong> — formulario, validación y mostrar el resultado en HTML.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Cambios en el HTML (paso a paso)</h2>
+        <p>Si partes del plantilla del calendario, adapta así:</p>
+        <ol>
+          <li><strong>&lt;title&gt; y &lt;h1&gt;</strong> — título «Conversor de temperatura» y texto del enunciado.</li>
+          <li><strong>Instrucciones</strong> — «Escribe una temperatura, elige C o F y pulsa Convertir».</li>
+          <li>
+            <strong>Campo temperatura</strong> — quita <code>numeroMes</code>; añade
+            <code>type="number"</code> con <code>id="temperatura"</code> y <code>step="any"</code> (permite decimales).
+          </li>
+          <li>
+            <strong>Unidad</strong> — un <code>&lt;select id="unidad"&gt;</code> con
+            <code>&lt;option value="C"&gt;</code> y <code>&lt;option value="F"&gt;</code>, o radios con valores C/F.
+          </li>
+          <li><strong>Botón</strong> — por ejemplo <code>id="btnConvertir"</code> y texto «Convertir».</li>
+          <li><strong>Salida</strong> — mantén <code>id="mensaje"</code> para el resultado (<code>aria-live="polite"</code> ayuda).</li>
+          <li>
+            <strong>Script</strong> — si el JS está en la carpeta <code>js</code>:
+            <code>&lt;script src="js/app.js" defer&gt;&lt;/script&gt;</code>
+          </li>
+        </ol>
+
+        <h3>Ids que debe coincidir con el JS</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>id sugerido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Input número</td>
+              <td><code>temperatura</code></td>
+            </tr>
+            <tr>
+              <td>C / F</td>
+              <td><code>unidad</code></td>
+            </tr>
+            <tr>
+              <td>Botón</td>
+              <td><code>btnConvertir</code></td>
+            </tr>
+            <tr>
+              <td>Resultado</td>
+              <td><code>mensaje</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>7. Estructura del JavaScript (<code>js/app.js</code>)</h2>
+        <p>Todas las funciones en <strong>flecha</strong>. Orden obligatorio en el archivo:</p>
+        <pre>1. DECLARACIÓN DE VARIABLES     → getElementById / querySelector
+2. DECLARACIÓN DE FUNCIONES     → biblioteca + funcionMain
+3. EJECUCIÓN DE CÓDIGO          → addEventListener("click", funcionMain)</pre>
+
+        <h3>7.1 Bloque 1 — Variables (enlaces con el HTML)</h3>
+        <pre>const inputTemperatura = document.getElementById("temperatura");
+const selectUnidad = document.getElementById("unidad");
+const btnConvertir = document.getElementById("btnConvertir");
+const parrafoMensaje = document.getElementById("mensaje");</pre>
+        <p>En comentarios a la derecha de cada línea: si es <strong>entrada DOM</strong> o <strong>salida DOM</strong>.</p>
+
+        <h3>7.2 Bloque 2 — Funciones</h3>
+        <p><strong>Función principal:</strong> <code>funcionMain</code> — orquesta leer, validar, llamar biblioteca y escribir en <code>#mensaje</code>.</p>
+        <p><strong>Biblioteca:</strong> funciones pequeñas con <code>return</code>; comentario a la derecha con <strong>entrada | salida | qué hace</strong>.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Función (flecha)</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+              <th>Qué hace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>celsiusAFahrenheit</code></td>
+              <td>número °C</td>
+              <td>número °F</td>
+              <td><code>celsius * 9/5 + 32</code></td>
+            </tr>
+            <tr>
+              <td><code>fahrenheitACelsius</code></td>
+              <td>número °F</td>
+              <td>número °C</td>
+              <td><code>(f - 32) * 5/9</code></td>
+            </tr>
+            <tr>
+              <td><code>convertirTemperatura</code></td>
+              <td>valor, <code>"C"</code> o <code>"F"</code> (origen)</td>
+              <td>número convertido</td>
+              <td>Elige la fórmula según origen</td>
+            </tr>
+            <tr>
+              <td><code>esTemperaturaValida</code></td>
+              <td>string del input</td>
+              <td>true / false</td>
+              <td>No vacío y es número</td>
+            </tr>
+            <tr>
+              <td><code>esUnidadValida</code></td>
+              <td><code>"C"</code> o <code>"F"</code></td>
+              <td>true / false</td>
+              <td>Solo acepta C o F</td>
+            </tr>
+            <tr>
+              <td><code>unidadDestino</code></td>
+              <td>unidad origen</td>
+              <td><code>"C"</code> o <code>"F"</code> opuesta</td>
+              <td>C → F, F → C</td>
+            </tr>
+            <tr>
+              <td><code>formatearResultado</code></td>
+              <td>número, unidad destino</td>
+              <td>string</td>
+              <td>Ej. <code>32°F</code></td>
+            </tr>
+            <tr>
+              <td><code>funcionMain</code></td>
+              <td>ninguna (lee DOM)</td>
+              <td>ninguna (escribe DOM)</td>
+              <td><strong>Principal</strong> del ejercicio</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Enunciado <code>miFuncion(0, "C")</code> → <code>32°F</code>: el segundo parámetro es <strong>unidad de origen</strong>. Si es <code>"C"</code>, conviertes a Fahrenheit.</p>
+
+        <h3>7.3 Bloque 3 — Ejecución</h3>
+        <pre>btnConvertir.addEventListener("click", funcionMain);</pre>
+        <p>Solo el listener aquí; la lógica va dentro de <code>funcionMain</code> y la biblioteca.</p>
+
+        <h3>Flujo</h3>
+        <pre>Clic → funcionMain (principal)
+         ├─ esTemperaturaValida / esUnidadValida
+         ├─ convertirTemperatura → celsiusAFahrenheit | fahrenheitACelsius
+         └─ formatearResultado → parrafoMensaje.textContent</pre>
+
+        <h3>Pruebas rápidas</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Unidad</th>
+              <th>Resultado esperado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>C</td>
+              <td>32°F</td>
+            </tr>
+            <tr>
+              <td>32</td>
+              <td>F</td>
+              <td>0°C</td>
+            </tr>
+            <tr>
+              <td>(vacío)</td>
+              <td>C</td>
+              <td>Mensaje de error</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Comentarios a la derecha (estilo del curso)</h3>
+        <pre>const celsiusAFahrenheit = (celsius) => {          // entrada: número °C | salida: número °F
+  return celsius * (9 / 5) + 32;                   // aplica fórmula C → F
+};</pre>
+      </section>
+
+      <section>
+        <h2>8. ¿Son funciones independientes?</h2>
+        <p>En clase, <strong>independiente</strong> suele significar:</p>
+        <ul>
+          <li>Recibe todo por <strong>parámetros</strong> (entrada → salida).</li>
+          <li><strong>No</strong> usa <code>getElementById</code> ni <code>.value</code> del formulario por dentro.</li>
+          <li><strong>No</strong> depende de variables globales del HTML.</li>
+          <li>Hace <strong>una sola cosa</strong> y devuelve con <code>return</code>.</li>
+        </ul>
+
+        <h3>Sí van en la biblioteca (independientes del DOM)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Función</th>
+              <th>¿Independiente?</th>
+              <th>Por qué</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>celsiusAFahrenheit</code></td>
+              <td>Sí</td>
+              <td>Solo número → número</td>
+            </tr>
+            <tr>
+              <td><code>fahrenheitACelsius</code></td>
+              <td>Sí</td>
+              <td>Solo número → número</td>
+            </tr>
+            <tr>
+              <td><code>esTemperaturaValida</code></td>
+              <td>Sí</td>
+              <td>String → true/false</td>
+            </tr>
+            <tr>
+              <td><code>esUnidadValida</code></td>
+              <td>Sí</td>
+              <td><code>"C"</code>/<code>"F"</code> → true/false</td>
+            </tr>
+            <tr>
+              <td><code>formatearResultado</code></td>
+              <td>Sí</td>
+              <td>Número + letra → texto</td>
+            </tr>
+            <tr>
+              <td><code>unidadDestino</code></td>
+              <td>Sí</td>
+              <td>Devuelve la unidad opuesta</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3><code>convertirTemperatura</code></h3>
+        <p>
+          Llama a <code>celsiusAFahrenheit</code> o <code>fahrenheitACelsius</code>. Las tres son funciones
+          <strong>separadas</strong> en la biblioteca, pero esta <strong>enlaza</strong> las otras. Si el profe pide que
+          <strong>ninguna función llame a otra</strong>, quítala y en <code>funcionMain</code> haz el
+          <code>if (unidad === "C")</code> y llama directamente a la fórmula que toque.
+        </p>
+
+        <h3><code>funcionMain</code> — no es de biblioteca</h3>
+        <p>
+          Usa <code>inputTemperatura</code>, <code>selectUnidad</code>, <code>parrafoMensaje</code> y llama a varias
+          funciones. Es la <strong>función principal de esta página</strong>, no una pieza que copies igual a otro
+          ejercicio.
+        </p>
+
+        <h3>Regla rápida</h3>
+        <p class="note mb-0">
+          <strong>¿Puedo usarla en la consola sin formulario?</strong><br />
+          <code>celsiusAFahrenheit(0)</code> → 32 ✅<br />
+          <code>funcionMain()</code> necesita la página con inputs ❌ (no es biblioteca pura)
+        </p>
+      </section>
+
+      <footer class="mt-10 pt-6 border-t border-stone-200 text-sm text-stone-500">
+        <p class="mb-0">Guía de repaso — 9.10 Funciones</p>
+      </footer>
+    </article>
+  </body>
+</html>

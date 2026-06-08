@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — 9.2 Recortar texto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --bg: #0f1419;
+            --card: #1a2332;
+            --text: #e6edf3;
+            --muted: #8b9cb3;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --lib: #3d2c5e;
+            --lib-border: #a371f7;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem 4rem;
+        }
+        .wrap { max-width: 900px; margin: 0 auto; }
+        h1 {
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-top: 2.5rem;
+        }
+        h3 { font-size: 1.05rem; color: #79c0ff; margin-top: 1.5rem; }
+        p, li { color: var(--text); }
+        .muted { color: var(--muted); font-size: 0.9rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        th { background: var(--card); color: var(--accent); }
+        tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+        code {
+            background: #21262d;
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            font-size: 0.88em;
+        }
+        pre { margin: 0.75rem 0 1rem; border-radius: 8px; overflow-x: auto; }
+        pre code { padding: 0; background: none; }
+        .lib-block {
+            background: var(--lib);
+            border: 1px solid var(--lib-border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+        }
+        .lib-block h4 {
+            margin: 0 0 0.5rem;
+            color: #d2a8ff;
+            font-size: 1rem;
+        }
+        .lib-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.75rem;
+        }
+        .lib-meta strong { color: #c9d1d9; }
+        .reuse-tag {
+            display: inline-block;
+            background: #238636;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.2em 0.6em;
+            border-radius: 999px;
+            margin-top: 0.5rem;
+        }
+        .structure {
+            background: var(--card);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            white-space: pre-line;
+        }
+        blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            background: var(--card);
+            color: var(--muted);
+        }
+        .test-intro {
+            background: #3d2e0a;
+            border: 1px solid #d4a72c;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        details {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            padding: 0;
+        }
+        summary {
+            cursor: pointer;
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            list-style: none;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::before {
+            content: "▸ ";
+            color: var(--accent);
+        }
+        details[open] summary::before { content: "▾ "; }
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+        }
+        .answer {
+            padding: 1rem 1.25rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        .answer strong { color: var(--text); }
+        nav.toc {
+            background: var(--card);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        nav.toc ul { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+        nav.toc a { color: var(--accent); text-decoration: none; }
+        nav.toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>Guía — Ejercicio 9.2 Recortar texto</h1>
+        <p class="muted">Repaso de funciones · Biblioteca + función main + escuchador</p>
+
+        <nav class="toc">
+            <strong>Índice</strong>
+            <ul>
+                <li><a href="#enunciado">Enunciado</a></li>
+                <li><a href="#profe">Método de la profesora</a></li>
+                <li><a href="#biblioteca">Biblioteca (funciones de colores)</a></li>
+                <li><a href="#global">Guía para otros ejercicios</a></li>
+                <li><a href="#html">HTML línea por línea</a></li>
+                <li><a href="#js">JavaScript línea por línea</a></li>
+                <li><a href="#test">Test 15 preguntas</a></li>
+            </ul>
+        </nav>
+
+        <h2 id="enunciado">1. Enunciado del ejercicio</h2>
+        <p>Programar una función que devuelva el texto recortado según el número de caracteres indicados.</p>
+        <p><strong>Ejemplo:</strong> <code>miFunción("Hola Mundo", 4)</code> → <code>"Hola"</code></p>
+        <p><strong>Además:</strong> validar los datos de entrada desde un formulario HTML.</p>
+        <ul>
+            <li>Funciones flecha</li>
+            <li>Escuchadores (<code>addEventListener</code>)</li>
+            <li>Estructura en 4 bloques</li>
+            <li>Funciones independientes en biblioteca (reutilizables sin modificar)</li>
+            <li>Función <code>funcionMain</code> que conecta el HTML con la biblioteca</li>
+        </ul>
+
+        <h2 id="profe">2. Idea de la profesora (método global)</h2>
+        <p>La pizarra mostraba otro ejercicio (<code>cuentaCaracteres</code>), pero el <strong>método</strong> es el mismo:</p>
+        <table>
+            <thead>
+                <tr><th>Capa</th><th>Qué es</th><th>¿Se reutiliza?</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Biblioteca</strong></td>
+                    <td>Solo parámetros y <code>return</code>. Sin <code>getElementById</code>.</td>
+                    <td><strong>Sí</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Aplicación</strong></td>
+                    <td><code>funcionMain</code> + variables + escuchador</td>
+                    <td><strong>No</strong> (cambia cada página)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Los 5 pasos de funcionMain</h3>
+        <ol>
+            <li><strong>Lee</strong> — <code>.value</code> de los inputs</li>
+            <li><strong>Valida</strong> — funciones de biblioteca</li>
+            <li><strong>Llama</strong> — <code>recortarTexto</code>, etc.</li>
+            <li><strong>Recibe</strong> — el <code>return</code></li>
+            <li><strong>Escribe</strong> — <code>resultado.textContent</code></li>
+        </ol>
+
+        <h3>Entradas y salidas</h3>
+        <table>
+            <thead><tr><th>Tipo</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+                <tr><td>Entrada 1 — frase</td><td><code>"Hola Mundo"</code></td></tr>
+                <tr><td>Entrada 2 — cantidad</td><td><code>4</code></td></tr>
+                <tr><td>Salida OK</td><td><code>"Hola"</code></td></tr>
+                <tr><td>Salida error</td><td><code>"Introduce una frase."</code></td></tr>
+            </tbody>
+        </table>
+
+        <h3>Estructura del app.js</h3>
+        <div class="structure">IMPORTACIÓN DE MÓDULOS     →  (vacío o import)
+DECLARACIÓN DE VARIABLES  →  getElementById
+DECLARACIÓN DE FUNCIONES  →  biblioteca + funcionMain
+EJECUCIÓN DE CÓDIGO       →  addEventListener</div>
+
+        <h2 id="biblioteca">3. Biblioteca de funciones (reutilizable)</h2>
+        <p>Copia estas funciones a otra app <strong>sin modificarlas</strong>. No usan el HTML.</p>
+
+        <div class="lib-block">
+            <h4>recortarTexto</h4>
+            <span class="reuse-tag">Reutilizar en: títulos, bios, tweets, límite de caracteres</span>
+            <pre><code class="language-javascript">const recortarTexto = (frase, numero) => frase.slice(0, numero);</code></pre>
+            <div class="lib-meta">
+                <strong>Entrada:</strong> frase (string), numero (number)<br>
+                <strong>Salida:</strong> string recortado<br>
+                <strong>Ejemplo:</strong> recortarTexto("Hola Mundo", 4) → "Hola"
+            </div>
+        </div>
+
+        <div class="lib-block">
+            <h4>validarFrase</h4>
+            <span class="reuse-tag">Reutilizar en: login, contacto, cualquier texto obligatorio</span>
+            <pre><code class="language-javascript">const validarFrase = (frase) => {
+  if (frase === "") {
+    return "Introduce una frase.";
+  }
+  return "";
+};</code></pre>
+            <div class="lib-meta">
+                <strong>Entrada:</strong> frase (string)<br>
+                <strong>Salida:</strong> mensaje de error o "" si OK
+            </div>
+        </div>
+
+        <div class="lib-block">
+            <h4>validarCantidad</h4>
+            <span class="reuse-tag">Reutilizar en: edad, cantidad, longitud máxima ≥ 0</span>
+            <pre><code class="language-javascript">const validarCantidad = (numero) => {
+  if (Number.isNaN(numero) || numero &lt; 0) {
+    return "Introduce un número válido (0 o más).";
+  }
+  return "";
+};</code></pre>
+            <div class="lib-meta">
+                <strong>Entrada:</strong> numero (number)<br>
+                <strong>Salida:</strong> mensaje de error o "" si OK
+            </div>
+        </div>
+
+        <p><strong>No copies tal cual a otra app:</strong> variables DOM, <code>funcionMain</code> y el <code>addEventListener</code> (adaptas ids y eventos).</p>
+
+        <h2 id="global">4. Guía para otros ejercicios</h2>
+        <ol>
+            <li>Identifica entradas y salida.</li>
+            <li>Escribe biblioteca sin DOM.</li>
+            <li>Escribe <code>funcionMain</code>: lee → valida → llama → escribe.</li>
+            <li>En ejecución, solo <code>addEventListener</code>.</li>
+            <li>Prueba datos correctos e incorrectos.</li>
+        </ol>
+
+        <h2 id="html">5. HTML — línea por línea</h2>
+        <table>
+            <thead><tr><th>Línea</th><th>Código</th><th>Explicación</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Documento HTML5.</td></tr>
+                <tr><td>2</td><td><code>&lt;html lang="es" data-theme="aqua"&gt;</code></td><td>Idioma y tema DaisyUI.</td></tr>
+                <tr><td>3-15</td><td><code>&lt;head&gt;</code></td><td>Meta, título, CSS y fuentes (CDN).</td></tr>
+                <tr><td>6</td><td><code>&lt;title&gt;</code></td><td>Título de la pestaña.</td></tr>
+                <tr><td>16</td><td><code>&lt;body&gt;</code></td><td>Cuerpo: layout flex y tipografía.</td></tr>
+                <tr><td>18-23</td><td><code>&lt;img&gt;</code></td><td>Fondo fijo; <code>-z-10</code> detrás del contenido.</td></tr>
+                <tr><td>25</td><td><code>&lt;main&gt;</code></td><td>Contenido principal centrado.</td></tr>
+                <tr><td>27-29</td><td><code>&lt;h1&gt;</code></td><td>Instrucciones del ejercicio.</td></tr>
+                <tr><td>34</td><td><code>id="formtexto"</code></td><td>Formulario enlazado al JS.</td></tr>
+                <tr><td>40-47</td><td><code>id="texto"</code></td><td>Entrada 1: la frase. <code>required</code>.</td></tr>
+                <tr><td>54-62</td><td><code>id="cantidad"</code></td><td>Entrada 2: número. <code>min="0"</code>.</td></tr>
+                <tr><td>65-67</td><td><code>type="submit"</code></td><td>Botón Recortar → evento submit.</td></tr>
+                <tr><td>69</td><td><code>id="resultado"</code></td><td>Zona de salida del JS.</td></tr>
+                <tr><td>77</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Enlaza JavaScript.</td></tr>
+            </tbody>
+        </table>
+
+        <h2 id="js">6. JavaScript — línea por línea</h2>
+        <table>
+            <thead><tr><th>Línea</th><th>Código</th><th>Explicación</th></tr></thead>
+            <tbody>
+                <tr><td>1-2</td><td>Importación</td><td>Sin módulos en este ejercicio.</td></tr>
+                <tr><td>7-10</td><td><code>getElementById</code></td><td>Referencias al formulario, inputs y resultado.</td></tr>
+                <tr><td>15</td><td><code>recortarTexto</code></td><td>Biblioteca: usa <code>slice</code>.</td></tr>
+                <tr><td>17-22</td><td><code>validarFrase</code></td><td>Biblioteca: error o "".</td></tr>
+                <tr><td>24-29</td><td><code>validarCantidad</code></td><td>Biblioteca: NaN o negativo.</td></tr>
+                <tr><td>33</td><td><code>funcionMain</code></td><td>Lee, valida, llama, escribe.</td></tr>
+                <tr><td>34</td><td><code>preventDefault()</code></td><td>No recarga la página.</td></tr>
+                <tr><td>36-37</td><td><code>trim</code>, <code>Number</code></td><td>Lee y convierte entradas.</td></tr>
+                <tr><td>39-49</td><td><code>validar...</code></td><td>Muestra error y <code>return</code>.</td></tr>
+                <tr><td>51-52</td><td><code>recortarTexto</code></td><td>Muestra texto recortado.</td></tr>
+                <tr><td>58</td><td><code>addEventListener</code></td><td>Escuchador submit → funcionMain.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Código completo app.js</h3>
+        <pre><code class="language-javascript">// IMPORTACIÓN DE MÓDULOS
+// (sin módulos)
+
+// DECLARACIÓN DE VARIABLES
+const formtexto = document.getElementById("formtexto");
+const texto = document.getElementById("texto");
+const cantidad = document.getElementById("cantidad");
+const resultado = document.getElementById("resultado");
+
+// DECLARACIÓN DE FUNCIONES
+const recortarTexto = (frase, numero) => frase.slice(0, numero);
+
+const validarFrase = (frase) => {
+  if (frase === "") return "Introduce una frase.";
+  return "";
+};
+
+const validarCantidad = (numero) => {
+  if (Number.isNaN(numero) || numero &lt; 0) {
+    return "Introduce un número válido (0 o más).";
+  }
+  return "";
+};
+
+const funcionMain = (evento) => {
+  evento.preventDefault();
+  const frase = texto.value.trim();
+  const numero = Number(cantidad.value);
+  const errorFrase = validarFrase(frase);
+  if (errorFrase !== "") {
+    resultado.textContent = errorFrase;
+    return;
+  }
+  const errorCantidad = validarCantidad(numero);
+  if (errorCantidad !== "") {
+    resultado.textContent = errorCantidad;
+    return;
+  }
+  resultado.textContent = recortarTexto(frase, numero);
+};
+
+// EJECUCIÓN DE CÓDIGO
+formtexto.addEventListener("submit", funcionMain);</code></pre>
+
+        <h2>7. Pruebas</h2>
+        <table>
+            <thead><tr><th>Frase</th><th>Cantidad</th><th>Resultado</th></tr></thead>
+            <tbody>
+                <tr><td>Hola Mundo</td><td>4</td><td>Hola</td></tr>
+                <tr><td>(vacío)</td><td>4</td><td>Introduce una frase.</td></tr>
+                <tr><td>Hola</td><td>-1</td><td>Número no válido</td></tr>
+            </tbody>
+        </table>
+
+        <h2 id="test">8. Test — 15 preguntas</h2>
+        <div class="test-intro">
+            Haz clic en cada pregunta para ver la respuesta. Intenta responder antes de abrir.
+        </div>
+
+        <details>
+            <summary>1. ¿Qué devuelve recortarTexto("Hola Mundo", 4)?</summary>
+            <div class="answer">Devuelve <strong>"Hola"</strong>. Usa <code>slice(0, 4)</code>: cuatro caracteres desde el inicio. Equivale al enunciado <code>miFunción("Hola Mundo", 4)</code>.</div>
+        </details>
+        <details>
+            <summary>2. ¿Cuáles son las dos entradas del ejercicio?</summary>
+            <div class="answer">La <strong>frase</strong> (<code>#texto</code>) y la <strong>cantidad</strong> (<code>#cantidad</code>). En código: <code>texto.value.trim()</code> y <code>Number(cantidad.value)</code>.</div>
+        </details>
+        <details>
+            <summary>3. ¿Dónde se muestra la salida?</summary>
+            <div class="answer">En <code>#resultado</code> con <code>resultado.textContent</code>. Ahí va el texto recortado o el mensaje de error.</div>
+        </details>
+        <details>
+            <summary>4. ¿Qué hace evento.preventDefault()?</summary>
+            <div class="answer">Evita que el formulario <strong>recargue la página</strong> al enviar. Sin esto no verías el resultado en pantalla.</div>
+        </details>
+        <details>
+            <summary>5. ¿Por qué validarFrase devuelve "" cuando está bien?</summary>
+            <div class="answer"><code>""</code> significa <strong>sin error</strong>. En funcionMain se usa <code>if (errorFrase !== "")</code> para mostrar mensaje y hacer <code>return</code>.</div>
+        </details>
+        <details>
+            <summary>6. ¿Diferencia entre biblioteca y funcionMain?</summary>
+            <div class="answer"><strong>Biblioteca:</strong> solo parámetros y return; reutilizable. <strong>funcionMain:</strong> lee DOM, llama biblioteca, escribe HTML; cambia en cada proyecto.</div>
+        </details>
+        <details>
+            <summary>7. ¿Qué evento y elemento escucha addEventListener?</summary>
+            <div class="answer">Evento <strong>"submit"</strong> en el formulario <strong>formtexto</strong> (botón Recortar).</div>
+        </details>
+        <details>
+            <summary>8. ¿Por qué Number(cantidad.value)?</summary>
+            <div class="answer"><code>.value</code> siempre es string. <code>Number()</code> convierte a número para <code>isNaN</code> y <code>slice</code>.</div>
+        </details>
+        <details>
+            <summary>9. ¿Qué hace trim()?</summary>
+            <div class="answer">Quita espacios al inicio y final. <code>"  Hola  "</code> pasa a <code>"Hola"</code>.</div>
+        </details>
+        <details>
+            <summary>10. ¿Qué comprueba validarCantidad?</summary>
+            <div class="answer">Que sea número válido (<code>!Number.isNaN</code>) y que no sea negativo. Si falla, devuelve el mensaje de error.</div>
+        </details>
+        <details>
+            <summary>11. ¿Por qué la biblioteca no usa getElementById?</summary>
+            <div class="answer">Para ser <strong>independiente del HTML</strong> y copiarla a otra app sin cambiarla. Solo parámetros y return.</div>
+        </details>
+        <details>
+            <summary>12. ¿Las cuatro secciones del app.js?</summary>
+            <div class="answer">1. Importación 2. Variables (getElementById) 3. Funciones (biblioteca + main) 4. Ejecución (addEventListener).</div>
+        </details>
+        <details>
+            <summary>13. ¿Frase vacía y pulsar Recortar?</summary>
+            <div class="answer">validarFrase devuelve mensaje, se muestra en resultado, return impide recortarTexto.</div>
+        </details>
+        <details>
+            <summary>14. ¿Copiar todo app.js a otra app sin cambiar?</summary>
+            <div class="answer"><strong>No todo.</strong> Biblioteca sí. Variables, funcionMain y listener se adaptan al nuevo HTML.</div>
+        </details>
+        <details>
+            <summary>15. Los 5 pasos de funcionMain</summary>
+            <div class="answer">1. Lee 2. Valida 3. Llama biblioteca 4. Recibe return 5. Escribe en HTML.</div>
+        </details>
+
+        <blockquote>
+            El ejercicio separa una <strong>biblioteca</strong> reutilizable de una <strong>funcionMain</strong> y un <strong>escuchador</strong> que conectan con este formulario.
+        </blockquote>
+
+        <p class="muted">Ejercicio 9.2 — Repaso funciones</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Repetir texto X veces</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        details summary { cursor: pointer; list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary .chevron { transform: rotate(90deg); }
+        .line-row:nth-child(even) { background-color: oklch(var(--b2) / 0.5); }
+    </style>
+</head>
+<body class="relative flex min-h-screen flex-col pb-12 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <img src="img/Terminal.jpg" alt="" class="h-full w-full object-cover object-center" />
+        <div class="absolute inset-0 bg-base-100/50"></div>
+    </div>
+
+    <main class="relative mx-auto w-full max-w-4xl flex-grow p-6 pt-10 md:pt-14">
+
+        <header class="mb-8 rounded-2xl bg-base-100 px-6 py-5 shadow-md">
+            <h1 class="text-center text-lg font-semibold text-base-content md:text-xl">
+                Guía del ejercicio: repetir un texto X veces
+            </h1>
+            <p class="mt-3 text-center text-sm">
+                <a href="index.html" class="link link-primary">Abrir la aplicación</a>
+                ·
+                Objetivo: <code class="rounded bg-base-200 px-1">miFuncion('Hola Mundo', 3)</code>
+                → <em>Hola Mundo Hola Mundo Hola Mundo</em>
+            </p>
+            <nav class="mt-4 flex flex-wrap justify-center gap-2 text-xs">
+                <a href="#html" class="badge badge-outline">HTML línea a línea</a>
+                <a href="#js" class="badge badge-outline">JS línea a línea</a>
+                <a href="#biblioteca" class="badge badge-outline">Biblioteca</a>
+                <a href="#test" class="badge badge-primary">Test (15 preguntas)</a>
+            </nav>
+        </header>
+
+        <article class="card border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-10">
+
+                <!-- OBJETIVO -->
+                <section>
+                    <h2 class="text-xl font-semibold text-base-content">Enunciado</h2>
+                    <p class="mt-2">
+                        Programa una función que repita un texto X veces. Ejemplo:
+                        <code class="rounded bg-base-200 px-1">miFuncion('Hola Mundo', 3)</code>
+                        devuelve la frase tres veces separada por espacios.
+                    </p>
+                    <p class="mt-2 text-sm text-base-content/70">
+                        Estructura del profe: <strong>variables</strong> → <strong>funciones</strong> → <strong>ejecución</strong> (<code>addEventListener</code>).
+                    </p>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- HTML -->
+                <section id="html">
+                    <h2 class="text-xl font-semibold text-base-content">HTML — línea a línea (<code>index.html</code>)</h2>
+                    <p class="mb-4 text-sm text-base-content/70">Cada fila: número de línea · código · qué hace.</p>
+
+                    <div class="overflow-x-auto rounded-lg border border-base-300 text-sm">
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 border-b border-base-300 bg-base-200 px-3 py-2 font-medium">
+                            <span>Línea</span><span>Código</span><span>Explicación</span>
+                        </div>
+
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>1</span><code>&lt;!DOCTYPE html&gt;</code><span>Indica al navegador que es HTML5.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>2</span><code>&lt;html lang="es" data-theme="autumn"&gt;</code><span>Raíz del documento; idioma español; tema DaisyUI «autumn».</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>3</span><code>&lt;head&gt;</code><span>Cabecera: metadatos y recursos (no se ve en pantalla).</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>4</span><code>&lt;meta charset="UTF-8"&gt;</code><span>Permite tildes y ñ sin errores.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>5</span><code>viewport</code><span>Adapta la página a móvil y escritorio.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>6</span><code>&lt;title&gt;…&lt;/title&gt;</code><span>Título de la pestaña del navegador.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>8-10</span><code>link + script Tailwind/DaisyUI</code><span>Estilos y utilidades CSS del proyecto.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>12-14</span><code>Google Fonts</code><span>Fuente «Inclusive Sans» para el diseño.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>16</span><code>&lt;body class="…"&gt;</code><span>Cuerpo visible; clases para layout flex y tipografía.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>18-25</span><code>div + img fondo</code><span>Imagen de fondo fija con capa semitransparente encima.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>27</span><code>&lt;main&gt;</code><span>Contenido principal centrado de la página.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>29-31</span><code>&lt;h1&gt;</code><span>Título instructivo para el usuario.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>35</span><code>class="card …"</code><span>Tarjeta DaisyUI que envuelve el formulario.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>36</span><code>&lt;form id="formRepetir"&gt;</code><span>Formulario; el <strong>id</strong> lo usa JS con <code>getElementById</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>39</span><code>&lt;label for="texto"&gt;</code><span>Etiqueta clickeable; <code>for</code> enlaza con el input <code>id="texto"</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>42-49</span><code>input type="text" id="texto"</code><span>Campo del texto a repetir; <code>required</code> obliga a rellenarlo.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>53</span><code>label for="veces"</code><span>Etiqueta del segundo campo (número de repeticiones).</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>56-66</span><code>input type="number" id="veces"</code><span>Número entre 1 y 100; <code>min</code>, <code>max</code>, <code>step</code> limitan valores.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>69-74</span><code>button type="submit"</code><span>Al pulsar, dispara el evento <code>submit</code> del formulario.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>76</span><code>&lt;div id="resultado"&gt;</code><span>Zona vacía donde JS escribirá el texto repetido.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>84</span><code>&lt;script src="js/app.js"&gt;</code><span>Carga tu JavaScript al final para que el HTML exista antes.</span></div>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- JS -->
+                <section id="js">
+                    <h2 class="text-xl font-semibold text-base-content">JavaScript — línea a línea (<code>js/app.js</code>)</h2>
+
+                    <div class="overflow-x-auto rounded-lg border border-base-300 text-sm">
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 border-b border-base-300 bg-base-200 px-3 py-2 font-medium">
+                            <span>Línea</span><span>Código</span><span>Explicación</span>
+                        </div>
+
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>1</span><code>// DECLARACIÓN DE VARIABLES</code><span>Comentario de bloque según la guía del curso.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>2</span><code>const formulario = getElementById('formRepetir')</code><span>Guarda referencia al formulario; enlaza HTML ↔ JS por el <strong>id</strong>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>3</span><code>const inputTexto = …('texto')</code><span>Referencia al input donde el usuario escribe la frase.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>4</span><code>const inputVeces = …('veces')</code><span>Referencia al input numérico (cuántas repeticiones).</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>5</span><code>const resultado = …('resultado')</code><span>Referencia al <code>div</code> donde se mostrará la salida.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>7</span><code>// DECLARACIÓN DE FUNCIONES</code><span>Aquí van funciones de biblioteca + <code>funcionMain</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>9-11</span><code>const miFuncion = …</code><span>Crea array de tamaño <code>veces</code>, lo llena con <code>texto</code>, une con espacios y <code>return</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>13-15</span><code>leerTexto</code><span>Entrada: elemento input. Salida: <code>string</code> (<code>input.value</code>).</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>17-19</span><code>leerNumero</code><span>Entrada: input number. Salida: <code>number</code> con <code>Number()</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>21-23</span><code>mostrarTexto</code><span>Entrada: elemento + texto. Escribe en pantalla con <code>textContent</code> (sin return).</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>25-31</span><code>funcionMain</code><span>Recibe evento e inputs por parámetro; evita recarga; encadena leer → repetir → mostrar.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>26</span><code>evento.preventDefault()</code><span>Impide que el navegador recargue la página al enviar el form.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>27-28</span><code>leerTexto / leerNumero</code><span>Obtienen datos del usuario desde los inputs pasados como argumentos.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>29</span><code>miFuncion(texto, veces)</code><span>Llama la biblioteca; guarda el string repetido en <code>repetido</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>30</span><code>mostrarTexto(…)</code><span>Pinta el resultado en el div <code>resultado</code>.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>33</span><code>// EJECUCIÓN DE CÓDIGO</code><span>Solo el listener; sin lógica larga dentro.</span></div>
+                        <div class="line-row grid grid-cols-[3rem_1fr_2fr] gap-2 px-3 py-2"><span>34-36</span><code>addEventListener('submit', …)</code><span>Cuando el usuario envía el form, llama <code>funcionMain</code> pasando evento y elementos.</span></div>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- BIBLIOTECA -->
+                <section id="biblioteca">
+                    <h2 class="text-xl font-semibold text-base-content">Funciones biblioteca — qué son y cómo reutilizarlas</h2>
+                    <p class="mb-4 text-sm">
+                        <strong>Biblioteca</strong> = funciones con entradas y salidas claras, sin <code>getElementById</code> dentro.
+                        Las copias a <code>funciones.js</code> y no las modificas en el siguiente ejercicio.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="rounded-lg border border-base-300 p-4">
+                            <h3 class="font-semibold"><code>miFuncion(texto, veces)</code></h3>
+                            <p class="mt-1 text-sm"><strong>Entrada:</strong> frase (string) + número de repeticiones.</p>
+                            <p class="text-sm"><strong>Salida:</strong> string con la frase repetida y espacios.</p>
+                            <p class="mt-2 text-sm text-base-content/70">Reutilizar: en consola o en cualquier ejercicio — <code>miFuncion('Adiós', 2)</code> sin cambiar el código.</p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 p-4">
+                            <h3 class="font-semibold"><code>leerTexto(input)</code></h3>
+                            <p class="mt-1 text-sm"><strong>Entrada:</strong> cualquier <code>&lt;input type="text"&gt;</code>.</p>
+                            <p class="text-sm"><strong>Salida:</strong> lo que escribió el usuario.</p>
+                            <p class="mt-2 text-sm text-base-content/70">Reutilizar: pasa otro input — <code>leerTexto(document.getElementById('nombre'))</code>.</p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 p-4">
+                            <h3 class="font-semibold"><code>leerNumero(input)</code></h3>
+                            <p class="mt-1 text-sm"><strong>Entrada:</strong> input numérico.</p>
+                            <p class="text-sm"><strong>Salida:</strong> número (no string).</p>
+                            <p class="mt-2 text-sm text-base-content/70">Reutilizar: edad, cantidad, precio… mismo código, otro <code>id</code> en el HTML.</p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 p-4">
+                            <h3 class="font-semibold"><code>mostrarTexto(elemento, texto)</code></h3>
+                            <p class="mt-1 text-sm"><strong>Entrada:</strong> div/párrafo + string.</p>
+                            <p class="text-sm"><strong>Salida:</strong> ninguna (efecto visual).</p>
+                            <p class="mt-2 text-sm text-base-content/70">Reutilizar: cualquier zona de resultado de cualquier página.</p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 p-4">
+                            <h3 class="font-semibold"><code>funcionMain(evento, inputTexto, inputVeces, elementoResultado)</code></h3>
+                            <p class="mt-1 text-sm"><strong>Entrada:</strong> evento submit + 3 elementos del DOM.</p>
+                            <p class="text-sm"><strong>Salida:</strong> ninguna; organiza las otras funciones.</p>
+                            <p class="mt-2 text-sm text-base-content/70">Reutilizar: en otra página cambias solo qué elementos pasas en el <code>addEventListener</code>.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="mt-6 mb-2 font-semibold">Separar en <code>funciones.js</code> (sin módulos)</h3>
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-xs"><code>&lt;!-- index.html --&gt;
+&lt;script src="js/funciones.js"&gt;&lt;/script&gt;
+&lt;script src="js/app.js"&gt;&lt;/script&gt;</code></pre>
+                    <ul class="mt-2 list-disc space-y-1 pl-6 text-sm">
+                        <li><code>funciones.js</code> → las 5 funciones (líneas 9-31 de tu app actual).</li>
+                        <li><code>app.js</code> → solo variables + <code>addEventListener</code>.</li>
+                        <li>Orden: primero biblioteca, después app.</li>
+                    </ul>
+
+                    <h3 class="mt-6 mb-2 font-semibold">Flujo de datos</h3>
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-sm">Usuario → submit → funcionMain
+  → leerTexto / leerNumero
+  → miFuncion
+  → mostrarTexto → pantalla</pre>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- TEST -->
+                <section id="test">
+                    <h2 class="text-xl font-semibold text-base-content">Test — 15 preguntas</h2>
+                    <p class="mb-4 text-sm text-base-content/70">
+                        Haz clic en cada pregunta para ver la respuesta. Intenta responder antes de abrir.
+                    </p>
+
+                    <div class="space-y-3">
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                1. ¿Qué debe devolver <code>miFuncion('Hola Mundo', 3)</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Debe devolver exactamente un <strong>string</strong>:
+                                <code>Hola Mundo Hola Mundo Hola Mundo</code> — la frase tres veces con un espacio entre cada repetición.
+                                No debe llevar comas ni saltos de línea extra. El orden importa: siempre texto + espacio + texto…
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                2. ¿Para qué sirve <code>Array(veces).fill(texto).join(' ')</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                <code>Array(veces)</code> crea un array vacío de longitud <code>veces</code>.
+                                <code>.fill(texto)</code> lo rellena con copias del mismo string.
+                                <code>.join(' ')</code> une todas las copias en un solo string separado por espacios.
+                                Es la forma de repetir sin escribir un bucle <code>for</code> a mano (usa funciones del lenguaje).
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                3. ¿Qué diferencia hay entre parámetro y argumento?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                El <strong>parámetro</strong> es el nombre en la declaración: <code>(texto, veces)</code>.
+                                El <strong>argumento</strong> es el valor real al llamar: <code>miFuncion('Hola', 3)</code>.
+                                En tu app, <code>texto</code> y <code>veces</code> vienen de <code>leerTexto</code> y <code>leerNumero</code> después de que el usuario rellena el formulario.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                4. ¿Por qué usamos <code>getElementById</code> solo en variables y no dentro de <code>miFuncion</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Porque <code>miFuncion</code> debe ser <strong>biblioteca</strong>: reutilizable en cualquier página sin cambiar su código.
+                                Si buscara <code>id="texto"</code> dentro, en otro ejercicio con otro <code>id</code> habría que modificar la función.
+                                Los <code>id</code> son cosa de <code>app.js</code> (esta aplicación); la lógica de repetir solo necesita strings y números.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                5. ¿Qué hace <code>evento.preventDefault()</code> en <code>funcionMain</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                El formulario, al enviarse, intenta recargar la página (comportamiento por defecto del navegador).
+                                <code>preventDefault()</code> cancela esa recarga para que tu JavaScript pueda leer los inputs y mostrar el resultado en el mismo sitio, sin perder lo escrito ni parpadear la página.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                6. ¿Por qué <code>leerNumero</code> usa <code>Number()</code> y no devuelve <code>input.value</code> directamente?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Porque <code>input.value</code> siempre es un <strong>string</strong> (texto), aunque el input sea type="number".
+                                <code>Array(veces)</code> y la repetición necesitan un número real.
+                                <code>Number('3')</code> → <code>3</code> (tipo number). Sin conversión, podrías tener errores raros al crear el array.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                7. ¿Cuál es la diferencia entre <code>textContent</code> e <code>innerHTML</code> en <code>mostrarTexto</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                <code>textContent</code> trata todo como texto plano: si el usuario escribe <code>&lt;script&gt;</code>, se muestra como caracteres, no se ejecuta.
+                                <code>innerHTML</code> interpretaría etiquetas HTML y podría ser inseguro.
+                                Para este ejercicio, <code>textContent</code> es la opción correcta y más segura.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                8. ¿Qué evento escuchamos y en qué elemento?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Evento: <code>'submit'</code> (enviar formulario).
+                                Elemento: <code>formulario</code> (el que tiene <code>id="formRepetir"</code>).
+                                Se dispara al pulsar el botón «Repetir texto» o al pulsar Enter en un campo del form.
+                                El callback recibe el objeto <code>evento</code> y lo pasa a <code>funcionMain</code>.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                9. ¿Qué pasa si <code>veces</code> es 0 o negativo?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Con <code>Array(0)</code> obtienes un array vacío y <code>join</code> devuelve <code>''</code> (string vacío).
+                                Con valores negativos el comportamiento de <code>Array</code> no es útil para repetir.
+                                El HTML limita con <code>min="1"</code>, pero en biblioteca estricta podrías validar en <code>funcionMain</code> antes de llamar <code>miFuncion</code>.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                10. Nombra las tres partes del archivo según tu guía de curso.
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                <strong>1. Declaración de variables</strong> — <code>getElementById</code> / enlaces con el HTML.<br>
+                                <strong>2. Declaración de funciones</strong> — biblioteca + <code>funcionMain</code>.<br>
+                                <strong>3. Ejecución de código</strong> — <code>addEventListener</code> que llama a <code>funcionMain</code>.
+                                Ese orden ayuda a leer el archivo y a separar «qué es la página» de «qué es reutilizable».
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                11. ¿Por qué el <code>&lt;script&gt;</code> está al final del <code>body</code>?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Porque <code>getElementById('texto')</code> necesita que el HTML ya exista en el DOM.
+                                Si el script estuviera en el <code>head</code> sin esperar, los elementos podrían ser <code>null</code> y fallaría.
+                                Al final del <code>body</code>, formulario, inputs y <code>#resultado</code> ya están creados.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                12. ¿Qué relación hay entre <code>for="texto"</code> en el label y <code>id="texto"</code> en el input?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                El atributo <code>for</code> del <code>&lt;label&gt;</code> debe coincidir con el <code>id</code> del input.
+                                Así, al hacer clic en la palabra «Texto», el cursor va al campo correcto (accesibilidad y usabilidad).
+                                En JavaScript usas el mismo <code>id</code> con <code>getElementById('texto')</code> — tres usos del mismo identificador, mismo propósito de enlace.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                13. ¿Cuáles son funciones del lenguaje (no personalizadas) en este ejercicio?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Por ejemplo: <code>Array</code>, <code>fill</code>, <code>join</code>, <code>Number</code>, <code>document.getElementById</code>, <code>addEventListener</code>, <code>preventDefault</code>.
+                                No las inventas; JavaScript o el navegador ya las traen.
+                                Tú inventas (personalizas): <code>miFuncion</code>, <code>leerTexto</code>, <code>leerNumero</code>, <code>mostrarTexto</code>, <code>funcionMain</code>.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                14. ¿Cómo reutilizarías la biblioteca en un ejercicio nuevo sin editar las funciones?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Copia <code>funciones.js</code> al nuevo proyecto.
+                                En el nuevo <code>app.js</code> solo cambias: los <code>getElementById</code> (si los <code>id</code> cambian) y la línea del listener para pasar los elementos correctos a <code>funcionMain</code>.
+                                Ejemplo: <code>funcionMain(evento, inputNombre, inputEdad, divSalida)</code> — las funciones internas siguen iguales.
+                            </p>
+                        </details>
+
+                        <details class="rounded-lg border border-base-300 bg-base-200/30 px-4 py-3">
+                            <summary class="flex items-center gap-2 font-medium">
+                                <span class="chevron inline-block transition-transform">▶</span>
+                                15. ¿Por qué <code>funcionMain</code> recibe los inputs como parámetros y no usa las variables globales directamente?
+                            </summary>
+                            <p class="mt-3 border-t border-base-300 pt-3 text-sm leading-relaxed">
+                                Para que sea una función de biblioteca reutilizable: todo lo que necesita entra por parámetros.
+                                En otra página puedes llamar <code>funcionMain(e, otroInput, otroNumero, otroDiv)</code> sin cambiar el cuerpo de <code>funcionMain</code>.
+                                Las variables globales de <code>app.js</code> solo sirven para pasar esos argumentos en el <code>addEventListener</code> de esta página concreta.
+                            </p>
+                        </details>
+
+                    </div>
+                </section>
+
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

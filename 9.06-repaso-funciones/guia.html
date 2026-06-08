@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Contar repeticiones de una palabra</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <img
+        src="img/space-landscape-cartoon-vector-illustration_107791-14170.jpg"
+        alt=""
+        class="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover object-center"
+        aria-hidden="true"
+    />
+
+    <main class="relative flex flex-grow flex-col items-center p-6 pt-12 md:pt-16">
+
+        <h1 class="mb-8 w-full max-w-3xl rounded-2xl bg-base-100 px-8 py-4 text-center text-sm font-medium text-base-content shadow-md sm:text-base md:text-lg">
+            Guía del ejercicio: contar cuántas veces se repite una palabra
+        </h1>
+
+        <article class="prose prose-sm w-full max-w-3xl rounded-2xl border border-base-300 bg-base-100 p-8 shadow-lg sm:prose-base">
+
+            <p>
+                El ejercicio te pide crear una <strong>función</strong> (una pequeña «receta» reutilizable en el programa)
+                que responda a esta pregunta:
+            </p>
+
+            <blockquote>
+                ¿Cuántas veces aparece una palabra concreta en un texto?
+            </blockquote>
+
+            <h2>En palabras muy simples</h2>
+
+            <p>
+                Imagina que tienes una frase larga, como un párrafo, y quieres saber cuántas veces sale la palabra
+                <strong>«mundo»</strong>.
+            </p>
+
+            <p>Tu función recibiría <strong>dos cosas</strong>:</p>
+
+            <ol>
+                <li>
+                    <strong>El texto completo</strong> — por ejemplo:
+                    <code>"hola mundo adios mundo"</code>
+                </li>
+                <li>
+                    <strong>La palabra que buscas</strong> — por ejemplo:
+                    <code>"mundo"</code>
+                </li>
+            </ol>
+
+            <p>
+                Y debe <strong>devolver un número</strong>: cuántas veces encontró esa palabra.
+            </p>
+
+            <p>En el ejemplo:</p>
+
+            <pre><code>"hola mundo adios mundo"  →  buscar "mundo"  →  resultado: 2</code></pre>
+
+            <p>
+                Porque «mundo» aparece dos veces (al principio y al final).
+            </p>
+
+            <h2>¿Qué es una «función»?</h2>
+
+            <p>
+                Sin entrar en código complicado: una función es como una <strong>máquina con dos entradas y una salida</strong>.
+            </p>
+
+            <ul>
+                <li><strong>Entrada 1:</strong> el texto largo</li>
+                <li><strong>Entrada 2:</strong> la palabra a contar</li>
+                <li><strong>Salida:</strong> un número (0, 1, 2, 3…)</li>
+            </ul>
+
+            <p>
+                Le das esos datos, la función hace el trabajo por dentro, y te devuelve solo el resultado.
+            </p>
+
+            <p>Ejemplo de uso (como en el enunciado):</p>
+
+            <pre><code>miFuncion("hola mundo adios mundo", "mundo")  →  devolverá 2</code></pre>
+
+            <h2>¿Qué tienes que «hacer» por dentro? (la idea del ejercicio)</h2>
+
+            <p>El programa debe, en esencia:</p>
+
+            <ol>
+                <li><strong>Mirar el texto</strong> (palabra por palabra, o trozo por trozo).</li>
+                <li><strong>Comparar</strong> cada parte con la palabra que buscas (<code>"mundo"</code>).</li>
+                <li><strong>Contar</strong> cada vez que coincide.</li>
+                <li><strong>Devolver</strong> ese total.</li>
+            </ol>
+
+            <p>
+                Es un ejercicio de <strong>repaso de funciones</strong>: defines la receta una vez y la usas cuando quieras
+                con otros textos y otras palabras.
+            </p>
+
+            <h2>Detalle importante (para no confundirte)</h2>
+
+            <p>A veces hay trampas:</p>
+
+            <ul>
+                <li>
+                    Si buscas <code>"mundo"</code> en <code>"mundos"</code>, ¿cuenta o no?
+                    En un ejercicio básico, suele contarse solo la palabra <strong>exacta</strong>
+                    <code>"mundo"</code>, no parte de otra palabra.
+                </li>
+                <li>
+                    Mayúsculas/minúsculas: <code>"Mundo"</code> y <code>"mundo"</code> — según el enunciado,
+                    a veces cuentan igual y a veces no.
+                </li>
+            </ul>
+
+            <p>
+                Tu profesor o el enunciado dirá si hay que ignorar mayúsculas o contar solo palabras enteras.
+            </p>
+
+            <h2>Resumen en una frase</h2>
+
+            <p>
+                <strong>
+                    El ejercicio consiste en programar una función que, dado un texto y una palabra,
+                    cuente cuántas veces aparece esa palabra en el texto y devuelva ese número.
+                </strong>
+            </p>
+
+        </article>
+
+        <p class="mt-6">
+            <a href="index.html" class="link link-primary text-sm">← Volver al proyecto</a>
+        </p>
+
+    </main>
+
+</body>
+</html>

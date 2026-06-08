@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide — Supprimer un motif dans un texte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inclusive Sans', sans-serif;
+            line-height: 1.7;
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            color: #1e293b;
+            background: #f8fafc;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.15rem; margin-top: 2rem; color: #0f766e; }
+        hr { border: none; border-top: 1px solid #cbd5e1; margin: 1.5rem 0; }
+        code, pre {
+            background: #e2e8f0;
+            border-radius: 0.35rem;
+            font-size: 0.95rem;
+        }
+        code { padding: 0.15rem 0.4rem; }
+        pre {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        ul { padding-left: 1.25rem; }
+        li { margin-bottom: 0.35rem; }
+        .intro { color: #475569; font-style: italic; }
+        .resume {
+            background: #ccfbf1;
+            border-left: 4px solid #0d9488;
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.35rem 0.35rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>L'exercice, expliqué simplement</h1>
+    <p class="intro">Imagine que tu as une <strong>phrase</strong> écrite sur une feuille, et un <strong>mot (ou morceau de mot)</strong> que tu veux <strong>effacer partout</strong> où il apparaît. Ce qui reste, c'est le nouveau texte.</p>
+
+    <hr>
+
+    <h2>Ce qu'on te demande</h2>
+    <p>Tu dois écrire une <strong>fonction</strong> (une petite « machine » réutilisable) qui :</p>
+    <ol>
+        <li><strong>Reçoit</strong> deux choses :
+            <ul>
+                <li>un <strong>texte</strong> (la phrase complète) ;</li>
+                <li>un <strong>motif</strong> (le morceau à enlever), ici <code>"xyz"</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Renvoie</strong> le texte <strong>sans</strong> ce motif, partout où il était.</li>
+    </ol>
+
+    <p><strong>Exemple :</strong></p>
+    <ul>
+        <li>Texte : <code>"xyz1, xyz2, xyz3, xyz4 y xyz5"</code></li>
+        <li>Motif à enlever : <code>"xyz"</code></li>
+        <li>Résultat : <code>"1, 2, 3, 4 y 5"</code></li>
+    </ul>
+
+    <p>C'est comme si tu prenais une <strong>gomme</strong> et tu effaçais <strong>chaque fois</strong> que tu vois <code>xyz</code>, sans toucher au reste (<code>1</code>, <code>2</code>, les virgules, le <code>y</code>, etc.).</p>
+
+    <hr>
+
+    <h2>Pourquoi on parle de « fonction » ?</h2>
+    <p>En programmation, une <strong>fonction</strong>, c'est une <strong>recette</strong> avec un nom. Tu lui donnes des <strong>ingrédients</strong> (les paramètres), elle te donne un <strong>plat</strong> (le résultat).</p>
+    <p>Ici :</p>
+    <ul>
+        <li><strong>Ingrédient 1</strong> : la phrase.</li>
+        <li><strong>Ingrédient 2</strong> : ce qu'il faut enlever.</li>
+        <li><strong>Plat</strong> : la phrase nettoyée.</li>
+    </ul>
+    <p>Tu peux réutiliser la même recette avec d'autres phrases et d'autres motifs, sans tout réécrire.</p>
+
+    <p>Par exemple :</p>
+    <pre>miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz")</pre>
+    <p>devrait renvoyer :</p>
+    <pre>"1, 2, 3, 4 y 5"</pre>
+
+    <hr>
+
+    <h2>Ce que tu apprends (sans jargon compliqué)</h2>
+    <ul>
+        <li><strong>Texte</strong> = une suite de <strong>caractères</strong> (lettres, chiffres, espaces, virgules…).</li>
+        <li><strong>Motif</strong> = ce qu'on cherche pour le <strong>supprimer</strong> (pas forcément un mot entier ; ici c'est <code>xyz</code>).</li>
+        <li><strong>Parcourir / remplacer</strong> = le programme lit le texte et <strong>enlève</strong> chaque occurrence du motif.</li>
+    </ul>
+    <p>En JavaScript, par exemple, on peut utiliser une méthode du type <strong>remplacer tout</strong> (<code>replaceAll</code> ou une boucle avec <code>replace</code>), mais l'idée reste la même : <strong>chercher <code>xyz</code> et l'effacer</strong>.</p>
+
+    <hr>
+
+    <h2>Petite attention (comme en classe)</h2>
+    <ul>
+        <li>On enlève <strong>exactement</strong> ce qu'on a dit (<code>xyz</code>), pas autre chose.</li>
+        <li>L'ordre du reste ne change pas : on garde <code>1, 2, 3, 4 y 5</code>.</li>
+        <li>Si le motif n'apparaît pas, le texte revient <strong>presque identique</strong> (souvent pareil).</li>
+    </ul>
+
+    <div class="resume">
+        <strong>En une phrase :</strong> tu construis une boîte à outils qui, à partir d'une phrase et d'un morceau à effacer, te renvoie la phrase nettoyée.
+    </div>
+
+</body>
+</html>

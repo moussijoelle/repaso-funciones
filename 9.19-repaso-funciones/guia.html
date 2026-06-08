@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — Tri ascendant et descendant</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+      --code-bg: #f4f4f5;
+      --accent: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+    h1 { font-size: 1.5rem; line-height: 1.3; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35rem; }
+    h3 { font-size: 1rem; margin-top: 1.25rem; }
+    p { margin: 0.75rem 0; }
+    strong { font-weight: 600; }
+    em { color: var(--muted); }
+    hr { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    ol, ul { padding-left: 1.35rem; }
+    li { margin: 0.35rem 0; }
+    code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.9em;
+      background: var(--code-bg);
+      padding: 0.15em 0.35em;
+      border-radius: 4px;
+    }
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    pre code { background: none; padding: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    th { background: var(--code-bg); }
+    .lead { font-size: 1.05rem; }
+    .numbers { font-weight: 600; letter-spacing: 0.02em; }
+    .schema-wrap {
+      background: var(--code-bg);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+    .schema-wrap .mermaid { text-align: center; }
+    .flow-list { list-style: none; padding-left: 0; }
+    .flow-list li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.75rem;
+      border-left: 2px solid var(--accent);
+      margin-left: 0.5rem;
+    }
+    .flow-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0.35rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .flow-list li:last-child { border-left-color: transparent; }
+    .note-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    .line-table { font-size: 0.88rem; }
+    .line-table td:first-child {
+      white-space: nowrap;
+      font-family: ui-monospace, Consolas, monospace;
+      color: #6b21a8;
+      width: 3.5rem;
+      vertical-align: top;
+    }
+    .line-table td:last-child { vertical-align: top; }
+    .quiz details {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0.75rem 0;
+      padding: 0;
+      background: #fff;
+    }
+    .quiz summary {
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      list-style: none;
+    }
+    .quiz summary::-webkit-details-marker { display: none; }
+    .quiz summary::before {
+      content: "▸ ";
+      color: var(--accent);
+    }
+    .quiz details[open] summary::before { content: "▾ "; }
+    .quiz .answer {
+      padding: 0 1rem 1rem;
+      border-top: 1px dashed var(--border);
+      margin-top: 0;
+      color: var(--text);
+      font-weight: normal;
+    }
+    .toc { font-size: 0.95rem; }
+    body { max-width: 48rem; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+    });
+  </script>
+</head>
+<body>
+
+  <h1>L'exercice, expliqué simplement (en français)</h1>
+
+  <p class="lead">
+    Salut ! Imagine que tu as une <strong>liste de nombres</strong> écrite sur un bout de papier, dans le désordre :
+  </p>
+  <p class="numbers">7, 5, 7, 8, 6</p>
+
+  <p>
+    L'exercice te demande de faire une <strong>petite machine</strong> (en programmation, on appelle ça une <strong>fonction</strong>) qui :
+  </p>
+  <ol>
+    <li><strong>Reçoit</strong> cette liste.</li>
+    <li><strong>Te rend</strong> deux nouvelles listes, bien rangées, dans un <strong>petit dossier</strong> avec deux étiquettes.</li>
+  </ol>
+
+  <hr>
+
+  <h2>Les deux listes à fabriquer</h2>
+
+  <h3>1. Liste « du plus petit au plus grand » (ascendant)</h3>
+  <p>Tu ranges les nombres comme des livres sur une étagère : <strong>du plus petit au plus grand</strong>.</p>
+  <p>Avec <strong>7, 5, 7, 8, 6</strong>, ça donne :</p>
+  <p class="numbers">5, 6, 7, 7, 8</p>
+  <p><em>Il y a deux fois le 7 : on garde les deux.</em></p>
+
+  <h3>2. Liste « du plus grand au plus petit » (descendant)</h3>
+  <p>Même idée, mais à l'envers : <strong>du plus grand au plus petit</strong>.</p>
+  <p>Ça donne :</p>
+  <p class="numbers">8, 7, 7, 6, 5</p>
+
+  <hr>
+
+  <h2>Le « dossier » : l'objet</h2>
+  <p>
+    En programmation, on ne renvoie pas seulement une liste. On renvoie un <strong>objet</strong> :
+    comme une <strong>boîte avec des cases étiquetées</strong>.
+  </p>
+  <ul>
+    <li>Une case s'appelle <code>asc</code> → la liste montante (ascendante).</li>
+    <li>L'autre s'appelle <code>desc</code> → la liste descendante.</li>
+  </ul>
+  <p>Pour ton exemple, la machine doit rendre quelque chose comme :</p>
+  <pre><code>{
+  asc:  [5, 6, 7, 7, 8],
+  desc: [8, 7, 7, 6, 5]
+}</code></pre>
+  <p>C'est exactement ce que montre l'énoncé avec <code>miFuncion([7, 5, 7, 8, 6])</code>.</p>
+
+  <hr>
+
+  <h2>En une phrase</h2>
+  <p>
+    <strong>Tu prends des nombres en vrac, tu les tries une fois vers le haut et une fois vers le bas,
+    et tu les ranges dans un petit classeur à deux tiroirs : <code>asc</code> et <code>desc</code>.</strong>
+  </p>
+
+  <hr>
+
+  <h2>Mots utiles (sans jargon inutile)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Mot</th>
+        <th>En langage simple</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tableau / arreglo</strong></td>
+        <td>Une liste de valeurs, dans l'ordre</td>
+      </tr>
+      <tr>
+        <td><strong>Fonction</strong></td>
+        <td>Une recette : entrée → sortie</td>
+      </tr>
+      <tr>
+        <td><strong>Objet</strong></td>
+        <td>Une boîte avec des étiquettes (<code>asc</code>, <code>desc</code>)</td>
+      </tr>
+      <tr>
+        <td><strong>Ascendant</strong></td>
+        <td>Du plus petit au plus grand</td>
+      </tr>
+      <tr>
+        <td><strong>Descendant</strong></td>
+        <td>Du plus grand au plus petit</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>Ce que tu dois programmer (idée générale)</h2>
+  <ol>
+    <li>Créer une fonction (par ex. <code>miFuncion</code>) qui <strong>reçoit</strong> la liste.</li>
+    <li><strong>Copier</strong> la liste (pour ne pas mélanger l'original).</li>
+    <li><strong>Trier</strong> une copie pour <code>asc</code>.</li>
+    <li><strong>Trier</strong> l'autre copie pour <code>desc</code> (souvent l'inverse de <code>asc</code>).</li>
+    <li><strong>Renvoyer</strong> l'objet <code>{ asc: ..., desc: ... }</code>.</li>
+  </ol>
+  <p>En JavaScript, on utilise souvent <code>.sort()</code> sur des copies du tableau.</p>
+
+  <hr>
+
+  <h2>Schéma mental de la page (HTML + JS)</h2>
+  <p>
+    Pour <strong>refaire la page toute seule</strong>, imagine un chemin : l'utilisatrice écrit des nombres,
+    appuie sur le bouton, et le programme fait le travail <strong>par étapes</strong>, comme une chaîne de montage.
+  </p>
+
+  <div class="schema-wrap">
+    <pre class="mermaid">flowchart LR
+    A["Utilisatrice écrit et envoie le formulaire"] --> B["funcionPrincipal"]
+    B --> C["textoAArray + arrayValido"]
+    C --> D{"Données valides ?"}
+    D -->|oui| E["miFuncion reçoit le tableau"]
+    D -->|non| F["message d'erreur"]
+    E --> G["formatearAscDesc"]
+    G --> H["Affichage dans #resultado"]
+    F --> H</pre>
+  </div>
+
+  <h3>Que fait chaque maillon ?</h3>
+  <ul class="flow-list">
+    <li><strong>HTML</strong> — Le formulaire (<code>#formNumeros</code>), le champ texte (<code>#numeros</code>) et la zone <code>#resultado</code>. Rien ne calcule ici : ce sont seulement des « boîtes » visibles.</li>
+    <li><strong>funcionPrincipal</strong> — C'est la <strong>fonction principale</strong>. Elle est la <em>seule</em> qui lit le champ et écrit dans <code>#resultado</code> (elle touche le DOM).</li>
+    <li><strong>textoAArray</strong> — Transforme le texte « 7, 5, 7, 8, 6 » en vrai tableau de nombres <code>[7, 5, 7, 8, 6]</code>.</li>
+    <li><strong>arrayValido</strong> — Vérifie : pas vide, que ce sont des nombres, souvent des entiers.</li>
+    <li><strong>miFuncion</strong> — Reçoit le tableau <strong>par paramètre</strong>, ne lit pas l'écran. Elle <code>return</code> l'objet <code>{ asc, desc }</code>.</li>
+    <li><strong>formatearAscDesc</strong> — Transforme l'objet en phrase lisible pour l'écran (sans toucher le DOM).</li>
+    <li><strong>addEventListener("submit", …)</strong> — Au clic sur « envoyer », c'est le moteur qui démarre <code>funcionPrincipal</code>.</li>
+  </ul>
+
+  <div class="note-box">
+    <strong>Règle importante :</strong> les petites fonctions de la bibliothèque (tri, copie, formatage…) ont chacune
+    <strong>une entrée et une sortie</strong> avec <code>return</code>. Seule la principale coordonne tout et affiche le résultat.
+  </div>
+
+  <h3>Ordre du fichier <code>app.js</code></h3>
+  <ol>
+    <li><strong>Déclaration de variables</strong> — <code>getElementById</code> pour lier le JS au HTML.</li>
+    <li><strong>Déclaration de fonctions</strong> — bibliothèque (flèches, indépendantes) + <code>funcionPrincipal</code> à la fin de ce bloc.</li>
+    <li><strong>Exécution</strong> — <code>addEventListener("submit", funcionPrincipal)</code>.</li>
+  </ol>
+  <p>Pas d'import de module sauf si le professeur le demande explicitement.</p>
+
+  <hr>
+
+  <h2>Énoncé de l'exercice (référence)</h2>
+  <p>
+    Programmer une fonction qui, étant donné un tableau de nombres, renvoie un objet avec deux tableaux :
+  </p>
+  <ul>
+    <li>le premier : nombres triés en ordre <strong>ascendant</strong> ;</li>
+    <li>le second : nombres triés en ordre <strong>descendant</strong>.</li>
+  </ul>
+  <p>Exemple :</p>
+  <pre><code>miFuncion([7, 5, 7, 8, 6])
+// → { asc: [5, 6, 7, 7, 8], desc: [8, 7, 7, 6, 5] }</code></pre>
+
+  <hr>
+
+  <h2>Explication ligne par ligne — <code>indx.html</code></h2>
+  <p class="toc">Chaque ligne de ta page actuelle et son rôle (fichier <code>indx.html</code>).</p>
+  <table class="line-table">
+    <tbody>
+      <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code> — Dit au navigateur : « c'est une page HTML moderne ».</td></tr>
+      <tr><td>2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code> — Racine de la page en espagnol ; <code>data-theme</code> active le thème DaisyUI « autumn ».</td></tr>
+      <tr><td>3</td><td><code>&lt;head&gt;</code> — Bloc invisible : métadonnées, styles et liens.</td></tr>
+      <tr><td>4-6</td><td><code>charset</code>, <code>viewport</code>, <code>&lt;title&gt;</code> — Encodage UTF-8, adaptation mobile, titre de l'onglet du navigateur.</td></tr>
+      <tr><td>8-10</td><td>Liens DaisyUI + Tailwind — Feuilles de style et script Tailwind pour les classes (<code>btn</code>, <code>card</code>, etc.).</td></tr>
+      <tr><td>12-14</td><td>Google Fonts — Charge la police « Inclusive Sans » utilisée sur le <code>body</code>.</td></tr>
+      <tr><td>16-24</td><td><code>&lt;style&gt;</code> sur <code>body</code> — Image de fond <code>img/green.webp</code>, couvre tout l'écran (<code>cover</code>), centrée, fixe au scroll.</td></tr>
+      <tr><td>25</td><td><code>&lt;/head&gt;</code> — Fin de la configuration.</td></tr>
+      <tr><td>26</td><td><code>&lt;body class="..."&gt;</code> — Corps visible : mise en page flex colonne, police, couleur de texte atténuée.</td></tr>
+      <tr><td>28</td><td><code>&lt;main&gt;</code> — Contenu principal centré avec padding.</td></tr>
+      <tr><td>30-32</td><td><code>&lt;h1&gt;</code> — Instructions pour l'utilisatrice : nombres séparés par virgules, exemple asc/desc.</td></tr>
+      <tr><td>34</td><td><code>&lt;section&gt;</code> — Zone qui centre la carte du formulaire.</td></tr>
+      <tr><td>36</td><td><code>card</code> — Boîte blanche (DaisyUI) avec bordure et ombre.</td></tr>
+      <tr><td>37</td><td><code>&lt;form id="formNumeros"&gt;</code> — <strong>Id crucial</strong> : le JS fait <code>getElementById("formNumeros")</code> et écoute <code>submit</code>.</td></tr>
+      <tr><td>39-42</td><td><code>&lt;label for="numeros"&gt;</code> — Étiquette cliquable liée au champ ; texte « Array numérico ».</td></tr>
+      <tr><td>43-51</td><td><code>&lt;input id="numeros"&gt;</code> — Champ texte lu par <code>inputNumeros.value</code> ; <code>required</code> = obligatoire ; <code>placeholder</code> = exemple.</td></tr>
+      <tr><td>54-59</td><td><code>&lt;button type="submit"&gt;</code> — Envoie le formulaire (déclenche l'événement <code>submit</code>, pas un simple clic isolé).</td></tr>
+      <tr><td>61</td><td><code>&lt;div id="resultado"&gt;</code> — Zone vide au départ ; le JS y écrit le message avec <code>textContent</code>.</td></tr>
+      <tr><td>62-67</td><td>Fermetures <code>form</code>, <code>div</code>, <code>section</code>, <code>main</code> — Structure HTML bien imbriquée.</td></tr>
+      <tr><td>69</td><td><code>&lt;script src="js/app.js"&gt;</code> — Charge ton JavaScript à la fin : le HTML existe déjà quand le script s'exécute.</td></tr>
+      <tr><td>70-71</td><td><code>&lt;/body&gt; &lt;/html&gt;</code> — Fin de la page.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>Explication ligne par ligne — <code>js/app.js</code></h2>
+  <p>Ordre imposé : variables → fonctions (bibliothèque + principale) → exécution.</p>
+
+  <h3>Bloc 1 — Variables (lignes 1-6)</h3>
+  <table class="line-table">
+    <tbody>
+      <tr><td>1</td><td>Commentaire de section : déclaration des variables DOM.</td></tr>
+      <tr><td>3</td><td><code>formulario</code> — Référence au <code>&lt;form id="formNumeros"&gt;</code> pour écouter l'envoi.</td></tr>
+      <tr><td>4</td><td><code>inputNumeros</code> — Référence au <code>&lt;input id="numeros"&gt;</code> pour lire ce que tape l'utilisatrice.</td></tr>
+      <tr><td>5</td><td><code>zonaResultado</code> — Référence au <code>&lt;div id="resultado"&gt;</code> pour afficher le texte final.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Bloc 2 — Bibliothèque (lignes 8-69)</h3>
+  <table class="line-table">
+    <tbody>
+      <tr><td>10-12</td><td><code>copiarArray</code> — Entrée : tableau. Sortie : copie avec <code>[...array]</code>. Pour ne pas modifier l'original avec <code>.sort()</code>.</td></tr>
+      <tr><td>14-17</td><td><code>ordenAscendente</code> — Copie + <code>.sort((a,b) => a - b)</code> : si le résultat est négatif, <code>a</code> va avant <code>b</code> (ordre croissant).</td></tr>
+      <tr><td>19-22</td><td><code>ordenDescendente</code> — Même idée avec <code>b - a</code> (ordre décroissant).</td></tr>
+      <tr><td>24-28</td><td><code>miFuncion</code> — <strong>Cœur de l'exercice</strong> : reçoit un tableau, appelle les deux tris, <code>return { asc, desc }</code>. Ne touche pas au DOM.</td></tr>
+      <tr><td>30-32</td><td><code>separarPorComas</code> — Découpe la chaîne à chaque virgule → tableau de morceaux texte.</td></tr>
+      <tr><td>34-36</td><td><code>limpiarParte</code> — Enlève espaces avant/après chaque morceau (<code>trim</code>).</td></tr>
+      <tr><td>38-40</td><td><code>parteANumero</code> — Convertit un morceau en nombre (<code>Number</code>).</td></tr>
+      <tr><td>42-46</td><td><code>textoAArray</code> — Enchaîne séparer → nettoyer → filtrer vides → convertir : « 7, 5, 8 » → <code>[7, 5, 8]</code>.</td></tr>
+      <tr><td>48-50</td><td><code>esEntero</code> — Vrai seulement si le nombre n'a pas de partie décimale.</td></tr>
+      <tr><td>52-57</td><td><code>arrayValido</code> — Vrai si : au moins un élément, pas de <code>NaN</code>, tous entiers.</td></tr>
+      <tr><td>59-63</td><td><code>formatearAscDesc</code> — Transforme l'objet en chaîne lisible pour l'écran (sans écrire dans le DOM).</td></tr>
+      <tr><td>65-69</td><td><code>mensajeResultado</code> — Si valide → texte avec asc/desc ; sinon → message d'erreur.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Fonction principale (lignes 71-82)</h3>
+  <table class="line-table">
+    <tbody>
+      <tr><td>73-74</td><td><code>funcionPrincipal</code> — Seule fonction qui lit <code>.value</code> et écrit <code>.textContent</code>. <code>preventDefault()</code> empêche le rechargement de la page.</td></tr>
+      <tr><td>76</td><td>Lit le texte du champ dans <code>textoEscrito</code>.</td></tr>
+      <tr><td>77</td><td>Convertit en tableau de nombres via <code>textoAArray</code>.</td></tr>
+      <tr><td>78</td><td>Vérifie avec <code>arrayValido</code> → booléen <code>esValido</code>.</td></tr>
+      <tr><td>79</td><td>Si valide : <code>miFuncion(valores)</code> ; sinon objet vide. Le résultat est stocké dans une variable.</td></tr>
+      <tr><td>80</td><td>Prépare le message final (chaîne).</td></tr>
+      <tr><td>81</td><td>Affiche le message dans <code>#resultado</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Exécution (lignes 84-87)</h3>
+  <table class="line-table">
+    <tbody>
+      <tr><td>87</td><td><code>addEventListener("submit", funcionPrincipal)</code> — Quand on clique « Ordenar », le navigateur lance toute la chaîne ci-dessus.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>Test — 15 questions</h2>
+  <p>Lis la question, réponds dans ta tête ou sur papier, puis clique sur la ligne pour voir la réponse détaillée.</p>
+
+  <div class="quiz">
+    <details>
+      <summary>1. Si tu écris <code>7, 5, 7, 8, 6</code> et tu cliques Ordenar, quel message exact dois-tu voir ?</summary>
+      <div class="answer">
+        <p>Tu dois voir : <strong>Asc: [5, 6, 7, 7, 8] | Desc: [8, 7, 7, 6, 5]</strong>.</p>
+        <p>Cheminement : <code>textoAArray</code> produit <code>[7, 5, 7, 8, 6]</code> → <code>arrayValido</code> est vrai → <code>miFuncion</code> trie → <code>formatearAscDesc</code> met en texte → <code>funcionPrincipal</code> l'affiche dans <code>#resultado</code>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>2. Que renvoie exactement <code>miFuncion([7, 5, 7, 8, 6])</code> (sans passer par l'écran) ?</summary>
+      <div class="answer">
+        <p>Un <strong>objet</strong> JavaScript :</p>
+        <pre><code>{ asc: [5, 6, 7, 7, 8], desc: [8, 7, 7, 6, 5] }</code></pre>
+        <p>C'est la réponse demandée par l'énoncé. <code>miFuncion</code> ne lit jamais l'input : elle reçoit déjà le tableau en paramètre et utilise <code>return</code>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>3. Pourquoi existe <code>copiarArray</code> avant de trier ?</summary>
+      <div class="answer">
+        <p>Parce que <code>.sort()</code> modifie le tableau <strong>sur place</strong>. Si tu triais directement le tableau d'origine, tu perdrais l'ordre initial et tu pourrais mélanger asc/desc entre eux.</p>
+        <p><code>[...array]</code> crée une copie superficielle : le tri ne touche que la copie, pas le tableau reçu par <code>miFuncion</code>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>4. Que fait <code>(a, b) => a - b</code> dans <code>ordenAscendente</code> ?</summary>
+      <div class="answer">
+        <p>C'est la fonction de comparaison passée à <code>.sort()</code>. JavaScript compare deux éléments à la fois :</p>
+        <ul>
+          <li>Si <code>a - b</code> est négatif → <code>a</code> est plus petit, il va avant.</li>
+          <li>Si positif → <code>b</code> va avant.</li>
+          <li>Si zéro → ordre équivalent entre les deux.</li>
+        </ul>
+        <p>Résultat global : ordre numérique croissant (ascendant).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>5. Quelle est la différence entre <code>ordenAscendente</code> et <code>ordenDescendente</code> ?</summary>
+      <div class="answer">
+        <p>Les deux copient le tableau puis appellent <code>.sort()</code>, mais :</p>
+        <ul>
+          <li>Ascendant : <code>(a, b) => a - b</code> — du plus petit au plus grand.</li>
+          <li>Descendant : <code>(a, b) => b - a</code> — du plus grand au plus petit.</li>
+        </ul>
+        <p><code>miFuncion</code> appelle les deux sur le même tableau d'entrée (chaque fois via une nouvelle copie).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>6. Quels trois <code>id</code> du HTML doivent correspondre au JavaScript ?</summary>
+      <div class="answer">
+        <ul>
+          <li><code>formNumeros</code> → variable <code>formulario</code></li>
+          <li><code>numeros</code> → variable <code>inputNumeros</code></li>
+          <li><code>resultado</code> → variable <code>zonaResultado</code></li>
+        </ul>
+        <p>Si un <code>id</code> est mal écrit, <code>getElementById</code> renvoie <code>null</code> et le programme plante à l'exécution.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>7. Pourquoi seule <code>funcionPrincipal</code> peut toucher le DOM ?</summary>
+      <div class="answer">
+        <p>C'est la règle de ton cours : séparer la <strong>bibliothèque</strong> (calcul pur : entrée → <code>return</code>) de la <strong>coordination</strong> (lire l'écran, afficher).</p>
+        <p>Avantages : tu peux réutiliser <code>miFuncion</code>, <code>ordenAscendente</code>, etc. ailleurs ou dans la console sans avoir besoin d'une page HTML. Les tests sont plus simples.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>8. Pourquoi <code>evento.preventDefault()</code> au début de la principale ?</summary>
+      <div class="answer">
+        <p>Par défaut, envoyer un <code>&lt;form&gt;</code> recharge la page. <code>preventDefault()</code> annule ce comportement pour que :</p>
+        <ul>
+          <li>la page reste ouverte ;</li>
+          <li>ton JavaScript puisse lire l'input et mettre à jour <code>#resultado</code> sans tout effacer.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>9. Pourquoi l'événement est <code>"submit"</code> et pas <code>"click"</code> sur le bouton ?</summary>
+      <div class="answer">
+        <p><code>submit</code> est l'événement du <strong>formulaire entier</strong> : il se déclenche quand on envoie le form (bouton, touche Entrée dans le champ, etc.).</p>
+        <p>C'est le pattern standard : une seule écoute sur <code>formulario</code>, et le bouton <code>type="submit"</code> déclenche tout proprement.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>10. Que vérifie <code>arrayValido</code> ? Donne un exemple refusé.</summary>
+      <div class="answer">
+        <p>Trois conditions en même temps (<code>&&</code>) :</p>
+        <ol>
+          <li>Au moins un nombre (<code>length &gt; 0</code>).</li>
+          <li>Aucun <code>NaN</code> (ex. texte « hola » converti en nombre).</li>
+          <li>Tous entiers (<code>esEntero</code>).</li>
+        </ol>
+        <p>Exemple refusé : <code>1.5, 2, 3</code> — 1.5 n'est pas entier → message d'erreur, pas d'appel à <code>miFuncion</code> avec de vrais résultats.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>11. Si tu entres <code>3, 1, 2</code>, quels tableaux dans l'objet retourné par <code>miFuncion</code> ?</summary>
+      <div class="answer">
+        <pre><code>{ asc: [1, 2, 3], desc: [3, 2, 1] }</code></pre>
+        <p>À l'écran : <strong>Asc: [1, 2, 3] | Desc: [3, 2, 1]</strong> (espaces après les virgules dans l'affichage grâce à <code>join(", ")</code>).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>12. Que fait <code>textoAArray(" 7 , 5 , 8 ")</code> ?</summary>
+      <div class="answer">
+        <p>Retourne <code>[7, 5, 8]</code>.</p>
+        <p>Étapes : <code>split(",")</code> → morceaux avec espaces → <code>trim</code> sur chaque → suppression des chaînes vides → <code>Number</code> sur chaque morceau.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>13. Dans quel ordre doivent apparaître les trois grandes parties de <code>app.js</code> ?</summary>
+      <div class="answer">
+        <ol>
+          <li><strong>Déclaration de variables</strong> — <code>getElementById</code> (le HTML doit déjà être chargé : d'où le <code>&lt;script&gt;</code> en bas de page).</li>
+          <li><strong>Déclaration de fonctions</strong> — bibliothèque puis <code>funcionPrincipal</code>.</li>
+          <li><strong>Exécution</strong> — <code>addEventListener</code>.</li>
+        </ol>
+        <p>Pas d'import de module dans ton exercice actuel.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>14. Que signifie <code>return { asc, desc }</code> (écriture courte) ?</summary>
+      <div class="answer">
+        <p>C'est la syntaxe raccourcie ES6 quand le nom de la propriété et le nom de la variable sont identiques. Équivalent à :</p>
+        <pre><code>return { asc: asc, desc: desc };</code></pre>
+        <p>L'objet contient deux tableaux sous les clés <code>asc</code> et <code>desc</code>, comme demandé par l'énoncé.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>15. Si <code>arrayValido</code> est faux, que se passe-t-il dans <code>funcionPrincipal</code> ligne 79 ?</summary>
+      <div class="answer">
+        <p>L'opérateur ternaire choisit <code>{ asc: [], desc: [] }</code> au lieu d'appeler <code>miFuncion</code>.</p>
+        <p>Ensuite <code>mensajeResultado</code> voit <code>esValido === false</code> et renvoie le message d'erreur : « Usa comas entre enteros, no puntos (ej: 7, 5, 8). » — pas les listes triées.</p>
+      </div>
+    </details>
+  </div>
+
+</body>
+</html>

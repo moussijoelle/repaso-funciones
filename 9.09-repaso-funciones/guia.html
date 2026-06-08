@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Número aleatorio y organización del código</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-base-300 pb-12 font-[Inclusive_Sans,sans-serif] text-base-content/80" data-theme="abyss">
+
+    <main class="mx-auto max-w-3xl px-6 py-12">
+
+        <header class="mb-10 text-center">
+            <h1 class="text-2xl font-semibold text-base-content md:text-3xl">
+                L'exercice, expliqué simplement
+            </h1>
+            <p class="mt-2 text-sm text-base-content/60">
+                Nombre aléatoire entre 501 et 600 — <code class="text-primary">Math.random()</code>
+            </p>
+        </header>
+
+        <article class="prose prose-invert max-w-none space-y-8 rounded-2xl border border-base-300 bg-base-100 p-8 shadow-lg">
+
+            <section>
+                <p>
+                    Imagine que tu veux un <strong>dé à jouer</strong>, mais ce dé ne donne pas 1 à 6 :
+                    il doit donner un nombre <strong>entre 501 et 600</strong> (501, 502, 503… jusqu'à 600).
+                </p>
+                <p>
+                    L'exercice te demande d'écrire une <strong>fonction</strong> : un petit morceau de code réutilisable.
+                    Chaque fois que tu l'appelles, elle te renvoie <strong>un nombre au hasard</strong> dans cette plage.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Pourquoi <code>Math.random()</code> ?</h2>
+                <p>
+                    En JavaScript, <code>Math.random()</code> c'est comme une machine qui tire un nombre
+                    <strong>entre 0 et presque 1</strong> (par exemple 0,37 ou 0,91).
+                    Ce n'est <strong>pas</strong> encore 501 ni 600.
+                </p>
+                <p>
+                    Donc l'exercice, ce n'est pas seulement écrire <code>Math.random()</code>.
+                    C'est <strong>transformer</strong> ce nombre (0 à 1) pour qu'il devienne un <strong>entier</strong>
+                    entre 501 et 600.
+                </p>
+                <p>En gros :</p>
+                <ol class="list-decimal space-y-2 pl-6">
+                    <li>Tirer un nombre aléatoire entre 0 et 1 → <code>Math.random()</code></li>
+                    <li>L'étirer pour couvrir la plage 501–600</li>
+                    <li>Arrondir vers le bas pour avoir un <strong>entier</strong> (pas 547,8 mais 547)</li>
+                </ol>
+                <p class="text-sm text-base-content/65">
+                    MDN propose exactement ce type de recette, par exemple
+                    <code>getRandomIntInclusive(min, max)</code> quand <strong>501 et 600 sont tous les deux inclus</strong>.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Une image simple</h2>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm leading-relaxed text-base-content/90">Math.random()  →  quelque chose comme 0,42
+       ↓
+   calculs (×, +, arrondi)
+       ↓
+   un entier entre 501 et 600</pre>
+                <p>
+                    Tu ne choisis pas le résultat à la main : l'ordinateur le tire <strong>à chaque appel</strong> de la fonction.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Et <code>window.crypto.getRandomValues()</code> ?</h2>
+                <p>
+                    Ce n'est <strong>pas</strong> ce qu'il te faut pour cet exercice d'école.
+                </p>
+                <ul class="list-disc space-y-2 pl-6">
+                    <li><code>Math.random()</code> : suffisant pour jeux, simulations, exercices.</li>
+                    <li><code>crypto.getRandomValues()</code> : pour la <strong>sécurité</strong> (mots de passe, cartes bancaires, chiffrement). Plus sérieux, plus compliqué.</li>
+                </ul>
+                <p class="text-sm text-base-content/65">
+                    MDN le mentionne pour dire : <em>ne utilise pas <code>Math.random()</code> pour protéger des secrets</em>.
+                    Pour ton exercice 501–600, <strong><code>Math.random()</code> est le bon outil</strong>.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Ce que tu dois retenir</h2>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full text-sm">
+                        <thead>
+                            <tr>
+                                <th>Idée</th>
+                                <th>En une phrase</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>But</strong></td>
+                                <td>Une fonction qui renvoie un entier aléatoire entre 501 et 600</td>
+                            </tr>
+                            <tr>
+                                <td><strong><code>Math.random()</code></strong></td>
+                                <td>Donne un décimal entre 0 et &lt; 1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Le travail</strong></td>
+                                <td>Formules + <code>Math.floor</code> pour obtenir un entier dans la bonne plage</td>
+                            </tr>
+                            <tr>
+                                <td><strong><code>crypto...</code></strong></td>
+                                <td>Pas nécessaire ici ; c'est pour la sécurité</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Exemple de logique</h2>
+                <p class="text-sm text-base-content/65">
+                    Pour comprendre — si 501 <strong>et</strong> 600 sont inclus :
+                </p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>function nombreAleatoire501a600() {
+  return Math.floor(Math.random() * (600 - 501 + 1)) + 501;
+}</code></pre>
+                <ul class="list-disc space-y-2 pl-6 text-sm">
+                    <li><code>(600 - 501 + 1)</code> = 100 possibilités (501 à 600)</li>
+                    <li><code>+ 501</code> décale le résultat pour commencer à 501</li>
+                </ul>
+            </section>
+
+        </article>
+
+        <header class="mb-8 mt-14 text-center">
+            <h2 class="text-2xl font-semibold text-base-content md:text-3xl">
+                Organizar el código como en un proyecto real
+            </h2>
+            <p class="mt-2 text-sm text-base-content/60">
+                Funciones flecha, biblioteca reutilizable y <code class="text-primary">app.js</code>
+            </p>
+        </header>
+
+        <article class="prose prose-invert max-w-none space-y-8 rounded-2xl border border-base-300 bg-base-100 p-8 shadow-lg">
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Tres capas</h2>
+                <ul class="list-disc space-y-2 pl-6">
+                    <li><strong>index.html</strong> — estructura, botones, ids (<code>formAleatorio</code>, <code>resultado</code>).</li>
+                    <li><strong>biblioteca.js</strong> — piezas genéricas: solo entradas y salidas, sin personalizar el ejercicio.</li>
+                    <li><strong>app.js</strong> — enlaces con el HTML, <code>funcionMain</code> y los escuchadores (<code>addEventListener</code>).</li>
+                </ul>
+                <p class="text-sm text-base-content/65">
+                    Si algo solo tiene sentido en <em>esta</em> página (501, 600, un id concreto), va en <strong>app.js</strong>, no en la biblioteca.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Funciones independientes</h2>
+                <p>Cada función de la biblioteca hace <strong>una cosa</strong> y no necesita las demás:</p>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full text-sm">
+                        <thead>
+                            <tr>
+                                <th>Función</th>
+                                <th>¿Depende de otra?</th>
+                                <th>Uso solo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>enteroAleatorioInclusive</code></td>
+                                <td>No</td>
+                                <td>Entero aleatorio entre dos números en cualquier JS</td>
+                            </tr>
+                            <tr>
+                                <td><code>mostrarTexto</code></td>
+                                <td>No</td>
+                                <td>Escribir texto en un elemento del DOM</td>
+                            </tr>
+                            <tr>
+                                <td><code>funcionMain</code></td>
+                                <td colspan="2">Solo en <strong>app.js</strong>: coordina esta página (no es biblioteca)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm leading-relaxed text-base-content/90">biblioteca.js          app.js
+─────────────          ──────
+enteroAleatorio...  ←  funcionMain las llama
+mostrarTexto        ←  ellas NO llaman a funcionMain</pre>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">No personalizar la biblioteca</h2>
+                <p>En <strong>biblioteca.js</strong> no debe aparecer:</p>
+                <ul class="list-disc space-y-2 pl-6">
+                    <li>los números <strong>501</strong> o <strong>600</strong>;</li>
+                    <li>ids como <code>resultado</code> o <code>formAleatorio</code>;</li>
+                    <li>el texto «Tu número: …» del ejercicio.</li>
+                </ul>
+                <p>La biblioteca solo recibe <strong>parámetros</strong> (min, max, elemento, texto). Quien llama decide los valores:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>enteroAleatorioInclusive(501, 600)   // en funcionMain
+enteroAleatorioInclusive(1, 6)       // en otra página: dados</code></pre>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Orden en <code>app.js</code></h2>
+                <p>Siempre los mismos cuatro bloques:</p>
+                <ol class="list-decimal space-y-2 pl-6">
+                    <li><strong>IMPORTACIÓN DE MÓDULOS</strong> — <code>import</code> desde <code>biblioteca.js</code></li>
+                    <li><strong>DECLARACIÓN DE VARIABLES</strong> — <code>getElementById</code> (enlaces con el HTML)</li>
+                    <li><strong>DECLARACIÓN DE FUNCIONES</strong> — <code>funcionMain</code> (función principal)</li>
+                    <li><strong>EJECUCIÓN DE CÓDIGO</strong> — <code>alEnviarFormulario(formAleatorio, funcionMain)</code></li>
+                </ol>
+                <p class="text-sm text-base-content/65">
+                    En el HTML: <code>&lt;script type="module" src="js/app.js"&gt;&lt;/script&gt;</code>
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Contrato: entradas y salidas</h2>
+                <p>Antes de escribir una función, define:</p>
+                <ul class="list-disc space-y-2 pl-6">
+                    <li><strong>Entrada</strong> — qué recibe (<code>number</code>, <code>HTMLElement</code>, <code>string</code>…)</li>
+                    <li><strong>Salida</strong> — qué devuelve (<code>number</code>) o nada si solo actúa en el DOM</li>
+                </ul>
+                <p>Comentario a la <strong>derecha</strong>, mismo formato:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>const funcionMain = (evento) => {  // FUNCIÓN PRINCIPAL | entrada: Event | salida: — | genera el número y lo muestra</code></pre>
+                <p class="text-sm text-base-content/65">Variables del DOM: <code>// enlace con el formulario</code></p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Cómo explicarlo en clase (frases cortas)</h2>
+                <p>Al presentar tu código, puedes ir bloque a bloque con estas frases:</p>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full text-sm">
+                        <thead>
+                            <tr>
+                                <th>Línea / bloque</th>
+                                <th>Qué decir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Import</strong></td>
+                                <td>«Traemos herramientas ya hechas de biblioteca.»</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Variables</strong></td>
+                                <td>«Conectamos JavaScript con los id del HTML.»</td>
+                            </tr>
+                            <tr>
+                                <td><strong>funcionMain</strong></td>
+                                <td>«Solo esta página: qué rango y qué texto mostramos.»</td>
+                            </tr>
+                            <tr>
+                                <td><strong>alEnviarFormulario</strong></td>
+                                <td>«Escucha el botón y llama a la función principal.»</td>
+                            </tr>
+                            <tr>
+                                <td><strong>enteroAleatorioInclusive</strong></td>
+                                <td>«No sabe de 501 ni 600; solo recibe min y max.»</td>
+                            </tr>
+                            <tr>
+                                <td><strong>export / import</strong></td>
+                                <td>«Biblioteca comparte; app usa.»</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="mt-8 text-lg font-semibold text-base-content">Formato que puedes repetir siempre</h3>
+                <p>En cada función:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>const nombre = (...) => { ... };  // qué hace | entrada: ... | salida: ...</code></pre>
+                <p>Para variables del DOM:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>const x = document.getElementById("id");  // enlace con ...</code></pre>
+                <p>Para la función principal:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>const funcionMain = ...  // FUNCIÓN PRINCIPAL | ...</code></pre>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Usar la biblioteca en cualquier página similar</h2>
+                <p>Copias o importas el mismo <strong>biblioteca.js</strong>. Solo cambias <strong>app.js</strong> y el HTML:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm leading-relaxed text-base-content/90">Página A (501–600)     Página B (dados 1–6)     Página C (otro rango)
+        \                       |                          /
+         \                      |                         /
+          ------------  biblioteca.js (igual) --------------</pre>
+                <p>Ejemplo en otra página, misma biblioteca:</p>
+                <pre class="overflow-x-auto rounded-xl bg-base-200 p-4 text-sm"><code>const numero = enteroAleatorioInclusive(1, 6);
+mostrarTexto(zonaSalida, `Has sacado un ${numero}`);</code></pre>
+                <p class="text-sm text-base-content/65">
+                    Página similar = botón o formulario + mostrar un resultado. Para otras tareas (validar email, leer inputs) añades <em>nuevas</em> funciones genéricas a la biblioteca, no reutilizas la del aleatorio para todo.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Resumen y checklist</h2>
+                <p><strong>Una frase:</strong> biblioteca = piezas con entradas y salidas; app = personalización y eventos.</p>
+                <ul class="list-disc space-y-2 pl-6 text-sm">
+                    <li>¿Todas las funciones son flecha?</li>
+                    <li>¿La biblioteca sin ids ni números del ejercicio?</li>
+                    <li>¿<code>funcionMain</code> solo coordina llamadas?</li>
+                    <li>¿Los <code>addEventListener</code> solo al final?</li>
+                    <li>¿Puedo copiar una función a otro proyecto sin arrastrar el resto?</li>
+                    <li>¿Entiendo entrada y salida leyendo el comentario?</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-base-content">Archivos del proyecto</h2>
+                <ul class="list-disc space-y-2 pl-6 text-sm">
+                    <li><code>index.html</code> — interfaz</li>
+                    <li><code>js/biblioteca.js</code> — funciones genéricas + <code>export</code></li>
+                    <li><code>js/app.js</code> — import, variables DOM, <code>funcionMain</code>, <code>alEnviarFormulario</code></li>
+                </ul>
+            </section>
+
+        </article>
+
+    </main>
+
+</body>
+</html>

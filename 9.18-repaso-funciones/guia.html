@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide — Pairs et impairs</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("img/rayas.webp");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="relative flex min-h-screen flex-col pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <main class="relative flex flex-grow flex-col items-center p-6 pt-12 md:pt-16">
+
+        <header class="mb-8 w-full max-w-3xl text-center">
+            <h1 class="rounded-2xl bg-base-100 px-8 py-5 text-xl font-semibold text-base-content shadow-md sm:text-2xl">
+                Guide de l'exercice : Pairs et impairs
+            </h1>
+            <p class="mt-4 text-sm text-base-content/60">
+                Explication simple, comme en cours — sans prérequis en programmation.
+            </p>
+        </header>
+
+        <article class="card w-full max-w-3xl border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-8 text-base leading-relaxed">
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">De quoi parle l'exercice ?</h2>
+                    <p>
+                        Imagine que tu as une <strong>liste de nombres</strong>, par exemple :
+                    </p>
+                    <p class="my-3 rounded-lg bg-base-200 px-4 py-3 text-center font-medium tracking-wide">
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+                    </p>
+                    <p>
+                        L'exercice te demande de <strong>les trier en deux groupes</strong> :
+                    </p>
+                    <ul class="mt-3 list-inside list-disc space-y-2 pl-2">
+                        <li>
+                            <strong>Les nombres pairs</strong> — ceux qu'on peut diviser par 2 sans reste.
+                            <br>
+                            <span class="text-base-content/60">Exemples : 2, 4, 6, 8, 0</span>
+                        </li>
+                        <li>
+                            <strong>Les nombres impairs</strong> — ceux qui, divisés par 2, laissent un reste.
+                            <br>
+                            <span class="text-base-content/60">Exemples : 1, 3, 5, 7, 9</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">C'est quoi une « fonction » ?</h2>
+                    <p>
+                        Une <strong>fonction</strong>, c'est comme une <strong>petite machine</strong> :
+                    </p>
+                    <ul class="mt-3 list-inside list-disc space-y-2 pl-2">
+                        <li>Tu lui donnes quelque chose (<strong>une entrée</strong>)</li>
+                        <li>Elle fait un travail</li>
+                        <li>Elle te rend un <strong>résultat</strong></li>
+                    </ul>
+                    <p class="mt-4">Dans cet exercice :</p>
+                    <ul class="mt-2 list-inside list-disc space-y-2 pl-2">
+                        <li><strong>Entrée</strong> : la liste de nombres</li>
+                        <li><strong>Travail</strong> : séparer pairs et impairs</li>
+                        <li><strong>Résultat</strong> : un objet avec deux listes</li>
+                    </ul>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">C'est quoi un « array » (tableau) ?</h2>
+                    <p>
+                        Un <strong>tableau</strong>, c'est une <strong>liste ordonnée</strong> de valeurs, entre crochets :
+                    </p>
+                    <pre class="mt-3 overflow-x-auto rounded-lg bg-base-200 px-4 py-3 text-center font-medium">[1, 2, 3, 4, 5]</pre>
+                    <p class="mt-3">
+                        Chaque nombre a sa place, comme des cases numérotées.
+                    </p>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">C'est quoi un « objet » ?</h2>
+                    <p>
+                        Un <strong>objet</strong>, c'est comme une <strong>fiche avec des étiquettes</strong>.
+                    </p>
+                    <p class="mt-3">
+                        Au lieu d'une seule liste, tu as plusieurs listes <strong>nommées</strong> :
+                    </p>
+                    <pre class="mt-3 overflow-x-auto rounded-lg bg-base-200 px-4 py-3 text-sm sm:text-base"><code>{
+  pares: [2, 4, 6, 8, 0],
+  impares: [1, 3, 5, 7, 9]
+}</code></pre>
+                    <ul class="mt-3 list-inside list-disc space-y-2 pl-2">
+                        <li><code class="rounded bg-base-200 px-1">pares</code> → la liste des pairs</li>
+                        <li><code class="rounded bg-base-200 px-1">impares</code> → la liste des impairs</li>
+                    </ul>
+                    <p class="mt-3 text-base-content/60">
+                        C'est plus clair qu'une seule liste mélangée.
+                    </p>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Exemple concret (sans code compliqué)</h2>
+                    <p>Tu reçois : <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 0</strong></p>
+
+                    <div class="mt-4 overflow-x-auto">
+                        <table class="table table-zebra w-full">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Pair ou impair ?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>impair</td></tr>
+                                <tr><td>2</td><td>pair</td></tr>
+                                <tr><td>3</td><td>impair</td></tr>
+                                <tr><td>4</td><td>pair</td></tr>
+                                <tr><td>5</td><td>impair</td></tr>
+                                <tr><td>6</td><td>pair</td></tr>
+                                <tr><td>7</td><td>impair</td></tr>
+                                <tr><td>8</td><td>pair</td></tr>
+                                <tr><td>9</td><td>impair</td></tr>
+                                <tr><td>0</td><td>pair</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="mt-4 font-medium">Résultat final :</p>
+                    <ul class="mt-2 list-inside list-disc space-y-2 pl-2">
+                        <li><strong>Pairs</strong> : <code class="rounded bg-base-200 px-1">[2, 4, 6, 8, 0]</code></li>
+                        <li><strong>Impairs</strong> : <code class="rounded bg-base-200 px-1">[1, 3, 5, 7, 9]</code></li>
+                    </ul>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">En une phrase</h2>
+                    <blockquote class="rounded-xl border-l-4 border-green-600 bg-green-50 px-5 py-4 italic text-base-content/80">
+                        L'exercice consiste à créer une fonction qui prend une liste de nombres et la sépare en deux listes : une pour les pairs, une pour les impairs.
+                    </blockquote>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Petite astuce pour reconnaître pair / impair</h2>
+                    <ul class="list-inside list-disc space-y-2 pl-2">
+                        <li><strong>Pair</strong> : divisible par 2 (2, 4, 6, 8, 0…)</li>
+                        <li><strong>Impair</strong> : pas divisible par 2 (1, 3, 5, 7, 9…)</li>
+                    </ul>
+                    <p class="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm">
+                        <strong>Attention :</strong> le <strong>0 est pair</strong> — c'est une règle importante à retenir.
+                    </p>
+                </section>
+
+                <div class="divider"></div>
+
+                <section>
+                    <h2 class="mb-3 text-lg font-semibold text-base-content">Exemple de code</h2>
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 px-4 py-4 text-sm sm:text-base"><code>function miFuncion(numeros) {
+    const pares = [];
+    const impares = [];
+
+    for (const numero of numeros) {
+        if (numero % 2 === 0) {
+            pares.push(numero);
+        } else {
+            impares.push(numero);
+        }
+    }
+
+    return { pares, impares };
+}
+
+console.log(miFuncion([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
+// { pares: [2, 4, 6, 8, 0], impares: [1, 3, 5, 7, 9] }</code></pre>
+                </section>
+
+                <footer class="pt-2 text-center">
+                    <a href="index.html" class="btn btn-outline border-green-600 text-green-700 hover:border-green-700 hover:bg-green-600 hover:text-white">
+                        Retour à l'exercice
+                    </a>
+                </footer>
+
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicios de repaso funciones</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+    </style>
+  </head>
+  <body class="min-h-screen font-sans">
+    <img
+      src="assets/img/principal.jpg"
+      alt=""
+      class="pointer-events-none fixed inset-0 -z-10 h-full w-full object-cover"
+      aria-hidden="true"
+    />
+
+    <div class="flex min-h-screen justify-center p-2 py-4">
+      <div
+        class="w-[96%] max-w-[1600px] rounded-2xl border border-cyan-400/30 bg-slate-900/90 p-4 shadow-[0_0_40px_rgba(0,212,255,0.15)] backdrop-blur-md md:p-6"
+      >
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-[38%_1fr] md:items-stretch">
+          <div class="flex min-h-[40vh] md:min-h-0 md:h-full">
+            <img
+              src="assets/img/lateral.jpg"
+              alt="Programming setup"
+              class="h-full w-full rounded-xl object-cover"
+            />
+          </div>
+
+          <div class="relative flex flex-col pr-0 md:pr-44">
+            <h1
+              class="mb-2 shrink-0 text-center text-lg font-bold tracking-wide text-cyan-400 md:text-xl"
+            >
+              Ejercicios de repaso funciones
+            </h1>
+            <p class="mb-2 shrink-0 text-center text-[0.65rem]">
+              <a class="text-slate-500 hover:text-cyan-400" href="guia.html"
+                >guía del dashboard</a
+              >
+            </p>
+
+            <div id="lista-ejercicios" class="flex flex-col gap-10">
+              <section
+                class="rounded-[2rem] border border-cyan-400/25 bg-slate-800/70 px-5 py-4"
+              >
+                <p class="mb-3 text-center text-sm font-semibold text-cyan-400">
+                  9.1 – 9.10
+                </p>
+                <ul
+                  class="divide-y divide-white/10 text-sm leading-normal"
+                >
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.01-repaso-funciones/index.html"
+                      data-id="9.1"
+                      >9.1 · Verificar si un número entre 2 y 100 es primo</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.01-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.02-repaso-funciones/index.html"
+                      data-id="9.2"
+                      >9.2 · Recortar texto</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.02-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.03-repaso-funciones/index.html"
+                      data-id="9.3"
+                      >9.3 · Dividir texto</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.03-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.04-repaso-funciones/index.html"
+                      data-id="9.4"
+                      >9.4 · Repetir texto X veces</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.04-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.05-repaso-funciones/index.html"
+                      data-id="9.5"
+                      >9.5 · Invertir palabras</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.05-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.06-repaso-funciones/index.html"
+                      data-id="9.6"
+                      >9.6 · Contar repeticiones de una palabra</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.06-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.07-repaso-funciones/index.html"
+                      data-id="9.7"
+                      >9.7 · Indica si una palabra o frase es palíndromo</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.07-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.08-repaso-funciones/index.html"
+                      data-id="9.8"
+                      >9.8 · Eliminar patrón</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.08-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.09-repaso-funciones/index.html"
+                      data-id="9.9"
+                      >9.9 · Número aleatorio entre 501 y 600</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.09-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.10-repaso-funciones/index.html"
+                      data-id="9.10"
+                      >9.10 · Conversor de temperatura</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.10-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                </ul>
+              </section>
+
+              <section
+                class="rounded-[2rem] border border-cyan-400/25 bg-slate-800/70 px-5 py-4"
+              >
+                <p class="mb-3 text-center text-sm font-semibold text-cyan-400">
+                  9.11 – 9.21
+                </p>
+                <ul
+                  class="divide-y divide-white/10 text-sm leading-normal"
+                >
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.11-repaso-funciones/index.html"
+                      data-id="9.11"
+                      >9.11 · Conversor binario y decimal</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.11-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.12-repaso-funciones/index.html"
+                      data-id="9.12"
+                      >9.12 · Calcular años desde una fecha</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.12-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.13-repaso-funciones/index.html"
+                      data-id="9.13"
+                      >9.13 · Contar vocales y consonantes</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.13-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.14-repaso-funciones/index.html"
+                      data-id="9.14"
+                      >9.14 · Validar nombre</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.14-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.15-repaso-funciones/index.html"
+                      data-id="9.15"
+                      >9.15 · Validar email</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.15-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.16-repaso-funciones/index.html"
+                      data-id="9.16"
+                      >9.16 · Números al cuadrado</a
+                    >
+                    <span class="shrink-0 text-sm text-slate-600">—</span>
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.17-repaso-funciones/index.html"
+                      data-id="9.17"
+                      >9.17 · Máximo y mínimo</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.17-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.18-repaso-funciones/index.html"
+                      data-id="9.18"
+                      >9.18 · Pares e impares</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.18-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.19-repaso-funciones/index.html"
+                      data-id="9.19"
+                      >9.19 · Ascendente y descendente</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.19-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.20-repaso-funciones/index.html"
+                      data-id="9.20"
+                      >9.20 · Quitar duplicados</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.20-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                  <li class="flex items-center justify-between gap-2 py-2">
+                    <a
+                      class="exercise-link text-cyan-300 hover:underline"
+                      href="9.21-repaso-funciones/index.html"
+                      data-id="9.21"
+                      >9.21 · Promedio de números</a
+                    >
+                    <a
+                      class="shrink-0 text-sm text-slate-500 hover:text-cyan-400"
+                      href="9.21-repaso-funciones/guia.html"
+                      >guía</a
+                    >
+                  </li>
+                </ul>
+              </section>
+            </div>
+
+            <aside
+              class="absolute top-12 right-0 z-10 w-40 rounded-xl border border-cyan-400/30 bg-slate-900/95 p-2 shadow-lg backdrop-blur-sm"
+            >
+              <p
+                class="mb-2 text-center text-[0.65rem] font-semibold text-white"
+              >
+                Historial de Progreso
+              </p>
+              <div id="history-grid" class="grid grid-cols-5 gap-0.5"></div>
+              <p
+                id="history-count"
+                class="mt-2 text-center text-[0.6rem] font-semibold text-cyan-400"
+              >
+                Visitado: 0 / 21
+              </p>
+              <button
+                id="reset-history"
+                type="button"
+                class="mt-2 w-full rounded border border-white/15 bg-white/5 py-1 text-[0.6rem] text-slate-300 hover:bg-white/10"
+              >
+                Reiniciar historial
+              </button>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/historial.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+  </body>
+</html>

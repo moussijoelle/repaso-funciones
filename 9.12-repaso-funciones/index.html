@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular años desde una fecha</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col bg-[url('img/run.svg')] bg-repeat bg-fixed pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <main class="relative flex flex-grow flex-col items-center p-6 pt-12 md:pt-16">
+
+        <header class="mb-10 w-full max-w-6xl rounded-2xl bg-base-100 px-8 py-4 text-center shadow-md md:mb-12">
+            <h1 class="text-sm font-medium text-base-content/75 sm:text-base md:text-lg">
+                Calculadora de años: desde tu fecha de nacimiento (u otra fecha) hasta hoy
+            </h1>
+            <p class="mt-3 text-xs text-base-content/60 sm:text-sm">
+                Por ejemplo: si eliges el 23/05/1984, verás cuántos años han pasado desde entonces hasta la fecha actual de tu ordenador.
+            </p>
+        </header>
+
+        <section class="flex w-full flex-grow items-center justify-center">
+
+            <div class="card w-full max-w-lg border border-base-300 bg-base-100 shadow-lg">
+                <form id="formFecha" class="card-body gap-6">
+
+                    <div class="form-control">
+                        <label class="mb-2 block text-sm font-medium text-base-content/75" for="fecha">
+                            Fecha
+                        </label>
+                        <input
+                            type="date"
+                            id="fecha"
+                            name="fecha"
+                            lang="es-ES"
+                            required
+                            class="input input-bordered input-primary w-full bg-base-200 text-center text-base font-medium"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-lg border-[#cb839a] bg-[#cb839a] text-[#3d2030] hover:border-[#b86d88] hover:bg-[#b86d88] hover:text-[#3d2030]"
+                    >
+                        Calcular años
+                    </button>
+
+                    <div id="resultado" class="flex min-h-[100px] flex-col items-center justify-center gap-2 text-center"></div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

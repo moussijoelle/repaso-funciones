@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — Années écoulées depuis une date</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #2563eb;
+      --bg: #f8fafc;
+      --card: #fff;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 2rem 1rem 3rem;
+    }
+
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 6%);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 2rem;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--accent);
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    ul, ol {
+      margin: 0 0 1rem;
+      padding-left: 1.35rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+
+    pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.88em;
+    }
+
+    .schema {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      white-space: pre;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .note {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1rem 0 1.5rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Guide de l'exercice</h1>
+    <p class="subtitle">Calculer combien d'années se sont écoulées depuis une date jusqu'à aujourd'hui — expliqué simplement, comme en cours.</p>
+
+    <h2>De quoi parle l'exercice ?</h2>
+    <p>On te demande de créer une <strong>petite machine à calculer l'âge en années</strong>.</p>
+    <p>Tu lui donnes une <strong>date de naissance</strong> (ou n'importe quelle date passée), et elle te répond : <em>« Combien d'années complètes se sont écoulées depuis cette date jusqu'à aujourd'hui ? »</em></p>
+    <p>Exemple donné par l'énoncé :</p>
+    <ul>
+      <li>Date fournie : <strong>23 mai 1984</strong></li>
+      <li>Aujourd'hui : <strong>2026</strong></li>
+      <li>Réponse attendue : <strong>41 ans</strong> (selon le moment de l'année où tu exécutes le programme)</li>
+    </ul>
+    <p>Ce n'est pas « 41 ans et 3 mois » — seulement le <strong>nombre d'années entières</strong>.</p>
+
+    <h2>Les mots importants (version simple)</h2>
+    <p><strong>Une fonction</strong><br>
+    C'est comme une <strong>recette</strong> : tu lui donnes des ingrédients (ici, une date), elle fait le travail, et elle te rend <strong>un résultat</strong> (le nombre d'années).</p>
+    <p><strong>Une date</strong><br>
+    C'est un jour précis : jour + mois + année. Exemple : 23 mai 1984.</p>
+    <p><strong>« Jusqu'à aujourd'hui »</strong><br>
+    Le programme doit regarder <strong>la date du jour</strong> (quand tu lances le programme), pas une date fixée à la main dans le code.</p>
+
+    <h2>La logique, étape par étape (comme à la main)</h2>
+    <p>Imagine que tu comptes l'âge d'une personne :</p>
+    <ol>
+      <li>Tu prends <strong>l'année de naissance</strong> : 1984</li>
+      <li>Tu prends <strong>l'année actuelle</strong> : 2026</li>
+      <li>Tu fais : 2026 − 1984 = <strong>42</strong></li>
+    </ol>
+    <p>Mais attention : on n'a pas toujours 42 ans juste parce que les années ont changé.</p>
+    <p>Il faut vérifier : <strong>est-ce que l'anniversaire est déjà passé cette année ?</strong></p>
+    <ul>
+      <li>Si <strong>l'anniversaire n'est pas encore passé</strong> cette année → on enlève <strong>1 an</strong></li>
+      <li>Si <strong>l'anniversaire est déjà passé</strong> (ou c'est aujourd'hui) → on garde le calcul complet</li>
+    </ul>
+
+    <div class="note">
+      <strong>Exemple avec 23 mai 1984 :</strong><br>
+      Si nous sommes <strong>avant le 23 mai 2026</strong> (janvier à avril 2026), l'anniversaire n'est pas encore arrivé → 2026 − 1984 − 1 = <strong>41 ans</strong>.<br>
+      Si nous sommes <strong>le 23 mai 2026 ou après</strong>, l'anniversaire est passé → 2026 − 1984 = <strong>42 ans</strong>.
+    </div>
+
+    <p>Donc l'exercice cache une subtilité importante : <strong>ce n'est pas seulement soustraire deux années</strong>, il faut aussi regarder <strong>le jour et le mois</strong>.</p>
+
+    <h2>Ce que tu dois programmer (en une phrase)</h2>
+    <p>Une fonction qui reçoit une date valide, la compare avec la date d'aujourd'hui, et renvoie <strong>combien d'années complètes</strong> se sont écoulées entre les deux.</p>
+
+    <h2>Schéma mental</h2>
+    <div class="schema">Date de départ  ──────────────►  Aujourd'hui
+   (1984)         ??? années         (2026)
+                      ↓
+                 ta fonction
+                      ↓
+                    41 ou 42
+            (selon si l'anniversaire
+             est passé ou non)</div>
+
+    <h2>L'exemple en JavaScript</h2>
+    <pre><code>miFuncion(new Date(1984, 4, 23))</code></pre>
+    <ul>
+      <li><code>new Date(1984, 4, 23)</code> signifie : <strong>23 mai 1984</strong> (en JavaScript, les mois commencent à <strong>0</strong> : 0 = janvier, 4 = mai).</li>
+      <li><code>miFuncion(...)</code> : tu <strong>appelles</strong> ta fonction avec cette date, et elle te <strong>retourne</strong> le nombre d'années.</li>
+    </ul>
+
+    <h2>Résumé</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Idée</th>
+          <th>Signification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Entrée</td>
+          <td>Une date (ex. naissance)</td>
+        </tr>
+        <tr>
+          <td>Sortie</td>
+          <td>Un nombre (années écoulées)</td>
+        </tr>
+        <tr>
+          <td>Référence</td>
+          <td>La date d'aujourd'hui</td>
+        </tr>
+        <tr>
+          <td>Piège</td>
+          <td>Vérifier mois + jour, pas seulement l'année</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer>
+      Exercice 9.12 — Repaso funciones · Guide pédagogique en français
+    </footer>
+  </main>
+</body>
+</html>
