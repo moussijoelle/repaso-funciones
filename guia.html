@@ -3,529 +3,503 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guía — Dashboard Ejercicios de repaso funciones</title>
+    <title>Guía — Conversión de temperatura y lógica del ejercicio</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
       @import "tailwindcss";
+
+      @layer base {
+        body {
+          @apply text-stone-800 leading-relaxed;
+        }
+        h1 {
+          @apply text-2xl font-bold text-amber-900;
+        }
+        h2 {
+          @apply text-xl font-bold text-blue-900 mt-8 mb-3;
+        }
+        h3 {
+          @apply text-lg font-semibold text-stone-700 mt-4 mb-2;
+        }
+        p {
+          @apply mb-3;
+        }
+        ul,
+        ol {
+          @apply ml-6 mb-4 list-disc;
+        }
+        li {
+          @apply mb-1;
+        }
+        table {
+          @apply w-full border-collapse mb-4 text-sm;
+        }
+        th,
+        td {
+          @apply border border-stone-300 px-3 py-2 text-left;
+        }
+        th {
+          @apply bg-stone-100 font-semibold;
+        }
+        code {
+          @apply rounded bg-stone-100 px-1.5 py-0.5 font-mono text-blue-800 text-sm;
+        }
+        pre {
+          @apply rounded-lg bg-stone-900 text-stone-100 p-4 mb-4 overflow-x-auto text-sm;
+        }
+        .note {
+          @apply rounded-lg border-l-4 border-amber-500 bg-amber-50 px-4 py-3 mb-4;
+        }
+      }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap"
-      rel="stylesheet"
-    />
   </head>
 
-  <body class="bg-slate-100 font-[Inclusive_Sans,sans-serif] leading-relaxed text-slate-800">
-    <main class="mx-auto max-w-3xl px-5 py-8 pb-16">
-      <header class="mb-8 rounded-xl bg-white p-6 shadow-sm">
-        <h1 class="mb-2 text-2xl font-bold text-slate-900">
-          Guía — Dashboard Ejercicios de repaso funciones
-        </h1>
-        <p class="mb-4 text-sm text-slate-500">
-          <a class="text-cyan-600 hover:underline" href="index.html">Abrir el dashboard</a>
-          · Proyecto raíz con historial de progreso (localStorage)
+  <body class="bg-gradient-to-b from-sky-100 to-stone-200 min-h-screen px-4 py-8">
+    <article class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg px-6 py-8 sm:px-10">
+      <header class="border-b border-stone-200 pb-6 mb-6">
+        <h1>Guía: conversión Celsius ↔ Fahrenheit</h1>
+        <p class="text-stone-600 mb-0">
+          Repaso de funciones — misma lógica que el diagrama del formulario (lee, valida, llama, muestra).
         </p>
-        <nav class="flex flex-wrap gap-2 text-xs">
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#enunciado">Qué es este ejercicio</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#conceptos">Conceptos clave</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#archivos">Archivos</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#html">HTML línea a línea</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#js-historial">JS historial.js</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#js-dashboard">JS dashboard.js</a>
-          <a class="rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-slate-700 hover:bg-slate-200" href="#biblioteca">Biblioteca completa</a>
-          <a class="rounded-full border border-cyan-600 bg-cyan-600 px-2.5 py-1 text-white hover:bg-cyan-700" href="#test">Test (15 preguntas)</a>
-        </nav>
       </header>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="enunciado">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">Qué es este ejercicio</h2>
-        <p class="mb-3">
-          No es un ejercicio de lógica como el 9.1 o 9.5. Es un <strong>dashboard</strong>:
-          una página índice que enlaza a todos tus ejercicios de repaso funciones,
-          muestra tu progreso con cuadraditos verdes y guarda qué ejercicios ya visitaste.
+      <section>
+        <h2>1. En qué consiste el ejercicio</h2>
+        <p>
+          Debes crear una <strong>función</strong> (una pequeña «máquina» o receta en código) que
+          <strong>cambie una temperatura de una unidad a otra</strong>:
         </p>
-        <p class="rounded-lg bg-slate-50 px-4 py-3 text-center text-sm">
-          Usuario abre dashboard → clic en ejercicio → se guarda en localStorage →
-          enlace verde + cuadradito verde + contador actualizado
+        <ul>
+          <li>de <strong>Celsius</strong> (°C) a <strong>Fahrenheit</strong> (°F), o</li>
+          <li>de <strong>Fahrenheit</strong> a <strong>Celsius</strong>.</li>
+        </ul>
+        <p>Ejemplo del enunciado:</p>
+        <pre>miFuncion(0, "C")  →  32°F</pre>
+        <p>
+          Significa: «Tengo <strong>0 grados Celsius</strong>; conviértelos a Fahrenheit». El resultado debe ser
+          <strong>32</strong>, porque en esa escala el agua congela a 32 °F (no a 0).
         </p>
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">Qué hace cada parte</h3>
-        <ul class="mb-3 list-disc space-y-1 pl-5">
-          <li><strong>index.html</strong> — estructura visual: foto, listas de ejercicios, panel historial.</li>
-          <li><strong>historial.js</strong> — biblioteca: leer/guardar progreso, generar HTML de cuadraditos.</li>
-          <li><strong>dashboard.js</strong> — conecta HTML con biblioteca; <code class="rounded bg-slate-100 px-1 py-0.5 text-sm">refrescar</code> es la función principal.</li>
-        </ul>
-      </article>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="conceptos">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">Conceptos que debes dominar</h2>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">1. Biblioteca vs función principal</h3>
-        <div class="my-4 rounded-r-lg border-l-4 border-blue-500 bg-blue-50 py-4 pl-5 pr-4">
-          <p class="mb-2"><strong>Biblioteca</strong> (<code class="rounded bg-white/80 px-1 text-sm">historial.js</code>): solo entrada → salida. Sin <code class="rounded bg-white/80 px-1 text-sm">document</code>, sin <code class="rounded bg-white/80 px-1 text-sm">getElementById</code>. Como <code class="rounded bg-white/80 px-1 text-sm">esPrimo()</code> en 9.1.</p>
-          <p class="mb-2"><strong>Función principal</strong> (<code class="rounded bg-white/80 px-1 text-sm">refrescar</code> en <code class="rounded bg-white/80 px-1 text-sm">dashboard.js</code>): lee datos → llama biblioteca → escribe en HTML. Como <code class="rounded bg-white/80 px-1 text-sm">funcionMain</code> en 9.5.</p>
-          <p class="mb-0"><strong>Ejecución</strong>: los <code class="rounded bg-white/80 px-1 text-sm">addEventListener</code> conectan clics con biblioteca y luego llaman a <code class="rounded bg-white/80 px-1 text-sm">refrescar</code>.</p>
-        </div>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">2. Texto del enlace vs ruta (<code class="rounded bg-slate-100 px-1 text-sm">href</code>)</h3>
-        <div class="my-4 overflow-x-auto">
-          <table class="w-full border-collapse text-sm">
-            <thead>
-              <tr class="bg-slate-50">
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">Parte</th>
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">Ejemplo</th>
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">Para qué sirve</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="border border-slate-200 px-3 py-2 align-top">Texto visible</td>
-                <td class="border border-slate-200 px-3 py-2 align-top"><code class="rounded bg-slate-100 px-1 text-xs">9.2 · Recortar texto</code></td>
-                <td class="border border-slate-200 px-3 py-2 align-top">Lo que lees tú (nombre del ejercicio)</td>
-              </tr>
-              <tr>
-                <td class="border border-slate-200 px-3 py-2 align-top"><code class="rounded bg-slate-100 px-1 text-xs">href</code></td>
-                <td class="border border-slate-200 px-3 py-2 align-top"><code class="rounded bg-slate-100 px-1 text-xs">9.02-repaso-funciones/index.html</code></td>
-                <td class="border border-slate-200 px-3 py-2 align-top">Ruta real a la carpeta en disco</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="mb-3">El <code class="rounded bg-slate-100 px-1 text-sm">href</code> no puede ser el título del ejercicio porque esa carpeta no existe. Debe coincidir <strong>exactamente</strong> con el nombre de la carpeta.</p>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">3. Rutas sin espacios (kebab-case)</h3>
-        <p class="mb-3">Las carpetas se llaman <code class="rounded bg-slate-100 px-1 text-sm">9.01-repaso-funciones</code>, <code class="rounded bg-slate-100 px-1 text-sm">9.02-repaso-funciones</code>… con <strong>rayas</strong> y <strong>cero delante</strong> en el 9.1–9.9 para que GitHub las ordene bien (9.01, 9.02… 9.10, 9.11).</p>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">4. ¿Se puede hacer solo con funciones biblioteca?</h3>
-        <div class="my-4 rounded-r-lg border-l-4 border-orange-500 bg-orange-50 py-4 pl-5 pr-4">
-          <p class="mb-0"><strong>Casi, pero no al 100 %.</strong> Toda la lógica (guardar, contar, generar strings HTML) puede estar en biblioteca. Pero algo tiene que buscar elementos del DOM y registrar clics. Eso es ejecución + main, no biblioteca.</p>
-        </div>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">5. localStorage y <code class="rounded bg-slate-100 px-1 text-sm">data-id</code></h3>
-        <ul class="mb-3 list-disc space-y-1 pl-5">
-          <li><code class="rounded bg-slate-100 px-1 text-sm">CLAVE = "repaso-funciones-historial"</code> — nombre bajo el que se guarda la lista en el navegador.</li>
-          <li><code class="rounded bg-slate-100 px-1 text-sm">data-id="9.2"</code> en cada enlace — identificador del ejercicio para el historial (no confundir con <code class="rounded bg-slate-100 px-1 text-sm">href</code>).</li>
-          <li>Al clic: <code class="rounded bg-slate-100 px-1 text-sm">alClicEjercicio(CLAVE, "9.2")</code> → guarda → <code class="rounded bg-slate-100 px-1 text-sm">refrescar()</code> repinta todo.</li>
-        </ul>
-      </article>
-
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="archivos">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">Estructura de archivos</h2>
-        <pre class="overflow-x-auto rounded-lg bg-slate-800 p-4 text-sm leading-relaxed text-slate-200">Repaso funciones/
-├── index.html              ← dashboard (página principal)
-├── guia.html               ← esta guía
-├── assets/
-│   ├── img/
-│   │   ├── principal.jpg   ← fondo pantalla completa
-│   │   └── lateral.jpg     ← imagen columna izquierda
-│   └── js/
-│       ├── historial.js    ← BIBLIOTECA
-│       └── dashboard.js    ← variables + main + ejecución
-├── 9.01-repaso-funciones/
-├── 9.02-repaso-funciones/
-└── … (resto de ejercicios)</pre>
-
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">Estructura de <code class="rounded bg-slate-100 px-1 text-sm">dashboard.js</code> (como la guía del curso)</h3>
-        <ol class="mb-3 list-decimal space-y-1 pl-5">
-          <li><strong>Importación de módulos</strong> — comentario: <code class="rounded bg-slate-100 px-1 text-sm">historial.js</code> cargado en HTML.</li>
-          <li><strong>Declaración de variables</strong> — <code class="rounded bg-slate-100 px-1 text-sm">CLAVE</code>, <code class="rounded bg-slate-100 px-1 text-sm">TOTAL</code>, <code class="rounded bg-slate-100 px-1 text-sm">ids</code>, <code class="rounded bg-slate-100 px-1 text-sm">getElementById</code>.</li>
-          <li><strong>Declaración de funciones</strong> — <code class="rounded bg-slate-100 px-1 text-sm">refrescar</code> (MAIN).</li>
-          <li><strong>Ejecución de código</strong> — <code class="rounded bg-slate-100 px-1 text-sm">addEventListener</code> + <code class="rounded bg-slate-100 px-1 text-sm">refrescar()</code> al cargar.</li>
+        <h3>¿Qué es una función?</h3>
+        <ol>
+          <li>Le das <strong>datos de entrada</strong> (parámetros).</li>
+          <li>Ella hace un <strong>cálculo</strong>.</li>
+          <li>Te devuelve un <strong>resultado</strong> con <code>return</code>.</li>
         </ol>
-      </article>
+        <p>En este ejercicio sueles necesitar <strong>dos parámetros</strong>:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Para qué sirve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Un <strong>número</strong></td>
+              <td>La temperatura (por ejemplo <code>0</code>, <code>100</code>, <code>-5</code>)</td>
+            </tr>
+            <tr>
+              <td>Una <strong>letra</strong> (<code>"C"</code> o <code>"F"</code>)</td>
+              <td>Indica desde qué unidad partes (y hacia cuál conviertes, según el enunciado del profe)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note mb-0">
+          <strong>En una frase:</strong> escribe una función que reciba una temperatura y su unidad de partida, aplique la
+          fórmula correcta y devuelva el valor en la otra unidad (a veces también con el símbolo, por ejemplo
+          <code>32°F</code>).
+        </p>
+      </section>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="html">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">HTML — línea a línea (<code class="rounded bg-slate-100 px-1 text-sm">index.html</code>)</h2>
-        <p class="mb-4 text-sm text-slate-500">Cada fila: número · código · explicación.</p>
-        <div class="overflow-hidden rounded-lg border border-slate-200">
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 bg-slate-200 px-3 py-2 text-sm font-semibold">
-            <span>Línea</span><span>Código</span><span>Explicación</span>
-          </div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>1</span><code class="break-words text-xs">&lt;!doctype html&gt;</code><span>Documento HTML5.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>2</span><code class="break-words text-xs">&lt;html lang="es"&gt;</code><span>Raíz del documento; idioma español.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>4-5</span><code class="break-words text-xs">charset + viewport</code><span>Tildes correctas y diseño responsive en móvil.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>6</span><code class="break-words text-xs">&lt;title&gt;</code><span>Título de la pestaña del navegador.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>7</span><code class="break-words text-xs">script Tailwind CDN</code><span>Carga Tailwind v4 desde internet para las clases CSS.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>8-10</span><code class="break-words text-xs">&lt;style type="text/tailwindcss"&gt;</code><span>Importa Tailwind para usar utilidades en el HTML.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>12</span><code class="break-words text-xs">body h-screen overflow-hidden</code><span>Body ocupa toda la pantalla; sin scroll global.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>13-18</span><code class="break-words text-xs">img principal.jpg</code><span>Foto de fondo fija (<code class="text-xs">fixed -z-10</code>); no recibe clics.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>20</span><code class="break-words text-xs">div flex h-screen center</code><span>Centra el contenedor principal en pantalla.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>21-23</span><code class="break-words text-xs">contenedor tarjeta</code><span>Caja oscura con borde cyan, sombra ciberpunk y backdrop-blur.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>24</span><code class="break-words text-xs">grid md:grid-cols-[38%_1fr]</code><span>En móvil 1 columna; en pantalla grande: 38% imagen + resto.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>25-31</span><code class="break-words text-xs">img lateral.jpg</code><span>Imagen columna izquierda; object-contain para no recortar.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>33</span><code class="break-words text-xs">relative flex flex-col</code><span>Columna derecha; relative para el historial flotante.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>34-38</span><code class="break-words text-xs">&lt;h1&gt;</code><span>Título del dashboard en cyan.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>40</span><code class="break-words text-xs">flex flex-col gap-3</code><span>Apila las dos secciones de ejercicios.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>41-43</span><code class="break-words text-xs">section 9.1–9.10</code><span>Primer bloque con borde cyan; lista activa de ejercicios.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>45</span><code class="break-words text-xs">ul id="lista-ejercicios"</code><span>Lista enlazada con JS; scroll interno si hace falta.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>46-85</span><code class="break-words text-xs">li + enlaces</code><span>exercise-link + data-id + href + enlace guía.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>89-106</span><code class="break-words text-xs">section 9.11–9.21</code><span>Ejercicios «Por hacer» sin enlaces todavía.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>109-126</span><code class="break-words text-xs">&lt;aside&gt; historial</code><span>Panel flotante: cuadrícula, contador y botón reiniciar.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>115</span><code class="break-words text-xs">div id="history-grid"</code><span>Contenedor vacío; JS pinta los 21 cuadraditos.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>119-125</span><code class="break-words text-xs">button id="reset-history"</code><span>Botón para vaciar el historial guardado.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 px-3 py-2 text-sm even:bg-slate-50"><span>132-133</span><code class="break-words text-xs">script historial + dashboard</code><span>Orden: primero biblioteca, luego dashboard.</span></div>
-        </div>
-      </article>
+      <section>
+        <h2>2. Fórmulas de conversión</h2>
+        <h3>Celsius → Fahrenheit</h3>
+        <p><strong>°F = °C × (9/5) + 32</strong></p>
+        <p>Ejemplo: 0 × 9/5 + 32 = <strong>32</strong></p>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="js-historial">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">JavaScript — línea a línea (<code class="rounded bg-slate-100 px-1 text-sm">assets/js/historial.js</code>)</h2>
-        <p class="mb-4 text-sm text-slate-500">Todas son funciones biblioteca. No hay función principal en este archivo.</p>
-        <div class="overflow-hidden rounded-lg border border-slate-200">
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 bg-slate-200 px-3 py-2 text-sm font-semibold">
-            <span>Línea</span><span>Código</span><span>Explicación</span>
-          </div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>1-2</span><code class="break-words text-xs">// BIBLIOTECA</code><span>Archivo de funciones independientes, reutilizable.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>4-10</span><code class="break-words text-xs">leerHistorial(clave)</code><span>Lee localStorage; JSON.parse; try/catch devuelve [].</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>12-15</span><code class="break-words text-xs">guardarHistorial(clave, lista)</code><span>JSON.stringify y guarda; devuelve la lista.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>17-20</span><code class="break-words text-xs">agregarVisita(lista, id)</code><span>No duplica; añade con spread [...lista, id].</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>22</span><code class="break-words text-xs">vaciarHistorial()</code><span>Devuelve array vacío [].</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>24-25</span><code class="break-words text-xs">alClicEjercicio(clave, id)</code><span>Lee → añade visita → guarda.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>27-28</span><code class="break-words text-xs">alReiniciar(clave)</code><span>Guarda lista vacía en localStorage.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>30-31</span><code class="break-words text-xs">textoContador(lista, total)</code><span>Devuelve "Visitado: 3 / 21".</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>33-36</span><code class="break-words text-xs">clasesEnlace(id, lista)</code><span>Clases Tailwind: verde si visitado, cyan si no.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>38-45</span><code class="break-words text-xs">htmlCuadrito(id, lista)</code><span>HTML de un cuadrado verde o gris.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 px-3 py-2 text-sm even:bg-slate-50"><span>47-48</span><code class="break-words text-xs">htmlCuadritos(ids, lista)</code><span>map + join de los 21 cuadraditos.</span></div>
-        </div>
-      </article>
+        <h3>Fahrenheit → Celsius</h3>
+        <p><strong>°C = (°F − 32) × (5/9)</strong></p>
+        <p>Ejemplo: (32 − 32) × 5/9 = <strong>0</strong></p>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="js-dashboard">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">JavaScript — línea a línea (<code class="rounded bg-slate-100 px-1 text-sm">assets/js/dashboard.js</code>)</h2>
-        <div class="overflow-hidden rounded-lg border border-slate-200">
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 bg-slate-200 px-3 py-2 text-sm font-semibold">
-            <span>Línea</span><span>Código</span><span>Explicación</span>
-          </div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>1-2</span><code class="break-words text-xs">// IMPORTACIÓN</code><span>historial.js se carga antes en el HTML.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>4-6</span><code class="break-words text-xs">CLAVE, TOTAL</code><span>Config: clave localStorage y total (21).</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>8-11</span><code class="break-words text-xs">const ids = [...]</code><span>Ids para los cuadraditos del historial.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>13-16</span><code class="break-words text-xs">getElementById × 4</code><span>Enlaces HTML ↔ JS.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>20-23</span><code class="break-words text-xs">refrescar() — MAIN</code><span>Función principal (como funcionMain).</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>24-33</span><code class="break-words text-xs">cuerpo refrescar</code><span>Lee → colorea enlaces → pinta grid → contador.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>36-47</span><code class="break-words text-xs">for + addEventListener</code><span>Clic ejercicio: alClicEjercicio → refrescar.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 border-b border-slate-200 px-3 py-2 text-sm even:bg-slate-50"><span>49-52</span><code class="break-words text-xs">btnReiniciar click</code><span>alReiniciar → refrescar.</span></div>
-          <div class="grid grid-cols-[3rem_1fr_1.4fr] gap-2 px-3 py-2 text-sm even:bg-slate-50"><span>54</span><code class="break-words text-xs">refrescar()</code><span>Arranque al cargar la página.</span></div>
-        </div>
-        <div class="mt-4 rounded-r-lg border-l-4 border-emerald-500 bg-emerald-50 py-4 pl-5 pr-4">
-          <p class="mb-1 font-semibold">Flujo completo al hacer clic en un ejercicio:</p>
-          <p class="mb-0 text-sm">click → <code class="rounded bg-white/80 px-1">alClicEjercicio</code> (biblioteca) → <code class="rounded bg-white/80 px-1">refrescar</code> (main) → pantalla actualizada → navegador va al href.</p>
-        </div>
-      </article>
+        <p>La función debe:</p>
+        <ol>
+          <li>Mirar si el segundo parámetro es <code>"C"</code> o <code>"F"</code>.</li>
+          <li>Aplicar la fórmula que corresponda.</li>
+          <li>Devolver el resultado con <code>return</code>.</li>
+        </ol>
+      </section>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="biblioteca">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">Funciones biblioteca — código completo y reutilización</h2>
-        <p class="mb-4">Este cuadro contiene <strong>todo</strong> <code class="rounded bg-slate-100 px-1 text-sm">historial.js</code> listo para copiar. Ninguna línea usa <code class="rounded bg-slate-100 px-1 text-sm">document</code>.</p>
+      <section>
+        <h2>3. ¿Qué es Fahrenheit?</h2>
+        <p>
+          <strong>Fahrenheit</strong> (°F) es otra forma de <strong>medir la temperatura</strong>, como Celsius (°C), pero con
+          <strong>otra escala</strong>: los números no coinciden con los de Celsius.
+        </p>
+        <p>Se debe al físico <strong>Daniel Gabriel Fahrenheit</strong>. Se usa sobre todo en <strong>Estados Unidos</strong>; en España y en la mayor parte del mundo se usa más <strong>Celsius</strong>.</p>
 
-        <div class="my-4 rounded-xl border-2 border-cyan-600 bg-cyan-50 p-5">
-          <h3 class="mb-3 text-base font-semibold text-cyan-800">historial.js — código completo</h3>
-          <pre class="overflow-x-auto rounded-lg bg-slate-800 p-4 text-sm leading-relaxed text-slate-200">const leerHistorial = (clave) => {
-  try {
-    return JSON.parse(localStorage.getItem(clave) || "[]");
-  } catch {
-    return [];
-  }
-};
+        <table>
+          <thead>
+            <tr>
+              <th>Hecho</th>
+              <th>Celsius (°C)</th>
+              <th>Fahrenheit (°F)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>El agua se congela</td>
+              <td>0 °C</td>
+              <td>32 °F</td>
+            </tr>
+            <tr>
+              <td>El agua hierve</td>
+              <td>100 °C</td>
+              <td>212 °F</td>
+            </tr>
+            <tr>
+              <td>Temperatura corporal (aprox.)</td>
+              <td>37 °C</td>
+              <td>~98,6 °F</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mb-0">
+          Misma sensación de frío o calor, <strong>otros números</strong> en el termómetro. Por eso 0 °C = 32 °F es un buen
+          test para comprobar que tu función funciona.
+        </p>
+      </section>
 
-const guardarHistorial = (clave, lista) => {
-  localStorage.setItem(clave, JSON.stringify(lista));
-  return lista;
-};
+      <section>
+        <h2>4. Misma lógica que el diagrama de clase (otro ejercicio, mismo esquema)</h2>
+        <p>
+          En la pizarra el ejemplo era <strong>contar caracteres</strong> (<code>cuentaCaracteres</code>). En este ejercicio la
+          función concreta es <strong>convertir temperatura</strong>, pero el <strong>flujo</strong> es el mismo:
+        </p>
 
-const agregarVisita = (lista, id) => {
-  if (lista.includes(id)) return lista;
-  return [...lista, id];
-};
+        <table>
+          <thead>
+            <tr>
+              <th>En el diagrama</th>
+              <th>En conversión de temperatura</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Formulario</strong></td>
+              <td>El usuario escribe la temperatura y la unidad (<code>C</code> o <code>F</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>La «oreja»</strong> (event listener)</td>
+              <td>Al pulsar un botón (o al cambiar un valor), se ejecuta el código</td>
+            </tr>
+            <tr>
+              <td><strong>Función main</strong></td>
+              <td>Orquesta todo: lee, valida, llama, muestra</td>
+            </tr>
+            <tr>
+              <td><code>cuentaCaracteres(cadena)</code></td>
+              <td><code>miFuncion(valor, unidad)</code> o similar</td>
+            </tr>
+            <tr>
+              <td><code>return</code></td>
+              <td>Devuelve el número convertido (o texto como <code>32°F</code>)</td>
+            </tr>
+          </tbody>
+        </table>
 
-const vaciarHistorial = () => [];
+        <h3>Pasos de la función main</h3>
+        <ol>
+          <li><strong>Lee</strong> — obtiene el valor del input y la unidad.</li>
+          <li><strong>Validación JS</strong> — ¿es un número? ¿la unidad es <code>"C"</code> o <code>"F"</code>? Si no, mensaje de error.</li>
+          <li><strong>Llama a las funciones pertinentes</strong> — por ejemplo <code>miFuncion(0, "C")</code>.</li>
+          <li><strong>Recibe la respuesta</strong> — lo que devuelve el <code>return</code>.</li>
+          <li><strong>Escribe en HTML</strong> — muestra el resultado en la página.</li>
+        </ol>
 
-const alClicEjercicio = (clave, id) =>
-  guardarHistorial(clave, agregarVisita(leerHistorial(clave), id));
+        <h3>Patrón a memorizar</h3>
+        <pre>Usuario → formulario → main (lee, valida, llama, muestra) → función pequeña (calcula y return)</pre>
 
-const alReiniciar = (clave) =>
-  guardarHistorial(clave, vaciarHistorial());
+        <h3>Ejemplo mental con temperatura</h3>
+        <ol>
+          <li>La usuaria escribe <code>0</code> y <code>C</code>.</li>
+          <li>La main lee y valida.</li>
+          <li>La main llama <code>miFuncion(0, "C")</code>.</li>
+          <li>Esa función calcula y hace <code>return</code> → <code>32</code> o <code>"32°F"</code>.</li>
+          <li>La main escribe el resultado en el HTML.</li>
+        </ol>
+        <p class="mb-0">
+          La función <strong>main</strong> casi siempre se parece de un ejercicio a otro; lo que cambia es la función pequeña
+          (contar caracteres vs. convertir grados).
+        </p>
+      </section>
 
-const textoContador = (lista, total) =>
-  `Visitado: ${lista.length} / ${total}`;
+      <section>
+        <h2>5. Qué aprendes con este ejercicio</h2>
+        <ul>
+          <li><strong>Parámetros</strong> — pasar datos a una función.</li>
+          <li><strong>Condiciones</strong> — si es Celsius, una fórmula; si es Fahrenheit, la otra.</li>
+          <li><strong>Cálculos</strong> con números.</li>
+          <li><strong>return</strong> — devolver un valor a quien llamó a la función.</li>
+          <li><strong>Integración en la web</strong> — formulario, validación y mostrar el resultado en HTML.</li>
+        </ul>
+      </section>
 
-const clasesEnlace = (id, lista) =>
-  lista.includes(id)
-    ? "exercise-link text-[#39ff14] font-semibold hover:underline"
-    : "exercise-link text-cyan-300 hover:underline";
+      <section>
+        <h2>6. Cambios en el HTML (paso a paso)</h2>
+        <p>Si partes del plantilla del calendario, adapta así:</p>
+        <ol>
+          <li><strong>&lt;title&gt; y &lt;h1&gt;</strong> — título «Conversor de temperatura» y texto del enunciado.</li>
+          <li><strong>Instrucciones</strong> — «Escribe una temperatura, elige C o F y pulsa Convertir».</li>
+          <li>
+            <strong>Campo temperatura</strong> — quita <code>numeroMes</code>; añade
+            <code>type="number"</code> con <code>id="temperatura"</code> y <code>step="any"</code> (permite decimales).
+          </li>
+          <li>
+            <strong>Unidad</strong> — un <code>&lt;select id="unidad"&gt;</code> con
+            <code>&lt;option value="C"&gt;</code> y <code>&lt;option value="F"&gt;</code>, o radios con valores C/F.
+          </li>
+          <li><strong>Botón</strong> — por ejemplo <code>id="btnConvertir"</code> y texto «Convertir».</li>
+          <li><strong>Salida</strong> — mantén <code>id="mensaje"</code> para el resultado (<code>aria-live="polite"</code> ayuda).</li>
+          <li>
+            <strong>Script</strong> — si el JS está en la carpeta <code>js</code>:
+            <code>&lt;script src="js/app.js" defer&gt;&lt;/script&gt;</code>
+          </li>
+        </ol>
 
-const htmlCuadrito = (id, lista) => {
-  const hecho = lista.includes(id);
-  const base = "flex aspect-square items-center justify-center rounded text-[0.5rem] font-bold";
-  const verde = "bg-[#39ff14] text-black";
-  const gris = "border border-white/15 bg-white/10 text-white/40";
-  return `&lt;div class="${base} ${hecho ? verde : gris}"&gt;${id}&lt;/div&gt;`;
-};
+        <h3>Ids que debe coincidir con el JS</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>id sugerido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Input número</td>
+              <td><code>temperatura</code></td>
+            </tr>
+            <tr>
+              <td>C / F</td>
+              <td><code>unidad</code></td>
+            </tr>
+            <tr>
+              <td>Botón</td>
+              <td><code>btnConvertir</code></td>
+            </tr>
+            <tr>
+              <td>Resultado</td>
+              <td><code>mensaje</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-const htmlCuadritos = (ids, lista) =>
-  ids.map((id) => htmlCuadrito(id, lista)).join("");</pre>
-        </div>
+      <section>
+        <h2>7. Estructura del JavaScript (<code>js/app.js</code>)</h2>
+        <p>Todas las funciones en <strong>flecha</strong>. Orden obligatorio en el archivo:</p>
+        <pre>1. DECLARACIÓN DE VARIABLES     → getElementById / querySelector
+2. DECLARACIÓN DE FUNCIONES     → biblioteca + funcionMain
+3. EJECUCIÓN DE CÓDIGO          → addEventListener("click", funcionMain)</pre>
 
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">Cada función — entrada, salida y dónde reutilizarla</h3>
+        <h3>7.1 Bloque 1 — Variables (enlaces con el HTML)</h3>
+        <pre>const inputTemperatura = document.getElementById("temperatura");
+const selectUnidad = document.getElementById("unidad");
+const btnConvertir = document.getElementById("btnConvertir");
+const parrafoMensaje = document.getElementById("mensaje");</pre>
+        <p>En comentarios a la derecha de cada línea: si es <strong>entrada DOM</strong> o <strong>salida DOM</strong>.</p>
 
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">leerHistorial(clave)</code></h4>
-          <p class="mb-1 text-sm"><strong>Entrada:</strong> string. <strong>Salida:</strong> array de ids visitados.</p>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> cursos online, checklist, niveles de juego, capítulos leídos.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">guardarHistorial(clave, lista)</code></h4>
-          <p class="mb-1 text-sm"><strong>Entrada:</strong> clave + array. <strong>Salida:</strong> lista guardada.</p>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> borradores, preferencias sin backend, «continuar donde lo dejaste».</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">agregarVisita(lista, id)</code></h4>
-          <p class="mb-1 text-sm"><strong>Entrada:</strong> lista + id. <strong>Salida:</strong> lista sin duplicados.</p>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> lecciones completadas, logros, pasos de wizard.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">vaciarHistorial()</code></h4>
-          <p class="mb-1 text-sm"><strong>Salida:</strong> [].</p>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> botón «Empezar de cero», reset de progreso.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">alClicEjercicio(clave, id)</code></h4>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> índice de capítulos, menú de módulos, grid de retos.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">alReiniciar(clave)</code></h4>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> panel ajustes, reiniciar progreso en apps educativas.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">textoContador(lista, total)</code></h4>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> «3 de 10 leídos», contadores de misiones.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">clasesEnlace(id, lista)</code></h4>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> menús con ítems completados en otro color.</p>
-        </div>
-        <div class="mb-3 rounded-lg border border-slate-200 p-4">
-          <h4 class="mb-1 text-sm font-semibold"><code class="rounded bg-slate-100 px-1 text-sm">htmlCuadrito</code> y <code class="rounded bg-slate-100 px-1 text-sm">htmlCuadritos</code></h4>
-          <p class="mb-0 text-sm"><strong>Reutilizar en:</strong> mapas de niveles, grids de logros, calendarios de hábitos.</p>
-        </div>
+        <h3>7.2 Bloque 2 — Funciones</h3>
+        <p><strong>Función principal:</strong> <code>funcionMain</code> — orquesta leer, validar, llamar biblioteca y escribir en <code>#mensaje</code>.</p>
+        <p><strong>Biblioteca:</strong> funciones pequeñas con <code>return</code>; comentario a la derecha con <strong>entrada | salida | qué hace</strong>.</p>
 
-        <h3 class="mt-5 mb-2 text-base font-semibold text-slate-600">Tipos de página donde reutilizar todo el archivo</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full border-collapse text-sm">
-            <thead>
-              <tr class="bg-slate-50">
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">Tipo de página</th>
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">Qué cambias en dashboard.js</th>
-                <th class="border border-slate-200 px-3 py-2 text-left font-semibold">¿Copias historial.js igual?</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="border border-slate-200 px-3 py-2 align-top">Índice de ejercicios</td><td class="border border-slate-200 px-3 py-2 align-top">CLAVE, ids, ids HTML</td><td class="border border-slate-200 px-3 py-2 align-top">Sí</td></tr>
-              <tr><td class="border border-slate-200 px-3 py-2 align-top">Curso con capítulos</td><td class="border border-slate-200 px-3 py-2 align-top">ids → cap.1, cap.2…</td><td class="border border-slate-200 px-3 py-2 align-top">Sí</td></tr>
-              <tr><td class="border border-slate-200 px-3 py-2 align-top">Checklist de tareas</td><td class="border border-slate-200 px-3 py-2 align-top">ids → tarea-1…</td><td class="border border-slate-200 px-3 py-2 align-top">Sí</td></tr>
-              <tr><td class="border border-slate-200 px-3 py-2 align-top">Mapa de niveles</td><td class="border border-slate-200 px-3 py-2 align-top">ids → nivel-1…</td><td class="border border-slate-200 px-3 py-2 align-top">Sí (quizá clases en htmlCuadrito)</td></tr>
-              <tr><td class="border border-slate-200 px-3 py-2 align-top">Portfolio visitado</td><td class="border border-slate-200 px-3 py-2 align-top">ids → slugs</td><td class="border border-slate-200 px-3 py-2 align-top">Sí</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </article>
+        <table>
+          <thead>
+            <tr>
+              <th>Función (flecha)</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+              <th>Qué hace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>celsiusAFahrenheit</code></td>
+              <td>número °C</td>
+              <td>número °F</td>
+              <td><code>celsius * 9/5 + 32</code></td>
+            </tr>
+            <tr>
+              <td><code>fahrenheitACelsius</code></td>
+              <td>número °F</td>
+              <td>número °C</td>
+              <td><code>(f - 32) * 5/9</code></td>
+            </tr>
+            <tr>
+              <td><code>convertirTemperatura</code></td>
+              <td>valor, <code>"C"</code> o <code>"F"</code> (origen)</td>
+              <td>número convertido</td>
+              <td>Elige la fórmula según origen</td>
+            </tr>
+            <tr>
+              <td><code>esTemperaturaValida</code></td>
+              <td>string del input</td>
+              <td>true / false</td>
+              <td>No vacío y es número</td>
+            </tr>
+            <tr>
+              <td><code>esUnidadValida</code></td>
+              <td><code>"C"</code> o <code>"F"</code></td>
+              <td>true / false</td>
+              <td>Solo acepta C o F</td>
+            </tr>
+            <tr>
+              <td><code>unidadDestino</code></td>
+              <td>unidad origen</td>
+              <td><code>"C"</code> o <code>"F"</code> opuesta</td>
+              <td>C → F, F → C</td>
+            </tr>
+            <tr>
+              <td><code>formatearResultado</code></td>
+              <td>número, unidad destino</td>
+              <td>string</td>
+              <td>Ej. <code>32°F</code></td>
+            </tr>
+            <tr>
+              <td><code>funcionMain</code></td>
+              <td>ninguna (lee DOM)</td>
+              <td>ninguna (escribe DOM)</td>
+              <td><strong>Principal</strong> del ejercicio</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <article class="mb-6 rounded-xl bg-white p-6 shadow-sm" id="test">
-        <h2 class="mb-3 text-xl font-semibold text-slate-700">Test — 15 preguntas</h2>
-        <p class="mb-4 text-sm text-slate-500">Haz clic en cada pregunta para ver la respuesta. Intenta responder antes de abrir.</p>
+        <p>Enunciado <code>miFuncion(0, "C")</code> → <code>32°F</code>: el segundo parámetro es <strong>unidad de origen</strong>. Si es <code>"C"</code>, conviertes a Fahrenheit.</p>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            1. ¿Cuál es la función principal de este proyecto y en qué archivo está?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            La función principal es <code class="rounded bg-slate-100 px-1">refrescar</code> y está en <code class="rounded bg-slate-100 px-1">assets/js/dashboard.js</code>.
-            Hace el papel de <code class="rounded bg-slate-100 px-1">funcionMain</code> en los ejercicios 9.x: coordina la lectura del historial,
-            llama a funciones de biblioteca y escribe el resultado en el HTML (enlaces, cuadraditos y contador).
-            No es biblioteca porque usa <code class="rounded bg-slate-100 px-1">document</code>, <code class="rounded bg-slate-100 px-1">getElementById</code> y elementos concretos de esta página.
-          </div>
-        </details>
+        <h3>7.3 Bloque 3 — Ejecución</h3>
+        <pre>btnConvertir.addEventListener("click", funcionMain);</pre>
+        <p>Solo el listener aquí; la lógica va dentro de <code>funcionMain</code> y la biblioteca.</p>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            2. ¿Por qué hay dos archivos JS en lugar de uno solo?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Para separar responsabilidades como pide el curso.
-            <code class="rounded bg-slate-100 px-1">historial.js</code> contiene solo lógica reutilizable (biblioteca): datos, localStorage, strings HTML.
-            <code class="rounded bg-slate-100 px-1">dashboard.js</code> contiene lo específico de esta página: variables del DOM, la función principal
-            <code class="rounded bg-slate-100 px-1">refrescar</code> y los listeners. Así puedes copiar <code class="rounded bg-slate-100 px-1">historial.js</code> a otro dashboard sin tocar la biblioteca.
-          </div>
-        </details>
+        <h3>Flujo</h3>
+        <pre>Clic → funcionMain (principal)
+         ├─ esTemperaturaValida / esUnidadValida
+         ├─ convertirTemperatura → celsiusAFahrenheit | fahrenheitACelsius
+         └─ formatearResultado → parrafoMensaje.textContent</pre>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            3. ¿Para qué sirve <code class="rounded bg-slate-100 px-1">data-id="9.2"</code> en un enlace?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Guarda el identificador del ejercicio para el historial. Cuando haces clic, JS lee
-            <code class="rounded bg-slate-100 px-1">enlace.dataset.id</code> (devuelve <code class="rounded bg-slate-100 px-1">"9.2"</code>) y lo pasa a <code class="rounded bg-slate-100 px-1">alClicEjercicio</code>.
-            Es independiente del <code class="rounded bg-slate-100 px-1">href</code>: el href dice dónde navegar; el data-id dice qué id guardar en localStorage.
-          </div>
-        </details>
+        <h3>Pruebas rápidas</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Unidad</th>
+              <th>Resultado esperado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>C</td>
+              <td>32°F</td>
+            </tr>
+            <tr>
+              <td>32</td>
+              <td>F</td>
+              <td>0°C</td>
+            </tr>
+            <tr>
+              <td>(vacío)</td>
+              <td>C</td>
+              <td>Mensaje de error</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            4. ¿Qué es <code class="rounded bg-slate-100 px-1">CLAVE</code> y por qué no usar un texto cualquiera en cada sitio?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            <code class="rounded bg-slate-100 px-1">CLAVE = "repaso-funciones-historial"</code> es el nombre único bajo el cual se guarda
-            la lista de visitados en <code class="rounded bg-slate-100 px-1">localStorage</code>. Si cada función usara un string distinto,
-            leerían y escribirían en sitios diferentes y el historial no funcionaría.
-            Centralizarla en una constante evita errores de tipeo y facilita cambiar el nombre en un solo sitio.
-          </div>
-        </details>
+        <h3>Comentarios a la derecha (estilo del curso)</h3>
+        <pre>const celsiusAFahrenheit = (celsius) => {          // entrada: número °C | salida: número °F
+  return celsius * (9 / 5) + 32;                   // aplica fórmula C → F
+};</pre>
+      </section>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            5. ¿Por qué el texto del enlace dice «Recortar texto» pero el href dice «9.02-repaso-funciones»?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Porque son cosas distintas. El texto visible es el nombre del ejercicio para el usuario.
-            El <code class="rounded bg-slate-100 px-1">href</code> es la ruta real al archivo en disco. Las carpetas se crearon con nombres
-            tipo <code class="rounded bg-slate-100 px-1">9.02-repaso-funciones</code>, no con el enunciado completo. El navegador necesita
-            la ruta exacta para encontrar <code class="rounded bg-slate-100 px-1">index.html</code> dentro de esa carpeta.
-          </div>
-        </details>
+      <section>
+        <h2>8. ¿Son funciones independientes?</h2>
+        <p>En clase, <strong>independiente</strong> suele significar:</p>
+        <ul>
+          <li>Recibe todo por <strong>parámetros</strong> (entrada → salida).</li>
+          <li><strong>No</strong> usa <code>getElementById</code> ni <code>.value</code> del formulario por dentro.</li>
+          <li><strong>No</strong> depende de variables globales del HTML.</li>
+          <li>Hace <strong>una sola cosa</strong> y devuelve con <code>return</code>.</li>
+        </ul>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            6. ¿Qué pasa paso a paso cuando haces clic en el ejercicio 9.3?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            1) Se dispara el listener de click en ese enlace.
-            2) Se ejecuta <code class="rounded bg-slate-100 px-1">alClicEjercicio(CLAVE, "9.3")</code>: lee el array actual, añade <code class="rounded bg-slate-100 px-1">"9.3"</code> si no estaba, guarda en localStorage.
-            3) Se llama a <code class="rounded bg-slate-100 px-1">refrescar()</code>: vuelve a leer el historial, pone el enlace 9.3 en verde, pinta cuadraditos y actualiza el contador.
-            4) El navegador navega al href del enlace (<code class="rounded bg-slate-100 px-1">9.03-repaso-funciones/index.html</code>).
-          </div>
-        </details>
+        <h3>Sí van en la biblioteca (independientes del DOM)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Función</th>
+              <th>¿Independiente?</th>
+              <th>Por qué</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>celsiusAFahrenheit</code></td>
+              <td>Sí</td>
+              <td>Solo número → número</td>
+            </tr>
+            <tr>
+              <td><code>fahrenheitACelsius</code></td>
+              <td>Sí</td>
+              <td>Solo número → número</td>
+            </tr>
+            <tr>
+              <td><code>esTemperaturaValida</code></td>
+              <td>Sí</td>
+              <td>String → true/false</td>
+            </tr>
+            <tr>
+              <td><code>esUnidadValida</code></td>
+              <td>Sí</td>
+              <td><code>"C"</code>/<code>"F"</code> → true/false</td>
+            </tr>
+            <tr>
+              <td><code>formatearResultado</code></td>
+              <td>Sí</td>
+              <td>Número + letra → texto</td>
+            </tr>
+            <tr>
+              <td><code>unidadDestino</code></td>
+              <td>Sí</td>
+              <td>Devuelve la unidad opuesta</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            7. ¿Por qué usamos <code class="rounded bg-slate-100 px-1">getElementsByClassName</code> y un <code class="rounded bg-slate-100 px-1">for</code>?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Es el estilo pedido para este proyecto: primero <code class="rounded bg-slate-100 px-1">getElementById("lista-ejercicios")</code>,
-            luego <code class="rounded bg-slate-100 px-1">getElementsByClassName("exercise-link")</code>
-            y bucle <code class="rounded bg-slate-100 px-1">for</code> clásico. Funcionalmente es equivalente a
-            <code class="rounded bg-slate-100 px-1">querySelectorAll</code> + <code class="rounded bg-slate-100 px-1">forEach</code>, pero deja claro el vínculo con el HTML.
-          </div>
-        </details>
+        <h3><code>convertirTemperatura</code></h3>
+        <p>
+          Llama a <code>celsiusAFahrenheit</code> o <code>fahrenheitACelsius</code>. Las tres son funciones
+          <strong>separadas</strong> en la biblioteca, pero esta <strong>enlaza</strong> las otras. Si el profe pide que
+          <strong>ninguna función llame a otra</strong>, quítala y en <code>funcionMain</code> haz el
+          <code>if (unidad === "C")</code> y llama directamente a la fórmula que toque.
+        </p>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            8. ¿Qué devuelve <code class="rounded bg-slate-100 px-1">htmlCuadritos(ids, visitados)</code> y quién lo escribe en pantalla?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Devuelve un string HTML con los 21 divs de los cuadraditos (verdes los visitados, grises los pendientes). No escribe en pantalla por sí sola: es biblioteca.
-            <code class="rounded bg-slate-100 px-1">refrescar</code> (función principal) hace <code class="rounded bg-slate-100 px-1">grid.innerHTML = htmlCuadritos(ids, visitados)</code>
-            para insertarlo en <code class="rounded bg-slate-100 px-1">#history-grid</code>.
-          </div>
-        </details>
+        <h3><code>funcionMain</code> — no es de biblioteca</h3>
+        <p>
+          Usa <code>inputTemperatura</code>, <code>selectUnidad</code>, <code>parrafoMensaje</code> y llama a varias
+          funciones. Es la <strong>función principal de esta página</strong>, no una pieza que copies igual a otro
+          ejercicio.
+        </p>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            9. ¿Por qué los scripts están al final del <code class="rounded bg-slate-100 px-1">body</code>?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Porque <code class="rounded bg-slate-100 px-1">dashboard.js</code> usa <code class="rounded bg-slate-100 px-1">getElementById</code> en cuanto se carga.
-            Si el script estuviera en el head, el HTML del ul, el grid y el botón aún no existirían y las variables serían null.
-            Al poner los scripts al final, todo el DOM ya está creado. Además, <code class="rounded bg-slate-100 px-1">historial.js</code> debe ir antes que <code class="rounded bg-slate-100 px-1">dashboard.js</code>.
-          </div>
-        </details>
+        <h3>Regla rápida</h3>
+        <p class="note mb-0">
+          <strong>¿Puedo usarla en la consola sin formulario?</strong><br />
+          <code>celsiusAFahrenheit(0)</code> → 32 ✅<br />
+          <code>funcionMain()</code> necesita la página con inputs ❌ (no es biblioteca pura)
+        </p>
+      </section>
 
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            10. ¿Qué hace <code class="rounded bg-slate-100 px-1">refrescar()</code> la primera vez, al cargar la página?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            La última línea de dashboard.js es <code class="rounded bg-slate-100 px-1">refrescar();</code> sin listener.
-            Al cargar, lee localStorage (puede estar vacío o tener visitas anteriores),
-            colorea los enlaces ya visitados, dibuja los cuadraditos y pone el contador correcto.
-            Así el usuario ve su progreso guardado sin tener que hacer clic primero.
-          </div>
-        </details>
-
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            11. ¿Todas las funciones de <code class="rounded bg-slate-100 px-1">historial.js</code> son biblioteca al 100 %?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Sí, en el sentido del curso: ninguna usa <code class="rounded bg-slate-100 px-1">document</code>, <code class="rounded bg-slate-100 px-1">getElementById</code>
-            ni <code class="rounded bg-slate-100 px-1">addEventListener</code>. Reciben datos por parámetros y devuelven datos (array, string, HTML string).
-            <code class="rounded bg-slate-100 px-1">clasesEnlace</code> y <code class="rounded bg-slate-100 px-1">htmlCuadrito</code> devuelven strings con clases Tailwind de este diseño;
-            si cambias de framework CSS, ajustarías esas cadenas, pero la lógica sigue siendo reutilizable.
-          </div>
-        </details>
-
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            12. ¿Qué hace el botón «Reiniciar historial» por dentro?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            El listener llama a <code class="rounded bg-slate-100 px-1">alReiniciar(CLAVE)</code>, que ejecuta
-            <code class="rounded bg-slate-100 px-1">guardarHistorial(clave, vaciarHistorial())</code> — guarda un array vacío []
-            en localStorage sobrescribiendo el historial anterior. Luego llama a <code class="rounded bg-slate-100 px-1">refrescar()</code>:
-            todos los enlaces vuelven a cyan, todos los cuadraditos a gris y el contador muestra Visitado: 0 / 21.
-          </div>
-        </details>
-
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            13. ¿Por qué las rutas usan rayas (<code class="rounded bg-slate-100 px-1">9.02-repaso-funciones</code>) en lugar de espacios?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            Para tener URLs y rutas sin espacios. Con espacios el navegador puede codificarlos como %20, que es menos legible.
-            Las rayas (kebab-case) son la convención habitual en web, evitan problemas al copiar enlaces y coinciden con nombres de carpeta limpios en disco.
-            Importante: el href debe coincidir exactamente con el nombre real de la carpeta renombrada.
-          </div>
-        </details>
-
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            14. Nombra las cuatro secciones de <code class="rounded bg-slate-100 px-1">dashboard.js</code> según la guía del curso.
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            1) Importación de módulos — comentario indicando que historial.js se carga en el HTML.<br>
-            2) Declaración de variables — CLAVE, TOTAL, ids y los cuatro getElementById.<br>
-            3) Declaración de funciones — refrescar (función principal).<br>
-            4) Ejecución de código — bucles con addEventListener y la llamada inicial a refrescar().
-          </div>
-        </details>
-
-        <details class="group mb-2.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <summary class="cursor-pointer font-semibold [&::-webkit-details-marker]:hidden">
-            <span class="mr-1.5 inline-block transition-transform group-open:rotate-90">▶</span>
-            15. ¿En qué tipo de páginas puedes reutilizar <code class="rounded bg-slate-100 px-1">historial.js</code> sin cambiar la lógica?
-          </summary>
-          <div class="mt-3 border-t border-slate-200 pt-3 text-sm text-slate-600">
-            En cualquier página que necesite recordar qué ítems el usuario ya visitó o completó
-            usando localStorage: índice de lecciones, checklist de tareas, mapa de niveles, grid de logros,
-            lista de capítulos de un curso, portfolio con proyectos «vistos». Solo cambias en el dashboard
-            específico: la CLAVE, la lista de ids, los ids del HTML y las clases CSS
-            si el diseño es distinto. La biblioteca de lectura/escritura y conteo se copia igual.
-          </div>
-        </details>
-      </article>
-
-      <p class="text-center text-sm text-slate-400">
-        <a class="text-cyan-600 hover:underline" href="index.html">Volver al dashboard</a>
-      </p>
-    </main>
+      <footer class="mt-10 pt-6 border-t border-stone-200 text-sm text-stone-500">
+        <p class="mb-0">Guía de repaso — 9.10 Funciones</p>
+      </footer>
+    </article>
   </body>
 </html>

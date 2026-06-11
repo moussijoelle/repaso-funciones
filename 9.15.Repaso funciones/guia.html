@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Validar un email</title>
+    <style>
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            line-height: 1.6;
+            max-width: 44rem;
+            margin: 2rem auto;
+            padding: 0 1.25rem 3rem;
+            color: #2d2d2d;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.15rem; margin-top: 1.75rem; color: #1e4a6e; }
+        h3 { font-size: 1rem; margin-top: 1.25rem; color: #4a3040; }
+        .lang-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .lang-fr { background: #e8f0fe; color: #1a4480; }
+        .lang-es { background: #fef3e8; color: #8a4a10; }
+        .lang-block { margin-top: 2.5rem; padding-top: 0.5rem; }
+        .lang-block:first-of-type { margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { border: 1px solid #ddd; padding: 0.5rem 0.75rem; text-align: left; }
+        th { background: #eef4fa; }
+        code { background: #f4f4f4; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre { background: #f4f4f4; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; }
+        hr { border: none; border-top: 2px solid #c5d9ea; margin: 3rem 0; }
+        blockquote {
+            margin: 1rem 0;
+            padding: 0.75rem 1rem;
+            border-left: 4px solid #7ec8e8;
+            background: #f7fbfd;
+            font-style: italic;
+        }
+        .resumen {
+            background: #faf6f8;
+            padding: 1rem;
+            border-left: 4px solid #7ec8e8;
+            margin-top: 1.25rem;
+        }
+        .ejemplo-email {
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 1.05rem;
+            text-align: center;
+            padding: 0.75rem;
+            background: #f0f7fc;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        .parte-local { color: #1e4a6e; font-weight: 600; }
+        .arroba { color: #cb839a; font-weight: 700; }
+        .dominio { color: #2d6a4f; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <h1>Guía del ejercicio — Validar un email</h1>
+    <p>Explicación para principiantes, en dos idiomas.</p>
+
+    <!-- ===================== FRANÇAIS ===================== -->
+    <section class="lang-block" id="francais">
+        <span class="lang-badge lang-fr">Français</span>
+
+        <h2>De quoi parle l'exercice ?</h2>
+
+        <p>Salut ! Cette fois, ce n'est plus un <strong>nom</strong>, c'est un <strong>email</strong>.</p>
+
+        <p>Tu dois créer une <strong>fonction</strong> — une petite machine automatique — qui répond à une seule question :</p>
+
+        <blockquote>« Est-ce que ce texte ressemble à une adresse email correcte ? »</blockquote>
+
+        <p><strong>Exemple :</strong></p>
+        <ul>
+            <li><code>"pato_lucas@outlook.es"</code> → la fonction doit répondre <strong>vrai</strong> (<code>true</code>)</li>
+            <li><code>"pato lucas"</code> → <strong>faux</strong> (<code>false</code>) — pas de <code>@</code>, pas de domaine</li>
+            <li><code>"pato@"</code> → <strong>faux</strong> — incomplet</li>
+            <li><code>"@outlook.es"</code> → <strong>faux</strong> — il manque la partie avant le <code>@</code></li>
+        </ul>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>C'est quoi une « fonction », en mots simples ?</h2>
+
+        <p>Imagine un <strong>contrôleur à l'entrée d'un cinéma</strong> :</p>
+        <ol>
+            <li>Tu lui donnes un <strong>papier</strong> (le texte à vérifier).</li>
+            <li>Il <strong>regarde</strong> si le papier a la bonne forme.</li>
+            <li>Il te dit <strong>oui</strong> ou <strong>non</strong> : valide ou pas.</li>
+        </ol>
+
+        <p>En programmation :</p>
+        <ul>
+            <li><strong>Entrée</strong> : le texte, par ex. <code>"pato_lucas@outlook.es"</code></li>
+            <li><strong>Traitement</strong> : la fonction vérifie si ça ressemble à un email</li>
+            <li><strong>Sortie</strong> : <code>true</code> (valide) ou <code>false</code> (pas valide)</li>
+        </ul>
+
+        <pre><code>miFuncion("pato_lucas@outlook.es")  // → true
+miFuncion("pato lucas")             // → false</code></pre>
+
+        <p>Dans l'exercice de base, la fonction <strong>retourne</strong> juste vrai ou faux. C'est le cœur du travail.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>Qu'est-ce qu'un email « valide » ?</h2>
+
+        <p>Une adresse email, c'est en gros <strong>deux morceaux</strong> séparés par un <code>@</code> :</p>
+
+        <p class="ejemplo-email">
+            <span class="parte-local">pato_lucas</span><span class="arroba"> @ </span><span class="dominio">outlook.es</span>
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Partie</th>
+                    <th>Où ?</th>
+                    <th>Exemples</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Partie locale</td>
+                    <td>Avant le <code>@</code></td>
+                    <td><code>pato_lucas</code>, <code>maria.garcia</code>, <code>user123</code></td>
+                </tr>
+                <tr>
+                    <td>Domaine</td>
+                    <td>Après le <code>@</code></td>
+                    <td><code>outlook.es</code>, <code>gmail.com</code>, <code>yahoo.fr</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Pour <code>"pato_lucas@outlook.es"</code> :</p>
+        <ul>
+            <li>Avant <code>@</code> : <code>pato_lucas</code> ✓</li>
+            <li><code>@</code> présent ✓</li>
+            <li>Après <code>@</code> : <code>outlook.es</code> (nom + point + extension) ✓</li>
+        </ul>
+        <p>→ Email valide → la fonction renvoie <strong>vrai</strong>.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>Comment « pense » l'ordinateur ?</h2>
+
+        <p>Il ne comprend pas le sens de « email ». Il ne voit qu'une <strong>chaîne de caractères</strong> — des lettres, chiffres, <code>@</code>, <code>.</code>, etc.</p>
+
+        <p>Ta fonction doit vérifier des <strong>règles</strong>, par exemple :</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Élément</th>
+                    <th>Règle (idée générale)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>@</code></td><td>Il doit y en avoir <strong>un seul</strong>, pas zéro, pas deux</td></tr>
+                <tr><td>Avant <code>@</code></td><td>Au moins un caractère ; pas vide</td></tr>
+                <tr><td>Après <code>@</code></td><td>Au moins un point (<code>.</code>) pour avoir une extension</td></tr>
+                <tr><td>Extension</td><td>Après le dernier <code>.</code>, au moins 2 lettres (ex. <code>.es</code>, <code>.com</code>)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Exemples rapides</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Texte</th>
+                    <th>Valide ?</th>
+                    <th>Pourquoi (en bref)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>pato_lucas@outlook.es</code></td><td>✓ Oui</td><td>Forme correcte</td></tr>
+                <tr><td><code>pato_lucas@outlook</code></td><td>✗ Non</td><td>Pas de <code>.com</code>, <code>.es</code>, etc.</td></tr>
+                <tr><td><code>pato_lucasoutlook.es</code></td><td>✗ Non</td><td>Pas de <code>@</code></td></tr>
+                <tr><td><code>pato@@outlook.es</code></td><td>✗ Non</td><td>Deux <code>@</code></td></tr>
+                <tr><td><code>@outlook.es</code></td><td>✗ Non</td><td>Rien avant le <code>@</code></td></tr>
+                <tr><td><code>pato_lucas@</code></td><td>✗ Non</td><td>Rien après le <code>@</code></td></tr>
+            </tbody>
+        </table>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>Différence avec l'exercice du nom</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Exercice nom</th>
+                    <th>Exercice email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Lettres, apostrophes, espaces</td><td><code>@</code>, point, structure en deux parties</td></tr>
+                <tr><td>Pas de <code>@</code></td><td>Le <code>@</code> est <strong>obligatoire</strong></td></tr>
+                <tr><td>Ex. : <code>Anita de la Rosa</code></td><td>Ex. : <code>pato_lucas@outlook.es</code></td></tr>
+            </tbody>
+        </table>
+
+        <p>Même idée : une fonction qui dit oui/non, mais les <strong>règles</strong> changent.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>Pourquoi on fait ça ?</h2>
+
+        <p>Sur le web, quand tu t'inscris (Instagram, Outlook, etc.), le site vérifie que l'email a une forme correcte <strong>avant</strong> d'envoyer un message ou de créer le compte.</p>
+
+        <p>Tu t'entraînes à :</p>
+        <ol>
+            <li><strong>Découper</strong> un problème en règles claires</li>
+            <li><strong>Parcourir</strong> ou analyser du texte</li>
+            <li><strong>Retourner</strong> <code>true</code> ou <code>false</code></li>
+            <li><strong>Tester</strong> plusieurs cas (valide, sans <code>@</code>, sans point, vide, etc.)</li>
+        </ol>
+
+        <div class="resumen">
+            <p><strong>En une phrase :</strong> tu dois écrire une <strong>fonction juge</strong> qui reçoit un texte, vérifie s'il a la <strong>forme</strong> d'un email (un <code>@</code>, une partie avant, une partie après avec un point et une extension), et répond <code>true</code> si tout va bien, <code>false</code> sinon.</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- ===================== CASTELLANO ===================== -->
+    <section class="lang-block" id="castellano">
+        <span class="lang-badge lang-es">Castellano</span>
+
+        <h2>¿En qué consiste el ejercicio?</h2>
+
+        <p>¡Hola! Esta vez no es un <strong>nombre</strong>, es un <strong>email</strong> (correo electrónico).</p>
+
+        <p>Tienes que crear una <strong>función</strong> — una pequeña máquina automática — que responda a una sola pregunta:</p>
+
+        <blockquote>« ¿Este texto tiene forma de dirección de email correcta? »</blockquote>
+
+        <p><strong>Ejemplo:</strong></p>
+        <ul>
+            <li><code>"pato_lucas@outlook.es"</code> → la función debe devolver <strong>verdadero</strong> (<code>true</code>)</li>
+            <li><code>"pato lucas"</code> → <strong>falso</strong> (<code>false</code>) — no hay <code>@</code>, no hay dominio</li>
+            <li><code>"pato@"</code> → <strong>falso</strong> — incompleto</li>
+            <li><code>"@outlook.es"</code> → <strong>falso</strong> — falta la parte antes del <code>@</code></li>
+        </ul>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>¿Qué es una « función », en palabras sencillas?</h2>
+
+        <p>Imagina un <strong>controlador en la entrada de un cine</strong>:</p>
+        <ol>
+            <li>Le das un <strong>papel</strong> (el texto a comprobar).</li>
+            <li><strong>Mira</strong> si el papel tiene la forma correcta.</li>
+            <li>Te dice <strong>sí</strong> o <strong>no</strong>: válido o no válido.</li>
+        </ol>
+
+        <p>En programación:</p>
+        <ul>
+            <li><strong>Entrada</strong>: el texto, p. ej. <code>"pato_lucas@outlook.es"</code></li>
+            <li><strong>Proceso</strong>: la función comprueba si parece un email</li>
+            <li><strong>Salida</strong>: <code>true</code> (válido) o <code>false</code> (no válido)</li>
+        </ul>
+
+        <pre><code>miFuncion("pato_lucas@outlook.es")  // → true
+miFuncion("pato lucas")             // → false</code></pre>
+
+        <p>En el ejercicio básico, la función solo <strong>devuelve</strong> verdadero o falso. Eso es lo principal.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>¿Qué es un email « válido »?</h2>
+
+        <p>Una dirección de email son, en esencia, <strong>dos partes</strong> separadas por un <code>@</code>:</p>
+
+        <p class="ejemplo-email">
+            <span class="parte-local">pato_lucas</span><span class="arroba"> @ </span><span class="dominio">outlook.es</span>
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Parte</th>
+                    <th>¿Dónde?</th>
+                    <th>Ejemplos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Parte local</td>
+                    <td>Antes del <code>@</code></td>
+                    <td><code>pato_lucas</code>, <code>maria.garcia</code>, <code>user123</code></td>
+                </tr>
+                <tr>
+                    <td>Dominio</td>
+                    <td>Después del <code>@</code></td>
+                    <td><code>outlook.es</code>, <code>gmail.com</code>, <code>yahoo.fr</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Para <code>"pato_lucas@outlook.es"</code>:</p>
+        <ul>
+            <li>Antes del <code>@</code>: <code>pato_lucas</code> ✓</li>
+            <li><code>@</code> presente ✓</li>
+            <li>Después del <code>@</code>: <code>outlook.es</code> (nombre + punto + extensión) ✓</li>
+        </ul>
+        <p>→ Email válido → la función devuelve <strong>verdadero</strong>.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>¿Cómo « piensa » el ordenador?</h2>
+
+        <p>No entiende el significado de « email ». Solo ve una <strong>cadena de caracteres</strong>: letras, números, <code>@</code>, <code>.</code>, etc.</p>
+
+        <p>Tu función debe comprobar unas <strong>reglas</strong>, por ejemplo:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Elemento</th>
+                    <th>Regla (idea general)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>@</code></td><td>Debe haber <strong>uno solo</strong>, ni cero ni dos</td></tr>
+                <tr><td>Antes del <code>@</code></td><td>Al menos un carácter; no vacío</td></tr>
+                <tr><td>Después del <code>@</code></td><td>Al menos un punto (<code>.</code>) para tener extensión</td></tr>
+                <tr><td>Extensión</td><td>Después del último <code>.</code>, al menos 2 letras (p. ej. <code>.es</code>, <code>.com</code>)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Ejemplos rápidos</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Texto</th>
+                    <th>¿Válido?</th>
+                    <th>Por qué (en breve)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>pato_lucas@outlook.es</code></td><td>✓ Sí</td><td>Forma correcta</td></tr>
+                <tr><td><code>pato_lucas@outlook</code></td><td>✗ No</td><td>No hay <code>.com</code>, <code>.es</code>, etc.</td></tr>
+                <tr><td><code>pato_lucasoutlook.es</code></td><td>✗ No</td><td>No hay <code>@</code></td></tr>
+                <tr><td><code>pato@@outlook.es</code></td><td>✗ No</td><td>Dos <code>@</code></td></tr>
+                <tr><td><code>@outlook.es</code></td><td>✗ No</td><td>Nada antes del <code>@</code></td></tr>
+                <tr><td><code>pato_lucas@</code></td><td>✗ No</td><td>Nada después del <code>@</code></td></tr>
+            </tbody>
+        </table>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>Diferencia con el ejercicio del nombre</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ejercicio nombre</th>
+                    <th>Ejercicio email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Letras, apóstrofes, espacios</td><td><code>@</code>, punto, estructura en dos partes</td></tr>
+                <tr><td>No hay <code>@</code></td><td>El <code>@</code> es <strong>obligatorio</strong></td></tr>
+                <tr><td>Ej.: <code>Anita de la Rosa</code></td><td>Ej.: <code>pato_lucas@outlook.es</code></td></tr>
+            </tbody>
+        </table>
+
+        <p>Misma idea: una función que dice sí/no, pero cambian las <strong>reglas</strong>.</p>
+
+        <hr style="margin: 1.5rem 0; border-top: 1px solid #e0d0d8;">
+
+        <h2>¿Por qué hacemos esto?</h2>
+
+        <p>En la web, cuando te registras (Instagram, Outlook, etc.), la página comprueba que el email tenga forma correcta <strong>antes</strong> de enviar un mensaje o crear la cuenta.</p>
+
+        <p>Entrenas a:</p>
+        <ol>
+            <li><strong>Partir</strong> un problema en reglas claras</li>
+            <li><strong>Recorrer</strong> o analizar texto</li>
+            <li><strong>Devolver</strong> <code>true</code> o <code>false</code></li>
+            <li><strong>Probar</strong> varios casos (válido, sin <code>@</code>, sin punto, vacío, etc.)</li>
+        </ol>
+
+        <div class="resumen">
+            <p><strong>En una frase:</strong> debes escribir una <strong>función juez</strong> que reciba un texto, compruebe si tiene la <strong>forma</strong> de un email (un <code>@</code>, una parte antes, una parte después con punto y extensión), y responda <code>true</code> si todo está bien, <code>false</code> si no.</p>
+        </div>
+    </section>
+
+</body>
+</html>
